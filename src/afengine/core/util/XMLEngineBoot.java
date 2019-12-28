@@ -51,6 +51,12 @@ public class XMLEngineBoot {
         IXMLAppTypeBoot appboot=null;
 
         Element afe = element.element("afengine");        
+
+        String debugs=afe.attributeValue("debug");
+        if(debugs!=null&&debugs.equals("true")){
+            Debug.enable();
+        }
+        
         String typeboot = afe.attributeValue("typeboot");
         String type=afe.attributeValue("type");
         if(type==null){
@@ -79,10 +85,6 @@ public class XMLEngineBoot {
             return;
         }
         
-        String debugs=afe.attributeValue("debug");
-        if(debugs!=null&&debugs.equals("true")){
-            Debug.enable();
-        }
         
         Debug.log("boot app type:"+app.getAppType());
         Debug.log("set app name:"+app.getAppName());        
