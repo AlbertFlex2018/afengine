@@ -18,9 +18,9 @@ public class ActorComponent implements IMessageHandler{
     
     public static Map<String,IComponentFactory> factoryMap=new HashMap<>();
     public static void addFactory(String compname,IComponentFactory factory){
-        if(factoryMap.containsKey(factory.getName()))return;
+        if(factoryMap.containsKey(compname))return;
         
-        factoryMap.put(factory.getName(), factory);
+        factoryMap.put(compname, factory);
     }
     public static boolean hasFactory(String compname){
         return factoryMap.containsKey(compname);
