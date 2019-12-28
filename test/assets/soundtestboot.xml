@@ -5,7 +5,7 @@
         typeboot="afengine.core.ServiceApp$ServiceAppBoot"/> 
    <service name="app1"/>  
    <partsboot>
-       <part name="SoundPart" path="afengine.part.sound.SoundPartBoot" />
+       <part name="SoundPart" path="afengine.part.sound.XMLSoundPartBoot" />
    </partsboot>
    <partsconfig>
        <SoundPart />
