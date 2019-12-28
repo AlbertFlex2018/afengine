@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<app>
+   <afengine debug="true" logicpath="part.scene.SceneTestLogic"
+        typeboot="afengine.core.ServiceApp$ServiceAppBoot"/> 
+   <service name="app1"/>  
+   <partsboot>
+       <part name="ScenePart" path="afengine.part.scene.XMLScenePartBoot"/>
+   </partsboot>
+   <partsconfig>
+       <ScenePart main="mainScene">
+           <ComponentFactoryList />
+           <SceneList>
+               <Scene id="100" name="mainScene" 
+                    class="part.scene.SceneTestLogic$SceneDemo" 
+                    loader="part.scene.SceneTestLogic$SceneLoader"/>
+               <Scene id="101" name="SceneByXML2" 
+                    class="part.scene.SceneTestLogic$SceneDemo" 
+                    loader="part.scene.SceneTestLogic$SceneLoader"/>
+               <Scene id="102" name="SceneByXML3" class="part.scene.SceneTestLogic$SceneDemo"/>
+           </SceneList>
+       </ScenePart>
+   </partsconfig>
+</app>
+
+
