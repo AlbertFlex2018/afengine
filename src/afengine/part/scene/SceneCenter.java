@@ -7,6 +7,7 @@ package afengine.part.scene;
 
 import afengine.core.util.Debug;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.ListIterator;
 import java.util.Map;
 import java.util.Stack;
@@ -43,7 +44,11 @@ public class SceneCenter {
     private SceneCenter(){
         sceneStack=new Stack<>();
     }
-    public void pushScene(Scene scene){    
+
+    public void pushScene(Scene scene){            
+        if(sceneStack.contains(scene))
+            return;
+
         if(rootScene==null){
             rootScene=scene;            
             runningScene=rootScene;
@@ -52,7 +57,6 @@ public class SceneCenter {
         }
         if(runningScene==rootScene&&runningScene!=null&&rootScene!=null){
             runningScene.getLoader().pause();            
-
             runningScene=scene;
             scene.getLoader().load();
             return;
@@ -69,6 +73,7 @@ public class SceneCenter {
             return;
         }
 
+        this.preparedSceneMap.remove(runningScene.getName());
         runningScene.getLoader().shutdown();
         if(sceneStack.isEmpty())
         {
@@ -80,7 +85,9 @@ public class SceneCenter {
                 runningScene=null;
             }
         }
-        else runningScene=sceneStack.pop();
+        else{
+            runningScene=sceneStack.pop();
+        }
 
         if(runningScene!=null)
             runningScene.getLoader().resume();

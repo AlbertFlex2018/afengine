@@ -49,6 +49,10 @@ public class Scene{
     private AbSceneLoader loader;
     private boolean shouldoutput;
     
+    public Scene(){
+        this(0,"",new AdapterLoader());
+    }
+
     public Scene(long id,String name,AbSceneLoader loader){
         this.id=id;
         this.name=name;

@@ -27,8 +27,8 @@ public class XMLScenePartBoot implements IXMLPartBoot{
      *          <Component name="" class=""/>
      *      </ComponentFactoryList>
      *      <SceneList>
-        *      <Scene id="" name="" class="" path="" loader="" output="true"/>
-        *      <Scene id="" name="" class="" path="" loader=""/>
+        *      <Scene id="" name="" class="" or path="" loader="" output="true"/>
+        *      <Scene id="" name="" class="" or path="" loader=""/>
      *      </SceneList>
      * </ScenePart>
      * 
@@ -89,15 +89,17 @@ public class XMLScenePartBoot implements IXMLPartBoot{
         String id = sceneEle.attributeValue("id");
         AbSceneLoader loader=null;
         String loaderc = sceneEle.attributeValue("loader");
+        if(loaderc!=null){
             try{    
                 Class<?> cls = Class.forName(loaderc);
                 Object obj=cls.newInstance();
                 loader = (AbSceneLoader)obj;
             }catch(Exception ex){
+                ex.printStackTrace();
                 Debug.log("Scene Loader error!");
                 loader=null;
             }                                    
-        
+        }
         if(classpath!=null){            
             try{    
                 Class<?> cls = Class.forName(classpath);
@@ -106,6 +108,7 @@ public class XMLScenePartBoot implements IXMLPartBoot{
                 String name=sceneEle.attributeValue("name");
                 scene.setName(name);
             }catch(Exception ex){
+                ex.printStackTrace();
                 Debug.log("Scene Classpath error!");
                 scene=null;
             }                                    
@@ -122,10 +125,15 @@ public class XMLScenePartBoot implements IXMLPartBoot{
         if(loader!=null&&scene!=null){
             loader.setThisScene(scene);            
             scene.setLoader(loader);
+        }
+        
+        if(scene!=null){
             if(id!=null){
-                scene.id=Long.parseLong("id");
+                long idl = Long.parseLong(id);
+                IDCreator.validId(idl);
+                scene.id=idl;
             }
-            else scene.id=IDCreator.createId();
+            else scene.id=IDCreator.createId();            
         }
         
         String output=sceneEle.attributeValue("output");

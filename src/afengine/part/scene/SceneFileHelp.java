@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package afengine.part.scene;
 
 import org.dom4j.Element;
@@ -23,19 +18,47 @@ public class SceneFileHelp {
      *                  <Component1></Component1>
      *                  <Component2></Component2>
      *              </components>
+     *              <datas>
+     *                  <data key="" value="" />
+     *                  <data key="" value="" />
+     *                  <data key="" value="" />
+     *                  <data key="" value="" />
+     *                  ...
+     *              </datas>
      *          </name1>
+     *          <name2 />
+     *          ...
      *      </actordata>
      *      <actormap>
+     *          <name1 />
+     *          <name2>
+     *              <name3/>
+     *          </name2>
+     *          ...
      *      </actormap>
      * </scene>
      * @param xmlpath
-     * @return 
+     * @return Scene
      */
     public static Scene loadSceneFromXML(String xmlpath){
         return null;
     }
     
     public static Actor loadActorFromXML(Element element){
+        return null;
+    }
+    
+    /**
+     * <module>
+     *      <transform pos="" scale="" anchor="" rotate="" />
+     *      <components>
+     *          
+     *      </components>
+     * </module>
+     * @param modulexml
+     * @return 
+     */
+    public static Actor loadActorFromModuel(String modulexml){
         return null;
     }
     
