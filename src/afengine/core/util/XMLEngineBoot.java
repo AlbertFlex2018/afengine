@@ -148,7 +148,7 @@ public class XMLEngineBoot {
         try{
             Document doc = reader.read(file);            
             root = doc.getRootElement();
-            Debug.log("root : "+root.getName());
+            System.out.println("root : "+root.getName());
         }catch(Exception e){
             e.printStackTrace();
             return;
