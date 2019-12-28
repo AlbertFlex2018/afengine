@@ -7,6 +7,7 @@ package afengine.part.scene;
 
 import afengine.core.AbPartSupport;
 import afengine.core.util.Debug;
+import afengine.core.util.IDCreator;
 import afengine.core.util.IXMLPartBoot;
 import java.util.Iterator;
 import org.dom4j.Element;
@@ -20,15 +21,15 @@ public class XMLScenePartBoot implements IXMLPartBoot{
 
     /**
      * <ScenePart main="">
-     *      <SceneList>
-        *      <Scene id="" name="" class="" path="" loader="" output="true"/>
-        *      <Scene id="" name="" class="" path="" loader=""/>
-     *      </SceneList>
      *      <ComponentFactoryList>
      *          <Component name="" class=""/>
      *          <Component name="" class=""/>
      *          <Component name="" class=""/>
      *      </ComponentFactoryList>
+     *      <SceneList>
+        *      <Scene id="" name="" class="" path="" loader="" output="true"/>
+        *      <Scene id="" name="" class="" path="" loader=""/>
+     *      </SceneList>
      * </ScenePart>
      * 
      * @param element
@@ -40,7 +41,7 @@ public class XMLScenePartBoot implements IXMLPartBoot{
         ScenePart scenepart = new ScenePart();        
 
         String main = element.attributeValue("main");
-
+        
         Iterator<Element> eleiter = element.element("ComponentFactoryList").elementIterator();
         while(eleiter.hasNext()){
             Element ele = eleiter.next();
@@ -85,7 +86,7 @@ public class XMLScenePartBoot implements IXMLPartBoot{
 
         Scene scene=null;
         String classpath=sceneEle.attributeValue("class");
-
+        String id = sceneEle.attributeValue("id");
         AbSceneLoader loader=null;
         String loaderc = sceneEle.attributeValue("loader");
             try{    
@@ -105,7 +106,6 @@ public class XMLScenePartBoot implements IXMLPartBoot{
                 String name=sceneEle.attributeValue("name");
                 scene.setName(name);
             }catch(Exception ex){
-                ex.printStackTrace();
                 Debug.log("Scene Classpath error!");
                 scene=null;
             }                                    
@@ -118,9 +118,14 @@ public class XMLScenePartBoot implements IXMLPartBoot{
         }                
         
         
+        
         if(loader!=null&&scene!=null){
             loader.setThisScene(scene);            
             scene.setLoader(loader);
+            if(id!=null){
+                scene.id=Long.parseLong("id");
+            }
+            else scene.id=IDCreator.createId();
         }
         
         String output=sceneEle.attributeValue("output");
