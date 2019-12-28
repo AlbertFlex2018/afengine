@@ -6,7 +6,8 @@
 package afengine.core.window;
 
 /**
- *
+ * contains a impl for the windowgraphicstech.<br>
+ * @see IGraphicsTech
  * @author Albert Flex
  */
 public interface IGraphicsTech extends IGraphicsCreate,

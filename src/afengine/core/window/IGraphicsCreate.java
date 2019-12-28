@@ -9,7 +9,9 @@ package afengine.core.window;
 import java.net.URL;
 
 /**
- *
+ * contains the methods for create<br>
+ * window,color,font,and texture for created.<br>
+ * @see IGraphicsTech
  * @author Albert Flex
  */
 public interface IGraphicsCreate {

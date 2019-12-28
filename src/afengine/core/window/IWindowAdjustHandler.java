@@ -6,7 +6,11 @@
 package afengine.core.window;
 
 /**
- *
+ * contains the methods for window adjust<br>
+ * window.adjust will called this.<br>
+ * get a graphicstech instance, a windowadjusthandler instance,<br>
+ * then graphicstech.addadjusthandler(windowadjusthandler);<br>
+ * @see IGraphicsTech
  * @author Albert Flex
  */
 public interface IWindowAdjustHandler { 

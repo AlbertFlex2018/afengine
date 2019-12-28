@@ -6,7 +6,15 @@
 package afengine.core.window;
 
 /**
- *
+ * contains the methods for draw<br>
+ * when you in a loop method.<br>
+ * you should set drawstrategy for draw something<br>
+ * operate for draw is following:<br>
+ * get graphicstech instance,set drawstrategy<br>
+ *  graphicstech.beginDraw<br>
+ *  graphicstech.getDrawstrategy().draw(graphicstech)<br>
+ *  graphicstech.endDraw<br>
+ * @see IGraphicsTech
  * @author Albert Flex
  */
 public interface IGraphicsDraw {

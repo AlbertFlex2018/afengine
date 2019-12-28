@@ -10,7 +10,8 @@ import java.util.Iterator;
 import java.util.Map;
 
 /**
- *
+ * contains internal drawstrategy for windowapp use.<br>
+ * @see IDrawStrategy
  * @author Albert Flex
  */
 public class RenderStrategy implements IDrawStrategy{

@@ -6,7 +6,8 @@
 package afengine.core.window;
 
 /**
- *
+ * contains the methods for color<br>
+ * @see IGraphicsTech 
  * @author Albert Flex
  */
 public interface IColor {

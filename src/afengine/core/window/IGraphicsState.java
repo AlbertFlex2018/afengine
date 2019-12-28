@@ -6,7 +6,9 @@
 package afengine.core.window;
 
 /**
- *
+ * contains the state for graphicstech<br>
+ * usedFont,usedColor, or MoniterWidth,height, WindowWidth,height etc.<br>
+ * @see IGraphicsTech
  * @author Albert Flex
  */
 public interface IGraphicsState {

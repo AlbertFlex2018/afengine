@@ -6,7 +6,8 @@
 package afengine.core.window;
 
 /**
- *
+ * contains the methods for texture,commonly image<br>
+ * @see IGraphicsTech
  * @author Albert Flex
  */
 public interface ITexture {
