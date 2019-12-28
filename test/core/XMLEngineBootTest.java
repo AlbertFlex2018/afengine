@@ -20,7 +20,7 @@ import afengine.core.util.IXMLPartBoot;
  */
 public class XMLEngineBootTest{
     public static void main(String[] args) {
-        XMLEngineBoot.bootEngine("assets/boot1.xml");        
+        XMLEngineBoot.bootEngine("test/assets/boot1.xml");        
 //        System.out.println(PartBoot1.class.getName());
 //        System.out.println(PartBoot2.class.getName());
 //        System.out.println(PartBoot3.class.getName());
