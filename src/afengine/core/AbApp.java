@@ -6,8 +6,11 @@
 package afengine.core;
 
 /**
- *
- * @author Admin
+ * The App Class is a Runable Application for Users,<br/>
+ * Make a Impl Class for AbApp,override the init,update,and shutdown methods<br/>
+ * Create a Instance for AbApp,and Create a AppLogic for your app run,
+ * And you can use app.run(logic),run this App or you can use app.run(null) for that no logic.
+ * @author Albert Flex
  */
 public abstract class AbApp implements IAppLogic{
     
