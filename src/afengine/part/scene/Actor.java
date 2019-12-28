@@ -15,7 +15,12 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *
+ * a component contains for scene.<br>
+ * main topic for app game.<br>
+ * you can create actor,then add actor to scene,<br>
+ * scene will manager actor lifespan<br>
+ * @see ActorComponent
+ * @see Scene
  * @author Albert Flex
  */
 public class Actor implements IMessageHandler{
@@ -24,7 +29,7 @@ public class Actor implements IMessageHandler{
     public final long id;
     private String name;
     public final Map<String, Object> valueMap = new HashMap<>();
-    private boolean deleted=false;
+    public boolean deleted=false;
 
     private Actor parent;
     private final List<Actor> children = new ArrayList<>();

@@ -7,13 +7,13 @@ package afengine.part.scene;
 
 import afengine.core.AbPartSupport;
 import afengine.core.util.Debug;
-import afengine.core.util.IXMLAppTypeBoot;
 import afengine.core.util.IXMLPartBoot;
 import java.util.Iterator;
 import org.dom4j.Element;
 
 /**
- *
+ * partboot for scene<br>
+ * @see IXMLPartBoot
  * @author Albert Flex
  */
 public class XMLScenePartBoot implements IXMLPartBoot{

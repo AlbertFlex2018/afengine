@@ -11,7 +11,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- *
+ * component for actor<br>
+ * @see Actor
  * @author Albert Flex
  */
 public class ActorComponent implements IMessageHandler{

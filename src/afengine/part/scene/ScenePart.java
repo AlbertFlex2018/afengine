@@ -8,7 +8,7 @@ package afengine.part.scene;
 import afengine.core.AbPartSupport;
 
 /**
- *
+ * 
  * @author Albert Flex
  */
 public class ScenePart extends AbPartSupport{

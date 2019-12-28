@@ -6,7 +6,13 @@
 package afengine.part.scene;
 
 /**
- *
+ * sceneloader for scene<br>
+ * get a scene ,then use scene.setLoader(loader),<br>
+ * and then you can call load,pause,resume,shutdown<br>
+ * sceneloader present the lifespan of scene<br>
+ * commonly use by SceneCenter
+ * @see Scene
+ * @see SceneCenter
  * @author Albert Flex
  */
 public abstract class AbSceneLoader{

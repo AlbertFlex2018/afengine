@@ -12,7 +12,12 @@ import java.util.Iterator;
 import java.util.Map;
 
 /**
- *
+ * contains some actors<br>
+ * use scene.updateScene to manager actor lifespan<br>
+ * add sceneloader to scene,add actor to this Scene,<br>
+ * add scene to SceneCenter,to manager scene lifespan<br>
+ * @SceneCenter
+ * @see Actor
  * @author Albert Flex
  */
 public class Scene{

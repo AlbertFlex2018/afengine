@@ -8,7 +8,9 @@ package afengine.part.scene;
 import org.dom4j.Element;
 
 /**
- *
+ * component factory<br>
+ * for xml config<br>
+ * @see ActorComponent
  * @author Albert Flex
  */
 public interface IComponentFactory {

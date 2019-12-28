@@ -12,7 +12,17 @@ import java.util.Map;
 import java.util.Stack;
 
 /**
- *
+ * Center of Scene<br>
+ * manager scene lifespan<br>
+ * add scene to SceneCenter <br>
+ * provide some methods for scene manager<br>
+ * if you just want add scene for prepare not show,you could call prepareScene<br>
+ * if you want push scene,you could return to previous Scene,you should use pushScene(scene),<br>
+ * if you want push scene,you sure do not return to previous Scene,use changeToScene(scene),<br>
+ * if you want return to lastscene,you should use popScene,<br>
+ * if you want to return to rootScene,use poptoScene,<br>
+ * while you should push a scene as a rootScene when you use up methods<br>
+ * @see Scene
  * @author Albert Flex
  */
 public class SceneCenter {

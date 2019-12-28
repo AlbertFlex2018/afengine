@@ -8,7 +8,9 @@ package afengine.part.scene;
 import org.dom4j.Element;
 
 /**
- *
+ * contains methods for scene xml config<br>
+ * need impl
+ * @Scene
  * @author Albert Flex
  */
 public class SceneFileHelp {

@@ -8,13 +8,11 @@ package afengine.part.scene;
 import afengine.core.util.IDCreator;
 import afengine.part.message.IMessageRoute;
 import afengine.part.message.Message;
-import java.util.ArrayDeque;
-import java.util.Deque;
-import java.util.Iterator;
-import java.util.Map;
 
 /**
- *
+ * messageroute for actor<br>
+ * @see IMessageRoute
+ * @see Actor
  * @author Albert Flex
  */
 public class ActorMessageRoute implements IMessageRoute{
