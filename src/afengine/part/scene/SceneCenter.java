@@ -120,6 +120,19 @@ public class SceneCenter {
         scene.getLoader().load();
         runningScene=scene;
     }
+
+    public Map<String, Scene> getPreparedSceneMap() {
+        return preparedSceneMap;
+    }
+
+    public Stack<Scene> getSceneStack() {
+        return sceneStack;
+    }
+
+    public Scene getRootScene() {
+        return rootScene;
+    }
+    
     public Scene getRunningScene(){
         return runningScene;
     }
