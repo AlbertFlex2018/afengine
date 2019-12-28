@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<app>
+   <afengine debug="true" logicpath="part.sound.SoundTestLogic"
+        typeboot="afengine.core.ServiceApp$ServiceAppBoot"/> 
+   <service name="app1"/>  
+   <partsboot>
+       <part name="SoundPart" path="afengine.part.sound.SoundPartBoot" />
+   </partsboot>
+   <partsconfig>
+       <SoundPart />
+   </partsconfig>
+</app>
+
+

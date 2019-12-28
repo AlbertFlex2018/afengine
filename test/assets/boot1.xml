@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<app>
+   <afengine debug="true" logicpath="core.XMLEngineBootTest$AppLogic"
+        typeboot="afengine.core.ServiceApp$ServiceAppBoot"/> 
+   <service name="app1"/>  
+   <partsboot>
+       <part name="AppBoot1" path="core.XMLEngineBootTest$PartBoot1" />
+       <part name="AppBoot2" path="core.XMLEngineBootTest$PartBoot2" />
+       <part name="AppBoot3" path="core.XMLEngineBootTest$PartBoot3" /> 
+       <part name="MessagePartBoot" path="afengine.part.message.XMLMessagePartBoot"/>      
+   </partsboot>
+   <partsconfig>
+       <AppBoot1/>
+       <AppBoot2/>
+       <AppBoot3/>
+       <MessagePartBoot>
+           <Route path="afengine.part.message.MessageHandlerRoute"/>
+           <Route path="12"/>
+       </MessagePartBoot>
+   </partsconfig>
+</app>
+
+
