@@ -50,7 +50,7 @@ Scene,AbSceneLoader,SceneCenter,ScenePart,SceneFileHelp,XMLScenePartBoot,
   
 #the part sound arch - /part/sound  
 Sound,SoundFilter,LoopingByteInputStream,FilterSequence,Filter3d,EchoFilter,ThreadPool  
-MidiPlayer,SoundPlayer2,SoundManager,SoundPart,XMLSoundPartBoot  
+MidiPlayer,SoundPlayer,SoundManager,SoundPart,XMLSoundPartBoot  
   
 ==============================  
 #the component action arch - /component/action  
