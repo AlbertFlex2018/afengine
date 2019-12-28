@@ -16,10 +16,11 @@ public class SoundTestLogic implements IAppLogic{
         XMLEngineBoot.bootEngine("test/assets/soundtestboot.xml");        
     } 
     private final Scanner scan = new Scanner(System.in);
+    private long soundId;
     @Override
     public boolean init() {
         SoundCenter center=SoundCenter.getInstance();
-        long soundId = center.addSound("test/assets/sound1.wav");
+        soundId = center.addSound("test/assets/sound1.wav");
         long midiId = center.addMidi("test/assets/midi1.mid");
         center.playMidi(midiId,true);
         center.playSound(soundId,3);
@@ -37,6 +38,9 @@ public class SoundTestLogic implements IAppLogic{
                 break;
             case "resume":
                 SoundCenter.getInstance().setPauseMidi(false);
+                break;
+            case "beat":
+                SoundCenter.getInstance().playSound(soundId,1);
                 break;
             default:
                 break;
