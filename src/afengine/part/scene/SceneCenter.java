@@ -103,15 +103,17 @@ public class SceneCenter {
         }
 
         runningScene.getLoader().shutdown();
+        this.preparedSceneMap.remove(runningScene.getName());
+
         if(!sceneStack.isEmpty())
         {
-            ListIterator<Scene> sceneiter = sceneStack.listIterator(sceneStack.size()-1);
-            while(sceneiter.hasPrevious()){
-                Scene scene = sceneiter.previous();
-                scene.getLoader().shutdown();
-            }
+            Scene scene = sceneStack.pop();
+            this.preparedSceneMap.remove(scene.getName());
+            scene.getLoader().shutdown();
         }
+
         sceneStack.clear();
+
         runningScene=rootScene;       
         if(runningScene!=null){
             runningScene.getLoader().resume();
