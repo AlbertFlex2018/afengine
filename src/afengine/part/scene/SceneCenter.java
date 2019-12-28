@@ -45,8 +45,9 @@ public class SceneCenter {
         sceneStack=new Stack<>();
     }
 
-    public void pushScene(Scene scene){            
-        if(sceneStack.contains(scene))
+    public void pushScene(Scene scene){           
+        
+        if(runningScene==scene||sceneStack.contains(scene))
             return;
 
         if(rootScene==null){
