@@ -12,6 +12,5 @@ import org.dom4j.Element;
  * @author Admin
  */
 public interface IComponentFactory {
-    public String getName();                
     public ActorComponent createComponent(Element element);        
 }
