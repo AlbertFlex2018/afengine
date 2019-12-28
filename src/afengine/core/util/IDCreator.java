@@ -6,8 +6,11 @@
 package afengine.core.util;
 
 /**
- *
- * @author Admin
+ * provide a global unique id for app.<br>
+ * if you get a extern id for create,then you should use validId to check this id.<br>
+ * if you get a extern id for the previously created to init the IDCreator,than you should createIDCreator<br> 
+ * if you want get a unique id ,then use static method createId.
+ * @author Albert Flex
  */
 public class IDCreator {
 
@@ -20,11 +23,13 @@ public class IDCreator {
     {
         return ++instance_id;
     }
+
     public static long validId(long id)
     {
-        if(id>IDCreator.instance_id)
-        {
-            instance_id=id+1;
+        //if extern id bigger than noted id,
+        //synchronized the noted id
+        if(id>IDCreator.instance_id){
+            instance_id=id+1;            
         }
         return id;
     }

@@ -13,7 +13,7 @@ import java.util.Map;
 
 /**
  *
- * @author Admin
+ * @author Albert Flex
  */
 public class Scene{
     public final static Map<String,Actor> staticActorNodeMap=new HashMap<>();

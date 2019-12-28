@@ -11,7 +11,7 @@ import afengine.part.message.Message;
 
 /**
  *
- * @author Admin
+ * @author Albert Flex
  */
 public class BigMessageHandlerTest{
     

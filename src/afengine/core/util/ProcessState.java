@@ -6,8 +6,11 @@
 package afengine.core.util;
 
 /**
- *
- * @author Admin
+ * some state for Process.<br>
+ * used commonly by ProcessManager<br>
+ * @see AbProcess
+ * @see ProcessManager
+ * @author Albert Flex
  */
 public enum ProcessState {
     UNSETUP,    

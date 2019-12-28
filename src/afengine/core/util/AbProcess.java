@@ -6,12 +6,13 @@
 package afengine.core.util;
 
 /**
- *
- * @author Admin
- */
-/**
- *
- * @author Admin
+ * Process is for the update,and so on.<br>
+ * Make a Instance for AbProcess, called it's update,<br>
+ * or Make a Instance for ProcessManager,add the process to ProcessManager,<br>
+ * and called ProcessManager.updateProcess to update this Process<br>
+ * @see ProcessManager
+ * @see ProcessState
+ * @author Albert Flex
  */
 public abstract class AbProcess{
 

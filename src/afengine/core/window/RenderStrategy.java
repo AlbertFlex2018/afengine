@@ -11,7 +11,7 @@ import java.util.Map;
 
 /**
  *
- * @author Admin
+ * @author Albert Flex
  */
 public class RenderStrategy implements IDrawStrategy{
     public static RenderStrategy instance=new RenderStrategy();

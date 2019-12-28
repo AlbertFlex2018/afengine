@@ -16,8 +16,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author Admin
+ * Debug Class is a static Class for the Global access.<br>
+ * and provide some debug methods for the app.
+ * @author Albert Flex
  */
 public class Debug {
     
@@ -29,6 +30,19 @@ public class Debug {
     public static void off(){
         on=false;
     }
+    
+    public static void assetTrue(boolean statement,String falseInfo){
+        if(!on)return;
+        
+        if(statement==false){
+            System.out.println("asset false :"+falseInfo);
+        }
+    }
+    
+    public static void assetFalse(boolean statement,String trueInfo){
+        assetTrue(!statement,trueInfo);
+    }
+    
     public static void log(String logText) {
         if(!on)return;
 

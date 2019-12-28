@@ -18,8 +18,11 @@ import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
 /**
- *
- * @author Admin
+ * provide app boot from xml config.<br>
+ * and the xml config must have afengine tag,apptypebased type,and partsboot,partsconfig tag.
+ * @see IXMLPartBoot
+ * @see IXMLAppTypeBoot
+ * @author Albert Flex
  */
 public class XMLEngineBoot {
    /**

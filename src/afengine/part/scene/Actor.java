@@ -16,7 +16,7 @@ import java.util.Map;
 
 /**
  *
- * @author Admin
+ * @author Albert Flex
  */
 public class Actor implements IMessageHandler{
     

@@ -7,7 +7,7 @@ package afengine.core.window;
 
 /**
  *
- * @author Admin
+ * @author Albert Flex
  */
 public interface IWindowAdjustHandler { 
     public void handleWindowAdjust(IGraphicsTech create,boolean oldfull,int oldx,int oldy,int oldwidth,int oldheight,

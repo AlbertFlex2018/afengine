@@ -4,12 +4,12 @@
  * and open the template in the editor.
  */
 package afengine.core;
-
 /**
- * The App Class is a Runable Application for Users,<br/>
- * Make a Impl Class for AbApp,override the init,update,and shutdown methods<br/>
- * Create a Instance for AbApp,and Create a AppLogic for your app run,
- * And you can use app.run(logic),run this App or you can use app.run(null) for that no logic.
+ * The App Class is a Runable Application for Users,<br>
+ * Make a Impl Class for AbApp,override the init,update,and shutdown methods<br>
+ * Create a Instance for AbApp,and Create a AppLogic for your app run,<br>
+ * And you can use app.run(logic),run this App or you can use app.run(null) for that no logic.<br>
+ * @see IAppLogic
  * @author Albert Flex
  */
 public abstract class AbApp implements IAppLogic{

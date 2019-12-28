@@ -7,7 +7,7 @@ package afengine.core.window;
 
 /**
  *
- * @author Admin
+ * @author Albert Flex
  */
 public interface IDrawStrategy {
     

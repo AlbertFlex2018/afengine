@@ -9,7 +9,7 @@ import org.dom4j.Element;
 
 /**
  *
- * @author Admin
+ * @author Albert Flex
  */
 public class SceneFileHelp {
     /**

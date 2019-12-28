@@ -10,8 +10,12 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- *
- * @author Admin
+ * conatins list for runnabe process for logic or other auto update progress.<br>
+ * provide some process method for extern.<br>
+ * attach process to Instance for ProcessManager,and use updateAllProcess(time) to update these process,<br>
+ * and handle for process life span.<br>
+ * @see AbProcess
+ * @author Albert Flex
  */
 public class ProcessManager
 {

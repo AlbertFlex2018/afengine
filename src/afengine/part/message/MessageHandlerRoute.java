@@ -11,7 +11,7 @@ import java.util.Map;
 
 /**
  *
- * @author Admin
+ * @author Albert Flex
  */
 public class MessageHandlerRoute implements IMessageRoute{        
     

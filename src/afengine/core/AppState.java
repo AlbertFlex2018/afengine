@@ -9,8 +9,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- *
- * @author Admin
+ * The Only One Instance for Running App.<br>
+ * Make Sure that has One Instance for App,and Contains Some key-values for Running App.<br>
+ * @see AbApp
+ * @author Albert Flex
  */
 public class AppState {
     static{

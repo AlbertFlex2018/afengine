@@ -9,8 +9,10 @@ import afengine.core.window.IGraphicsTech;
 import afengine.core.window.ITexture;
 
 /**
- *
- * @author Admin
+ * Impl of AbApp for a GUIBased app,use instanced Interface of GraphicsTech for Display.<br>
+ * @see IGraphicsTech
+ * @see AbApp
+ * @author Albert Flex
  */
 public class WindowApp extends AbApp{
     public static final String APPTYPE="window";

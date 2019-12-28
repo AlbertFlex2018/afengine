@@ -9,8 +9,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- *
- * @author Admin
+ * AbPartSupport is a part for App,<br>
+ * When you created a Instance for App, you could add Some Part to App Core ,and let themselves get their lifespan<br>
+ * One AbPartSupport has init,update,and shutdown,and initPart for the PartsManager<br>
+ * Create a Instance for app, and Create Some Instances for partsupports,<br>
+ * add these partsupports to app.PartsManager on order, cause there has a priority for the part init,update,and shutdown<br>
+ * @see AppPartsManager
+ * @author Albert Flex
  */
 public abstract class AbPartSupport implements IAppLogic{    
 

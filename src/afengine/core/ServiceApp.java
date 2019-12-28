@@ -9,8 +9,9 @@ import afengine.core.util.IXMLAppTypeBoot;
 import org.dom4j.Element;
 
 /**
- *
- * @author Admin
+ * Impl of AbApp for the NoneGUI console only App.
+ * @see AbApp
+ * @author Albert Flex
  */
 public class ServiceApp extends AbApp{
     

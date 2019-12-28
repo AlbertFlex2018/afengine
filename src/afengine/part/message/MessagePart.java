@@ -4,7 +4,7 @@ import afengine.core.AbPartSupport;
 
 /**
  *
- * @author Admin
+ * @author Albert Flex
  */
 public class MessagePart extends AbPartSupport{
     public static final String PART_NAME="Message";

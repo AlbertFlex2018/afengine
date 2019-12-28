@@ -6,8 +6,12 @@
 package afengine.core;
 
 /**
- *
- * @author Admin
+ * The Logic for the App to Run.<br>
+ * AppLogic has its lifespan to Manager the Logic for App Run.<br>
+ * Instance a AbApp app, and Instance one IAppLogic logic.<br>
+ * then use app.run(logic) to run logic for app.<br>
+ * @see AbApp
+ * @author Albert Flex
  */
 public interface IAppLogic{
 

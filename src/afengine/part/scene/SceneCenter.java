@@ -13,7 +13,7 @@ import java.util.Stack;
 
 /**
  *
- * @author Admin
+ * @author Albert Flex
  */
 public class SceneCenter {
     

@@ -9,8 +9,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- *
- * @author Admin
+ * contains some Text for app.<br>
+ * @author Albert Flex
  */
 public class TextCenter {
 

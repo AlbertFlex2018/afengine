@@ -10,8 +10,10 @@ import java.util.Iterator;
 import java.util.Map;
 
 /**
- *
- * @author Admin
+ * Contains a AbPartSupport for app<br>
+ * It will be instanced while app is instanced.<br>
+ * @see AbApp
+ * @author Albert Flex
  */
 public class AppPartsManager {
     

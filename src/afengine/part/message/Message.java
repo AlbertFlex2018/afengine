@@ -7,7 +7,7 @@ package afengine.part.message;
 
 /**
  *
- * @author Admin
+ * @author Albert Flex
  */
 public class Message {    
     

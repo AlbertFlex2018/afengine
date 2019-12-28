@@ -10,7 +10,7 @@ import java.net.URL;
 
 /**
  *
- * @author Admin
+ * @author Albert Flex
  */
 public interface IGraphicsCreate {
     

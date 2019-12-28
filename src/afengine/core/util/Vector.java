@@ -6,8 +6,8 @@
 package afengine.core.util;
 
 /**
- *
- * @author Admin
+ * math vector for general use.<br>
+ * @author Albert Flex
  */
 public class Vector {
     

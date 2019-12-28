@@ -9,7 +9,7 @@ import afengine.core.AbPartSupport;
 
 /**
  *
- * @author Admin
+ * @author Albert Flex
  */
 public class ScenePart extends AbPartSupport{
     private final SceneCenter manager=SceneCenter.getInstance();

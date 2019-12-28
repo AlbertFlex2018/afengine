@@ -6,8 +6,8 @@
 package afengine.core.util;
 
 /**
- *
- * @author Admin
+ * some general data and method for object who have position,ratation and some transform attributes.<br>
+ * @author Albert Flex
  */
 public class Transform{
     public static final int ROTATE_X=0;

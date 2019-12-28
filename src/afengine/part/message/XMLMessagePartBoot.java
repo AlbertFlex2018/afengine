@@ -13,7 +13,7 @@ import java.util.Iterator;
 
 /**
  *
- * @author Admin
+ * @author Albert Flex
  */
 public class XMLMessagePartBoot implements IXMLPartBoot{
     

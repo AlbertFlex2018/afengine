@@ -7,7 +7,7 @@ package afengine.part.scene;
 
 /**
  *
- * @author Admin
+ * @author Albert Flex
  */
 public abstract class AbSceneLoader{
     private Scene thisScene;

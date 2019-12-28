@@ -16,7 +16,7 @@ import afengine.core.util.IXMLPartBoot;
 
 /**
  *
- * @author Admin
+ * @author Albert Flex
  */
 public class XMLEngineBootTest{
     public static void main(String[] args) {
