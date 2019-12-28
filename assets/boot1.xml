@@ -8,14 +8,14 @@
        <part name="AppBoot1" path="core.XMLEngineBootTest$PartBoot1" />
        <part name="AppBoot2" path="core.XMLEngineBootTest$PartBoot2" />
        <part name="AppBoot3" path="core.XMLEngineBootTest$PartBoot3" /> 
-       <part name="MessagePartBoot" path="afengine.parts.message.XMLMessagePartBoot"/>      
+       <part name="MessagePartBoot" path="afengine.part.message.XMLMessagePartBoot"/>      
    </partsboot>
    <partsconfig>
        <AppBoot1/>
        <AppBoot2/>
        <AppBoot3/>
        <MessagePartBoot>
-           <Route path="afengine.parts.message.MessageHandlerRoute"/>
+           <Route path="afengine.part.message.MessageHandlerRoute"/>
            <Route path="12"/>
        </MessagePartBoot>
    </partsconfig>
