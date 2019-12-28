@@ -12,7 +12,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *
+ * BigMessageHandler ,contains some Content relatived IMessageHandler<br>
+ * you should add a bigMessageHandler instance to MessageHandlerRoute from MessageCenter as a messageType handler<br>
+ * then add certain Content Message IMessageHandler to this bigHandlers<br>
+ * @see MessageHandlerRoute
  * @author Albert Flex
  */
 public class BigMessageHandler implements IMessageHandler{

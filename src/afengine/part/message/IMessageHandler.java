@@ -6,7 +6,8 @@
 package afengine.part.message;
 
 /**
- *
+ * small handler for certain message<br>
+ * @see Message
  * @author Albert Flex
  */
 public interface IMessageHandler{

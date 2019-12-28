@@ -3,11 +3,11 @@ package afengine.part.message;
 import afengine.core.AbPartSupport;
 
 /**
- *
+ * partsupport for message
  * @author Albert Flex
  */
 public class MessagePart extends AbPartSupport{
-    public static final String PART_NAME="Message";
+    public static final String PART_NAME="MessagePart";
     public MessagePart(){
         super(MessagePart.PART_NAME);
     }

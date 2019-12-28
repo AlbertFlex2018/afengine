@@ -12,7 +12,7 @@ import afengine.core.util.IXMLPartBoot;
 import java.util.Iterator;
 
 /**
- *
+ * partboot of messagepart<br>
  * @author Albert Flex
  */
 public class XMLMessagePartBoot implements IXMLPartBoot{

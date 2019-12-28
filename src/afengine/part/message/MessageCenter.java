@@ -12,8 +12,11 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
 /**
- *
+ * the center of Message,you should add MessageRoute to center,<br>
+ * and then sendMessage<br>
+ * for the auto use,you should call updateSendMessage<br>
  * @author Albert Flex
  */
 public class MessageCenter
@@ -121,6 +124,8 @@ public class MessageCenter
     private final Deque<Message> msgShouldSend=new ArrayDeque<>();
     public void updateSendMessage(long time)
     {
+        updateRoute();
+        
         long systime=System.currentTimeMillis();
         
         if(sendmsgOnce==0)

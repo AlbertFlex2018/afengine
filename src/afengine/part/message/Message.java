@@ -6,7 +6,12 @@
 package afengine.part.message;
 
 /**
- *
+ * a message for dispath<br>
+ * you should create a Message and then use it.<br>
+ * commonly created a instance of Message,and then use MessageCenter.sendMessage(msg) to sendMessage,<br>
+ * this will select matched MessageRoute and etc.<br>
+ * @see MessageCenter
+ * @see IMessageRoute
  * @author Albert Flex
  */
 public class Message {    

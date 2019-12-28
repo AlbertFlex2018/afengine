@@ -10,7 +10,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- *
+ * messageroute for handler<br>
+ * you could add type - content map handlers<br>
+ * @see IMessageRoute
+ * @see BigMessageHandler
  * @author Albert Flex
  */
 public class MessageHandlerRoute implements IMessageRoute{        
