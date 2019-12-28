@@ -30,7 +30,7 @@ public class SceneFileHelp {
      *          ...
      *      </actordata>
      *      <actormap>
-     *          <name1 />
+     *          <name1/>
      *          <name2>
      *              <name3/>
      *          </name2>
@@ -52,7 +52,9 @@ public class SceneFileHelp {
      * <module>
      *      <transform pos="" scale="" anchor="" rotate="" />
      *      <components>
-     *          
+     *          <Component />
+     *          <Component />
+     *          ...
      *      </components>
      * </module>
      * @param modulexml
