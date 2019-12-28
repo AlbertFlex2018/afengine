@@ -13,14 +13,14 @@ import java.util.Scanner;
  */
 public class SoundTestLogic implements IAppLogic{
     public static void main(String[] args) {
-        XMLEngineBoot.bootEngine("assets/soundtestboot.xml");        
+        XMLEngineBoot.bootEngine("test/assets/soundtestboot.xml");        
     } 
     private final Scanner scan = new Scanner(System.in);
     @Override
     public boolean init() {
         SoundCenter center=SoundCenter.getInstance();
-        long soundId = center.addSound("assets/sound1.wav");
-        long midiId = center.addMidi("assets/midi1.mid");
+        long soundId = center.addSound("test/assets/sound1.wav");
+        long midiId = center.addMidi("test/assets/midi1.mid");
         center.playMidi(midiId,true);
         center.playSound(soundId,3);
         return true;
@@ -28,8 +28,19 @@ public class SoundTestLogic implements IAppLogic{
     @Override
     public boolean update(long time) {
         String word = scan.nextLine();
-        if(word.equals("exit"))
-            AppState.setValue("run","false");
+        switch (word) {
+            case "exit":
+                AppState.setValue("run","false");
+                break;
+            case "pause":
+                SoundCenter.getInstance().setPauseMidi(true);
+                break;
+            case "resume":
+                SoundCenter.getInstance().setPauseMidi(false);
+                break;
+            default:
+                break;
+        }
         return true;
     }
     @Override
