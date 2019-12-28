@@ -37,7 +37,7 @@ XMLEngineBoot,XMLPartBoot,
 ============================
 #the part input arch - /part/uiinput
 InputAdapter,InputServlet,
-UIAction,UIActor,UIFace,UIFaceCenter,UIFileHelp,UIDrawStrategy,UIInputMessageRoute,UIInputPart,XMLUIInputPartBoot,
+UIAction,UIActor,UIFace,UIFaceCenter,UIDrawStrategy,UIInputMessageRoute,UIInputPart,UIInputFileHelp,XMLUIInputPartBoot,
 UIButton,UILabel,UIToggle,UIInputLine,UIChoice,UIPane,UIListView,UIPagePane,
 
 #the part message arch - /part/message
