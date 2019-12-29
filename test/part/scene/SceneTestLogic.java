@@ -3,7 +3,6 @@ package part.scene;
 import afengine.core.AppState;
 import afengine.core.IAppLogic;
 import afengine.core.util.Debug;
-import afengine.core.util.IDCreator;
 import afengine.core.util.XMLEngineBoot;
 import afengine.part.scene.AbSceneLoader;
 import afengine.part.scene.Scene;
@@ -43,7 +42,7 @@ public class SceneTestLogic implements IAppLogic{
             if(cmd[0].equals("prepare")){
                 if(cmd.length==2){
                     String name = cmd[1];
-                    sceneCenter.prepareScene(new Scene(IDCreator.createId(),name));
+                    sceneCenter.prepareScene(new Scene(name));
                 }
             }
             else if(cmd[0].equals("push")){
@@ -122,7 +121,7 @@ public class SceneTestLogic implements IAppLogic{
     public static class SceneDemo extends Scene{        
         public static long id=0;
         public SceneDemo(){
-            super(0,"");
+            super("");
         }        
     }
 }
