@@ -7,6 +7,12 @@ import java.util.Iterator;
 import java.util.Map;
 import org.dom4j.Element;
 
+/**
+ * The factory for behaviorbeancomponent.<br>
+ * @see IComponentFactory
+ * @see BehaviorBeanComponent
+ * @author Albert Flex
+ */
 public class BehaviorBeanComponentFactory implements IComponentFactory{
     
     @Override

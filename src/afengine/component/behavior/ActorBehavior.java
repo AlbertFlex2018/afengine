@@ -6,7 +6,12 @@ import afengine.part.scene.ActorComponent;
 
 //actorbehavior is used to controll the actor
 /**
- * 
+ * Use ActorBehavior for one method your logic code put.<br>
+ * you could write a behavior class,and contains some game logic for operate actor,and so on.<br>
+ * override the update,or toWake,toSleep<br>
+ * as BehaviorBean update ,it will call behavior.update for some logic circle<br>
+ * you could sleep this behavior,or wake this behavior.when something is nesscessary.<br>
+ * @see BehaviorBeanComponent
  * @author Albert Flex
  */
 public abstract class ActorBehavior extends ActorComponent{

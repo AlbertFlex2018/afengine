@@ -7,7 +7,9 @@ import java.util.Iterator;
 import java.util.Map;
 
 /**
- * 
+ * this component is a some set of actorbehavior.<br>
+ * you could load from xml file,or by hand<br>
+ * @see BehaviorBeanComponentFactory
  * @author Albert Flex
  */
 public class BehaviorBeanComponent extends ActorComponent{
