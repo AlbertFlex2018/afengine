@@ -162,7 +162,9 @@ public class Scene{
         Iterator<Actor> actoriter = nodeActorMap.values().iterator();
         while(actoriter.hasNext()){
             Actor actor = actoriter.next();
-            actor.updateActor(time);
+            //如果静态实体中存在就不需要更新
+            if(!staticActorNodeMap.containsKey(actor.getName()))
+                actor.updateActor(time);
         }
     }
 }
