@@ -63,11 +63,13 @@ public class XMLEngineBoot {
             appboot=new ServiceApp.ServiceAppBoot();
         }
         else{
+            System.out.println("typeboot:"+typeboot);
             try{
                 Class<?> cls = Class.forName(typeboot);
                 Object obj=cls.newInstance();
                 appboot = (IXMLAppTypeBoot)obj;
             }catch(Exception ex){
+                ex.printStackTrace();
                 Debug.log("typeboot class load error!");
                 return;
             }                            
@@ -141,15 +143,17 @@ public class XMLEngineBoot {
 
         //create logic and run.
         String logicpath = afe.attributeValue("logicpath");
-        IAppLogic logic;
-        try{
-                Class<?> cls = Class.forName(logicpath);
-                Object obj=cls.newInstance();
-                logic = (IAppLogic)obj;
-         }catch(ClassNotFoundException | IllegalAccessException | InstantiationException e){
-                Debug.log("Logic error!");
-                return;
-         }      
+        IAppLogic logic=null;
+        if(logicpath!=null){
+            try{
+                    Class<?> cls = Class.forName(logicpath);
+                    Object obj=cls.newInstance();
+                    logic = (IAppLogic)obj;
+             }catch(ClassNotFoundException | IllegalAccessException | InstantiationException e){
+                    Debug.log("Logic error!");
+                    return;
+             }      
+        }
         Debug.log("boot app to logic..");
         app.run(logic);
     }    

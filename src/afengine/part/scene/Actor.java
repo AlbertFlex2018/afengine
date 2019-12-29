@@ -54,6 +54,7 @@ public class Actor implements IMessageHandler{
         }
     }        
     
+    
     private Transform transform;
     public final long id;
     private boolean isStatic=false;
@@ -243,7 +244,35 @@ public class Actor implements IMessageHandler{
     public void removeThisActor(){
         deleted=true;
     }
+    public double getAbsoluteX(){
+        Actor parent=this.parent;
+        double ax=this.transform.position.getX();
+        while(parent!=null){
+            ax+=parent.transform.position.getX();
+            parent=parent.parent;
+        }
+        return ax;
+    }
+    public double getAbsoluteY(){
+        Actor parent=this.parent;
+        double ay=this.transform.position.getY();
+        while(parent!=null){
+            ay+=parent.transform.position.getY();
+            parent=parent.parent;
+        }
+        return ay;
+    }
+    public double getAbsoluteZ(){
+        Actor parent=this.parent;
+        double az=this.transform.position.getZ();
+        while(parent!=null){
+            az+=parent.transform.position.getZ();
+            parent=parent.parent;
+        }
+        return az;
+    }
 
+    
     //消息转交由组件应答
     @Override
     public boolean handle(Message msg){

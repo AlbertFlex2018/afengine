@@ -5,6 +5,7 @@
  */
 package afengine.core.window;
 
+import afengine.core.util.Debug;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -15,35 +16,41 @@ import java.util.Map;
  * @author Albert Flex
  */
 public class RenderStrategy implements IDrawStrategy{
-    public static RenderStrategy instance=new RenderStrategy();
+    private static RenderStrategy instance=null;
     
     public IDrawStrategy rootStrategy;
     public final Map<Long,IDrawStrategy> beforeRootMaps = new HashMap<>();
     public final Map<Long,IDrawStrategy> afterRootMaps=new HashMap<>();
     
-    private static final IDrawStrategy defaultstrategy=new IDrawStrategy(){
-        @Override
-        public void draw(IGraphicsTech tech) {
-        }        
+    private static final IDrawStrategy defaultstrategy=(IGraphicsTech tech) -> {
+        Debug.log("draw renderstrategy");
+        tech.drawText(100, 100,tech.getFont(),tech.getColor(), "default root draw");        
     };
+
+    public static RenderStrategy getInstance(){
+        if(instance==null)
+            instance=new RenderStrategy();
+        
+        return instance;
+    }
     private RenderStrategy(){
-        this.rootStrategy=defaultstrategy;
+        this.rootStrategy=RenderStrategy.defaultstrategy;
     }
     
     @Override
-    public void draw(IGraphicsTech tech){
-        Iterator<IDrawStrategy> strategyiter = beforeRootMaps.values().iterator();
+    public void draw(IGraphicsTech tech){ 
+        Iterator<Long> strategyiter=beforeRootMaps.keySet().iterator();
         while(strategyiter.hasNext()){
-            IDrawStrategy strategy = strategyiter.next();
+            IDrawStrategy strategy = beforeRootMaps.get(strategyiter.next());
             strategy.draw(tech);
         }
                 
         if(rootStrategy!=null)
             rootStrategy.draw(tech);
         
-        strategyiter = afterRootMaps.values().iterator();
+        strategyiter=afterRootMaps.keySet().iterator();
         while(strategyiter.hasNext()){
-            IDrawStrategy strategy = strategyiter.next();
+            IDrawStrategy strategy = afterRootMaps.get(strategyiter.next());
             strategy.draw(tech);
         }
     }    

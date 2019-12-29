@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<app>
+   <afengine debug="true" type="window" typeboot="afengine.core.WindowApp$WindowAppBoot"/>    
+   <window size="800,700" title="ExternDrawTest" icon="test/assets/1.png"
+           tech="afengine.component.render.GraphicsTech_Java2D"/>
+</app>
+
+
