@@ -58,34 +58,38 @@ public class XMLEngineBoot {
         }
         
         String typeboot = afe.attributeValue("typeboot");
+        if(typeboot==null){
+            Debug.log("typeboot error,auto to service app boot");            
+            appboot=new ServiceApp.ServiceAppBoot();
+        }
+        else{
+            try{
+                Class<?> cls = Class.forName(typeboot);
+                Object obj=cls.newInstance();
+                appboot = (IXMLAppTypeBoot)obj;
+            }catch(Exception ex){
+                Debug.log("typeboot class load error!");
+                return;
+            }                            
+        }
         String type=afe.attributeValue("type");
         if(type==null){
             type=ServiceApp.APPTYPE;
         }
-        try{
-            Class<?> cls = Class.forName(typeboot);
-            Object obj=cls.newInstance();
-            appboot = (IXMLAppTypeBoot)obj;
-        }catch(Exception ex){
-            ex.printStackTrace();
-            Debug.log("typeboot error!");
-            return;
-        }                
-        
-        if(appboot==null){
-            Debug.log("typeboot error!");
-            return;
-        }
         
         Element typee = element.element(type);
-        app=appboot.bootApp(typee);
+        if(typee==null){
+            Debug.log("app type is not found,auto set to service");
+            app=new ServiceApp();            
+        }else{
+            app=appboot.bootApp(typee);
+        }
         
         if(app==null){
             System.out.println("app create error!");
             return;
         }
-        
-        
+                
         Debug.log("boot app type:"+app.getAppType());
         Debug.log("set app name:"+app.getAppName());        
         

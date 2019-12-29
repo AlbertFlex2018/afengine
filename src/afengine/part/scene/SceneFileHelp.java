@@ -3,6 +3,7 @@ package afengine.part.scene;
 import afengine.core.util.Debug;
 import afengine.core.util.IDCreator;
 import afengine.core.util.Transform;
+import afengine.core.util.Vector;
 import afengine.core.util.XMLEngineBoot;
 import java.io.File;
 import java.io.FileWriter;
@@ -86,6 +87,32 @@ public class SceneFileHelp{
      */
     private static Map<String,Actor> loadActorMap=new HashMap<>();
 
+    private static void loadTransform(Actor actor,Element trans){
+        String pos = trans.attributeValue("pos");
+        String anchor = trans.attributeValue("anchor");
+        String scale = trans.attributeValue("scale");
+        String rotate = trans.attributeValue("rotate");
+        if(pos!=null){
+            transVali(actor.getTransform().position,pos.split(","));
+        }
+        if(anchor!=null){
+            transVali(actor.getTransform().anchor,anchor.split(","));
+        }
+        if(scale!=null){
+            transVali(actor.getTransform().scalation,scale.split(","));
+        }
+        if(rotate!=null){
+            transVali(actor.getTransform().rotation,rotate.split(","));
+        }
+    }
+    private static void transVali(Vector v,String[] data){
+        if(data.length<4)return;
+        v.setX(Double.parseDouble(data[0]));
+        v.setY(Double.parseDouble(data[1]));
+        v.setZ(Double.parseDouble(data[2]));
+        if(data.length==4)
+            v.setA(Double.parseDouble(data[3]));
+    }
     private static Scene loadActors(String xmlpath,boolean isStatic){
         Scene scene=null;
         
@@ -101,6 +128,8 @@ public class SceneFileHelp{
             Debug.log("not a staticactors file!:"+xmlpath);
             return null;
         }
+        
+        
         
         Element actordata=root.element("actordata");
         Iterator<Element> actore = actordata.elementIterator();
@@ -209,9 +238,8 @@ public class SceneFileHelp{
         }
         else id=IDCreator.createId();
         Transform transform=new Transform();
-        
         Actor actor = new Actor(id,name,transform);
-
+        loadTransform(actor,element.element("transform"));
         //output set
         String output =element.attributeValue("output");
         if(output!=null&&output.equals("true")){
@@ -350,25 +378,48 @@ public class SceneFileHelp{
         }
         
     }
-    
-    private static void  removeNullActorData(List<String> actornamelist,Element actordata){
-        Iterator<String> nameiter=actornamelist.iterator();
-        while(nameiter.hasNext()){
-            String name=nameiter.next();
-            actordata.remove(actordata.element(name));
-        }
-    }    
     /*
         <actordata>
             <name1>
                 <transform />
                 <datas/>
+                <components/>
             </name1>
         </actordata>
     */
+    private static void outputTransform(Actor actor,Element transEle){
+        setTransAtt(actor.getTransform().position,"pos",transEle);
+        setTransAtt(actor.getTransform().anchor,"anchor",transEle);
+        setTransAtt(actor.getTransform().scalation,"scale",transEle);
+        setTransAtt(actor.getTransform().rotation,"rotate",transEle);        
+    }    
+    private static void setTransAtt(Vector v,String name,Element transEle){
+        String pos1,pos2,pos3,pos4;
+        pos1=Double.toString(v.getX());
+        pos2=Double.toString(v.getY());
+        pos3=Double.toString(v.getZ());
+        pos4=Double.toString(v.getA());
+        String poss=""+pos1+","+pos2+","+pos3+","+pos4;
+        String pos = transEle.attributeValue(name);
+        if(pos==null){
+            transEle.addAttribute(name,poss);
+        }
+        else{
+            transEle.attribute(name).setValue(poss);
+        }        
+    }
+    
+    /**
+     * <actordata>
+     *      
+     * <actordata>
+     * @param scene
+     * @param element 
+     */
     private static void outputActors(Scene scene,Element element){        
         List<Element> needmove=new LinkedList<>();
-
+        
+        
         Iterator<Element> actoriter=element.elementIterator();
         while(actoriter.hasNext()){
             Element ele = actoriter.next();
@@ -377,8 +428,7 @@ public class SceneFileHelp{
             if(actor==null){
                 needmove.add(ele);
             }else{
-                Element datas =ele.element("datas");
-                outputActorToXML(actor,datas);
+                outputActorToXML(actor,ele);
             }
         }        
         
@@ -399,14 +449,27 @@ public class SceneFileHelp{
      * @param element 
      */
     public static void outputActorToXML(Actor actor,Element element){        
+        Element transform = element.element("transform");
+        if(transform==null){
+            transform=element.addElement("transform");
+        }
+        outputTransform(actor,transform);
+
         Map<String,String> datas=actor.valueMap;
         Iterator<Map.Entry<String,String>> entryiter=datas.entrySet().iterator();
+        Element datase = element.element("datas");
+        datase.clearContent();
         while(entryiter.hasNext()){
             Map.Entry<String,String> entry = entryiter.next();
             String key = entry.getKey();
             String value=entry.getValue();
-            outputData(key,value,element);
+            outputData(key,value,datase);
         }
+        
+        Element components = element.element("components");
+        if(components==null)
+            components=element.addElement("components");
+        outputActorComponent(actor,components);
     }
     
     /*
@@ -432,20 +495,46 @@ public class SceneFileHelp{
              changeActorMapMap(child0,childe);
         }
     }
-    private static void outputData(String key,String value,Element datas){
-        Element datae = datas.element("key");
+    private static void outputData(String key,String value,Element datas){        
+        Element datae = datas.element(key);
         if(datae!=null){
             Attribute atti = datae.attribute(key);
             if(atti!=null){
                 atti.setValue(value);
             }
             else {
-                datae.addAttribute(key, value);
+                datae.addAttribute("value", value);
             }
         }
         else{
-            datae=datas.addElement("key");
-            datae.addAttribute(key, value);
+            datae=datas.addElement(key);
+            datae.addAttribute("value", value);
         }
+    }
+
+    /*
+        <components>
+            <ComponentName />
+        </components>
+    */
+    private static void outputActorComponent(Actor actor, Element components) {
+        Iterator<ActorComponent> compiter=actor.getComponentsMap().values().iterator();
+        while(compiter.hasNext()){
+            ActorComponent comp=compiter.next();
+            outputComponent(comp,components);
+        }
+    }
+    /*
+        <components>
+            <ComponentName />
+        </components>
+    */
+    private static void outputComponent(ActorComponent comp,Element element){
+        Element compe=element.element(comp.getComponentName());
+        if(compe==null){
+            element.addElement(compe.getName());
+            IComponentFactory factory = ActorComponent.getFactory(comp.getComponentName());
+            factory.outputComponent(comp, compe);
+        }        
     }
 }

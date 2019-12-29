@@ -15,5 +15,6 @@ import org.dom4j.Element;
  * @author Albert Flex
  */
 public interface IComponentFactory {
-    public ActorComponent createComponent(Element element,Map<String,String> actordatas);        
+    public ActorComponent createComponent(Element element,Map<String,String> actordatas);
+    public void outputComponent(ActorComponent component,Element componentsEle);
 }

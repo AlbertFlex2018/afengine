@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<actor1 name="name2"> 
+  <transform pos="1.0,1.0,1.0,1.0" anchor="0.0,0.0,0.0,0.0" scale="1.0,1.0,1.0,0.0" rotate="0.0,0.0,0.0,0.0"/>  
+  <datas>
+    <key1 value="Value1"/>
+    <key2 value="Value2"/>
+    <key5 value="Value5"/>
+    <key6 value="Value6"/>
+    <key4 value="Value4"/>
+  </datas>  
+  <components/> 
+</actor1>
