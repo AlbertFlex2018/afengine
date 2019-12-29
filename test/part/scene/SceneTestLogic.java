@@ -72,27 +72,25 @@ public class SceneTestLogic implements IAppLogic{
         Scene nowScene = sceneCenter.getRunningScene();
         if(nowScene==null)
             Debug.log("no scene for now update.");
-        else Debug.log("nowScene:\t"+"id - "+nowScene.id+"\t name - "+nowScene.getName());
+        else Debug.log("nowScene:\t"+nowScene.getName());
         Scene rootScene = sceneCenter.getRootScene();
         if(rootScene==null)
             Debug.log("no root scene center");
-        else Debug.log("rootScene:\t"+"id - "+rootScene.id+"\t name - "+rootScene.getName());
+        else Debug.log("rootScene:\t"+rootScene.getName());
         
         Debug.log("----- prepared scene -----");
-        Debug.log("id\t name");
         Iterator<Scene> sceneiter = sceneCenter.getPreparedSceneMap().values().iterator();
         while(sceneiter.hasNext()){
             Scene scene = sceneiter.next();
-            Debug.log(scene.id+"\t "+scene.getName());
+            Debug.log("name\t "+scene.getName());
         }
 
         Debug.log("----- stacke scene -----");
         Debug.log("size - "+sceneCenter.getSceneStack().size());
-        Debug.log("id\t name");
         sceneiter = sceneCenter.getSceneStack().iterator();
         while(sceneiter.hasNext()){
             Scene scene = sceneiter.next();
-            Debug.log(scene.id+"\t "+scene.getName());
+            Debug.log("name\t "+scene.getName());
         }        
         Debug.log("============= scene log =============");        
     }
