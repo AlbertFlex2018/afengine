@@ -5,6 +5,7 @@
  */
 package afengine.component.render;
 
+import afengine.core.util.Debug;
 import afengine.core.window.IColor;
 import afengine.core.window.IColor.GeneraColor;
 import afengine.core.window.IDrawStrategy;
@@ -53,7 +54,8 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 /**
- *
+ * The GraphicsTech impl by Java2D<br>
+ * @see IGraphicsTech
  * @author Albert Flex
  */
 public class GraphicsTech_Java2D implements IGraphicsTech{            
@@ -663,6 +665,15 @@ public class GraphicsTech_Java2D implements IGraphicsTech{
         Java2DTexture texture = new Java2DTexture(url.toString(),url);
         texture.createTexture();
         return texture;
+    }
+
+    @Override
+    public void moveWindowTo(int x, int y) {
+        if(this.isFull){
+            Debug.log("can not move ,cause full window.");
+            return;
+        }
+        this.window.setLocation(x, y);
     }
     
     private static class NullRepaint extends RepaintManager
