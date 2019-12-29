@@ -5,6 +5,14 @@ import java.util.TreeMap;
 
 import javax.sound.midi.Sequence;
 
+/**
+ * main class for use to control sound,only for wav sound file,and midi music file.no more<br>
+ * at first,if you want to play .wav sound,you should use addSound(file) to get the id for sound,
+ * and then use playSound(id,looptime) to play any time if you like,<br>
+ * if you want to play .mid music file,you should use addMidi(file) to get the id for midi,
+ * and then use playMidi(id,loop) to play midi music if you like<br>
+ * @author Albert Flex
+ */
 public class SoundCenter 
 {	
 	private final MidiPlayer midiPlayer;
