@@ -12,7 +12,8 @@ import java.util.Iterator;
 import part.scene.ActorTest2;
 
 /**
- *
+ * console input,
+ * @see ActorTest2
  * @author Albert Flex
  */
 public class TestLogic1 implements IAppLogic{

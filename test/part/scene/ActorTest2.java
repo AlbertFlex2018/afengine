@@ -17,7 +17,13 @@ import static part.scene.ActorElementLogic.output;
 import static part.scene.ActorElementLogic.show;
 
 /**
- *
+ * console input<br>
+ * exit - exit app<br>
+ * show - show actor for actor.xml<br>
+ * add - add data to actor<br>
+ * remove - remove data from actor.<br>
+ * load - load actor from test/assets/actor.xml<br>
+ * output [dest] - output actor to the dest path,when no arg, output to default path<br>
  * @author Albert Flex
  */
 public class ActorTest2 implements IAppLogic{
@@ -86,7 +92,7 @@ public class ActorTest2 implements IAppLogic{
         }
         else if(word.equals("exit"))
             AppState.setValue("run", "false");
-        else if(word.equals("output")){
+        else if(word.startsWith("output")){
             String[] cmd = word.split(" ");
             if(cmd.length==1){                
                 output(actor,actorxmlpath);
