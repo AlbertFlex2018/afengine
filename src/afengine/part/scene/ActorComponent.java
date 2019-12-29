@@ -52,7 +52,7 @@ public class ActorComponent implements IMessageHandler{
         if(!value.startsWith("#"))
             return value;
         else{
-            return value.substring(1,value.length());
+            return actorvalues.get(value.substring(1,value.length()));
         }
     }
     
