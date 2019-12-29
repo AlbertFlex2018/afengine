@@ -29,10 +29,11 @@ public class Actor implements IMessageHandler{
     public final long id;
     private String name;
     public final Map<String, Object> valueMap = new HashMap<>();
-    public boolean deleted=false;
+    private boolean deleted=false;//remove only!
 
     private Actor parent;
     private final List<Actor> children = new ArrayList<>();
+    //下一个层次的孩子节点的map
     private final Map<Long,Actor> childMap = new HashMap<>();
     private final Map<String, ActorComponent> componentsMap = new HashMap<>();
     
@@ -89,11 +90,40 @@ public class Actor implements IMessageHandler{
         return children;
     }
     
+    //从直属的孩子节点之中找到符合id的
     public final Actor getChild(long id){
         return childMap.get(id);
     }
     
+    //循环迭代孩子实体，找到符合id的
+    public final Actor findChild(long id){
+        if(this.id==id)
+            return this;
+        
+        Iterator<Actor> childiter = children.iterator();
+        while(childiter.hasNext()){
+            Actor child = childiter.next();
+            if(child.findChild(id)!=null)
+                return child;
+        }
+        
+        return null;
+    }
+    
+    //从直属孩子节点之中查找符合name的
     public final Actor getChild(String name){
+        Iterator<Actor> childiter = children.iterator();
+        while(childiter.hasNext()){
+            Actor child = childiter.next();            
+            if(child.name.equals(name)){
+                return child;
+            }
+        }                        
+        return null;
+    }
+    
+    //迭代循环孩子实体，找到符合name的实体
+    public final Actor findChild(String name){
         if(this.name.equals(name))
             return this;
         
@@ -108,6 +138,7 @@ public class Actor implements IMessageHandler{
         return null;
     }    
     
+    //添加到直属孩子节点之中
     public final void addChild(Actor child) {
         if(childMap.containsKey(id)){
             return;
@@ -121,6 +152,7 @@ public class Actor implements IMessageHandler{
         childMap.put(child.id, child);
     }
 
+    //从直属孩子节点之中删除
     public final void removeChild(long actorid) {
         Actor child=childMap.remove(actorid);
         children.remove(child);
@@ -139,6 +171,7 @@ public class Actor implements IMessageHandler{
         deleted=true;
     }
 
+    //消息转交由组件应答
     @Override
     public boolean handle(Message msg){
         
@@ -152,6 +185,9 @@ public class Actor implements IMessageHandler{
     
     List<Actor> deletedchildlist = new ArrayList<>();
     public final void updateActor(long time){
+        if(deleted)
+            return;
+
         Iterator<ActorComponent> compiter = componentsMap.values().iterator();
         while(compiter.hasNext()){
             ActorComponent comp = compiter.next();            
@@ -160,7 +196,7 @@ public class Actor implements IMessageHandler{
             }
         }
         
-        
+        //update child
         Iterator<Actor> childiter = children.iterator();
         while(childiter.hasNext()){
             Actor child = childiter.next();
@@ -170,6 +206,7 @@ public class Actor implements IMessageHandler{
             child.updateActor(time);
         }
         
+        //remove deleted actor
         childiter=deletedchildlist.iterator();
         while(childiter.hasNext()){
             Actor child = childiter.next();
