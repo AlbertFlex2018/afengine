@@ -29,6 +29,7 @@ public interface IGraphicsState {
     public int getFPS();
     public String getTitle();
     public ITexture getIcon();
+    public void moveWindowTo(int x,int y);
     
     public void rotate(double rx,double ry,double rz);
     public void scale(double sx,double sy,double sz);
