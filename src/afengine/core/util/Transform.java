@@ -26,7 +26,7 @@ public class Transform{
         this.anchor = anchor;
     }
     public Transform(Vector position,Vector rotation,Vector scalation){
-        this(position,rotation,scalation,new Vector(0,0,0,0));
+        this(position,rotation,scalation,new Vector(0.5,0.5,0.5,0));
     }
     public Transform(Vector position,Vector rotation){
         this(position,rotation,new Vector(1.0,1.0,1.0,0));
