@@ -12,7 +12,7 @@ import java.util.Scanner;
 
 /**
  *
- * @author Admin
+ * @author Albert Flex
  */
 public class SceneTestLogic implements IAppLogic{
     public static void main(String[] args) {

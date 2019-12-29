@@ -22,7 +22,7 @@ import org.dom4j.io.XMLWriter;
 
 /**
  *
- * @author Admin
+ * @author Albert Flex
  */
 public class ActorElementLogic implements IAppLogic{
     public static void main(String[] args) {

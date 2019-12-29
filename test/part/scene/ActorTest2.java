@@ -1,5 +1,7 @@
 package part.scene;
 
+import afengine.component.behavior.BehaviorBeanComponent;
+import afengine.component.behavior.BehaviorBeanComponentFactory;
 import afengine.core.AppState;
 import afengine.core.IAppLogic;
 import afengine.core.util.Debug;
@@ -16,7 +18,7 @@ import static part.scene.ActorElementLogic.show;
 
 /**
  *
- * @author Admin
+ * @author Albert Flex
  */
 public class ActorTest2 implements IAppLogic{
     public static void main(String[] args) {
@@ -24,12 +26,13 @@ public class ActorTest2 implements IAppLogic{
     }
         
     
-    private Scanner scan = new Scanner(System.in);
-    private Actor actor=null;
-    String actorxmlpath="test/assets/actor.xml";
+    private static Scanner scan = new Scanner(System.in);
+    public static Actor actor=null;
+    private static    String actorxmlpath="test/assets/actor.xml";
     @Override
     public boolean init() {
         ActorComponent.addFactory("Component1",new ComponentFactory1());
+        ActorComponent.addFactory(BehaviorBeanComponent.COMPONENT_NAME,new BehaviorBeanComponentFactory());
         return true;
     }
     
@@ -73,6 +76,10 @@ public class ActorTest2 implements IAppLogic{
 
     @Override
     public boolean update(long time) {
+        console();
+        return true;
+    }
+    public static void console(){
         String word = scan.nextLine();
         if(word.equals("load")){
             actor=load(actorxmlpath);
@@ -101,6 +108,5 @@ public class ActorTest2 implements IAppLogic{
             actor.valueMap.remove(cmd[1]);
         }
         else;
-        return true;
     }
 }
