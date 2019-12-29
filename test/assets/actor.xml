@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<actor1 mod="test/assets/modlib1.xml#mod2,test/assets/modlib1.xml#mod1">
+<actor1 mod="test/assets/modlib1.xml#mod3">
   <transform pos="1.0,1.0,1.0,1.0" rotate="0.0,0.0,0.0,0.0" scale="1.0,1.0,1.0,0.0" anchor="0.0,0.0,0.0,0.0"/>
   <datas>
-    <k3 value="k3"/>
-    <k4 value="k4"/>
-    <k5 value="k5"/>
+    <todo value="to ni ma"/>
+    <behaviortext2 value="Behavior1212e12232e"/>
     <k1 value="k2"/>
     <k2 value="k2"/>
+    <k3 value="k3"/>
+    <k4 value="k4"/>
+    <behavior2text value="snklasndklasldkns"/>
+    <k5 value="k5"/>
+    <behavior1text value="Behavior2Text Text Text"/>
   </datas>
 </actor1>

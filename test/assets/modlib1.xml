@@ -10,4 +10,16 @@
             <data value="#mod2"/>
         </Component1>
     </mod2>
+    <mod3>
+        <BehaviorBean>
+            <Behavior1 class="component.behavior.Behavior1">
+                <todo value="#todo"/>
+                <text value="#behavior1text"/>
+            </Behavior1>
+            <Behavior2 class="component.behavior.Behavior2">
+                <todo value="#todo"/>
+                <text value="#behavior2text"/>
+            </Behavior2>
+        </BehaviorBean>
+    </mod3>
 </modlibs>
