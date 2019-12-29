@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<modlibs>
+    <mod1>
+        <Component1>
+            <data value="#mod1"/>
+        </Component1>
+    </mod1>
+    <mod2>
+        <Component1>
+            <data value="#mod2"/>
+        </Component1>
+    </mod2>
+</modlibs>

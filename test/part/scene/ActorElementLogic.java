@@ -113,6 +113,7 @@ public class ActorElementLogic implements IAppLogic{
                 ActorComponent comp=compiter.next();
                 Debug.log("name\t"+comp.getComponentName());
                 Debug.log("value\t"+comp.attributes.get("data"));
+                Debug.log("realvalue\t"+comp.attributes.get("realvalue"));                
             }
         }
         Debug.log("=========== log actor test ============");

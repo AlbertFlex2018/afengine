@@ -54,13 +54,14 @@ public class ActorTest2 implements IAppLogic{
                 value=value.substring(1, value.length());
                 if(!actordatas.containsKey(value)){
                     Debug.log("No data found!");
-                    value="No Component";
+                    value="Not found";
                 }else{
                     value=actordatas.get(value);
                 }
             }
             ActorComponent comp1=new Component1(value);
             comp1.attributes.put("data",data.attributeValue("value"));
+            comp1.attributes.put("realvalue", value);
             return comp1;
         }       
     }

@@ -6,6 +6,7 @@
 package afengine.part.scene;
 
 import afengine.core.util.Debug;
+import afengine.core.util.IDCreator;
 import afengine.core.util.Transform;
 import afengine.part.message.IMessageHandler;
 import afengine.part.message.Message;
@@ -70,6 +71,9 @@ public class Actor implements IMessageHandler{
     private final Map<Long,Actor> childMap = new HashMap<>();
     private final Map<String, ActorComponent> componentsMap = new HashMap<>();
     
+    public Actor(String name,Transform trans){
+        this(IDCreator.createId(),name,trans);
+    }
     public Actor(long id,String name,Transform transform){
         this.id=id;
         this.name=name;
@@ -107,7 +111,10 @@ public class Actor implements IMessageHandler{
     }
     
     public final void addComponent(ActorComponent comp,boolean awake){
-        if(componentsMap.containsKey(comp.getComponentName()))return;        
+        if(componentsMap.containsKey(comp.getComponentName())){
+            Debug.log("there has one instance for type of comp."+comp.getComponentName()+"\nplease do not add more same comp again!");
+            return;
+        }        
         
         if(comp.getActor()!=null){
             comp.getActor().removeComponent(comp.getComponentName());
