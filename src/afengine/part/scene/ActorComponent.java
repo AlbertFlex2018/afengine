@@ -41,6 +41,8 @@ public class ActorComponent implements IMessageHandler{
     
     public ActorComponent(String compname) {
         this.componentName = compname;
+        actor=null;
+        active=false;
     }
 
     public final Actor getActor() {
