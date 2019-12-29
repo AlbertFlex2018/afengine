@@ -146,21 +146,35 @@ public class XMLEngineBoot {
         app.run(logic);
     }    
     
-    public static void bootEngine(String xmlpath){
+    public static Document getXMLFileRoot(String xmlpath){
         File file = new File(xmlpath);
         SAXReader reader =new SAXReader();
-        Element root;
+        Document doc;
         try{
-            Document doc = reader.read(file);            
-            root = doc.getRootElement();
-            System.out.println("root : "+root.getName());
+            doc = reader.read(file);            
+            System.out.println("root : "+doc.getRootElement().getName());
         }catch(Exception e){
             e.printStackTrace();
-            return;
+            return null;
         }
-        
+        return doc;
+    }
+    
+    public static void bootEngine(String xmlpath){
+        Element root=getXMLFileRoot(xmlpath).getRootElement();
         if(root!=null){
             bootEngineFromXML(root);
         }
+    }
+    
+    public static Object instanceObj(String classpath){
+        try{
+                Class<?> cls = Class.forName(classpath);
+                Object obj=cls.newInstance();
+                return obj;
+         }catch(ClassNotFoundException | IllegalAccessException | InstantiationException e){
+                Debug.log("Class Not Found : "+classpath);
+                return null;
+         }                      
     }
 }
