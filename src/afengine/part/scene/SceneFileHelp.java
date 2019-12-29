@@ -117,7 +117,8 @@ public class SceneFileHelp{
         if(modspath!=null){
             createActorModule(modspath,actor);
             actor.setModPath(modspath);
-        }
+        }        
+        actor.awakeAllComponents();
         return actor;
     }
     //file#mod,file#mod
