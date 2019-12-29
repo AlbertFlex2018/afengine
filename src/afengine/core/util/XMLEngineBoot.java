@@ -92,45 +92,49 @@ public class XMLEngineBoot {
         //put part boot
         Debug.log("-put part boot-");
         Element partlist = element.element("partsboot");
-        Iterator<Element> eleiter = partlist.elementIterator();
-        while(eleiter.hasNext()){
-            Element ele = eleiter.next();
-            String path = ele.attributeValue("path");            
-            String bootname=ele.attributeValue("name");
-            try{
-                Class<?> cls = Class.forName(path);
-                Object obj=cls.newInstance();
-                IXMLPartBoot boot=(IXMLPartBoot)obj;
-                bootMap.put(bootname, boot);
-                Debug.log("add part boot - "+bootname);
-            }catch(Exception e){
-                e.printStackTrace();
-                continue;
-            }            
+        Iterator<Element> eleiter=null;
+        if(partlist!=null){
+            eleiter=partlist.elementIterator();
+            while(eleiter.hasNext()){                
+                Element ele = eleiter.next();
+                String path = ele.attributeValue("path");            
+                String bootname=ele.attributeValue("name");
+                try{
+                    Class<?> cls = Class.forName(path);
+                    Object obj=cls.newInstance();
+                    IXMLPartBoot boot=(IXMLPartBoot)obj;
+                    bootMap.put(bootname, boot);
+                    Debug.log("add part boot - "+bootname);
+                }catch(Exception e){
+                    e.printStackTrace();
+                    continue;
+                }            
+            }
         }
-                
         //part boot
         Debug.log("-start part config-");
         Element partconfigs = element.element("partsconfig");
-        eleiter=partconfigs.elementIterator();
-        int priority=100;
-        while(eleiter.hasNext()){
-            Element ele = eleiter.next();
-            String ename = ele.getName();
-            IXMLPartBoot boot = bootMap.get(ename);
-            if(boot==null){
-                Debug.log("no boot for:"+ename);
-                continue;
+        if(partconfigs!=null){
+            eleiter=partconfigs.elementIterator();
+            int priority=100;
+            while(eleiter.hasNext()){
+                Element ele = eleiter.next();
+                String ename = ele.getName();
+                IXMLPartBoot boot = bootMap.get(ename);
+                if(boot==null){
+                    Debug.log("no boot for:"+ename);
+                    continue;
+                }
+                AbPartSupport part=boot.bootPart(ele);
+                if(part==null){
+                    Debug.log("The Part for PartBoot["+ename+"]is Null: Don't you want put part to partsManager?");
+                    continue;
+                }
+                app.getPartsManager().addPartPriority(--priority, part);
+                Debug.log("boot part - "+ename);
             }
-            AbPartSupport part=boot.bootPart(ele);
-            if(part==null){
-                Debug.log("The Part for PartBoot["+ename+"]is Null: Don't you want put part to partsManager?");
-                continue;
-            }
-            app.getPartsManager().addPartPriority(--priority, part);
-            Debug.log("boot part - "+ename);
         }
-        
+
         //create logic and run.
         String logicpath = afe.attributeValue("logicpath");
         IAppLogic logic;
