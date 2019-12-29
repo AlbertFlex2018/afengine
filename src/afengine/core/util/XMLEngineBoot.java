@@ -10,12 +10,20 @@ import afengine.core.AbPartSupport;
 import afengine.core.IAppLogic;
 import afengine.core.ServiceApp;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.dom4j.Document;
+import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
+import org.dom4j.io.OutputFormat;
 import org.dom4j.io.SAXReader;
+import org.dom4j.io.XMLWriter;
 
 /**
  * provide app boot from xml config.<br>
@@ -159,6 +167,12 @@ public class XMLEngineBoot {
     }    
     
     public static Document getXMLFileRoot(String xmlpath){
+        if(xmlpath==null){
+            Document doc=DocumentHelper.createDocument();
+            doc.addElement("root");
+            return doc;
+        }
+
         File file = new File(xmlpath);
         SAXReader reader =new SAXReader();
         Document doc;
@@ -170,6 +184,27 @@ public class XMLEngineBoot {
             return null;
         }
         return doc;
+    }
+    public static void writeXMLFile(String xmlpath,Document doc){
+        FileOutputStream out =null;
+        try {
+            out = new FileOutputStream(xmlpath);
+            OutputFormat format=OutputFormat.createPrettyPrint();   //漂亮格式：有空格换行
+            format.setEncoding("UTF-8");
+            XMLWriter writer=new XMLWriter(out,format);
+            //2.写出Document对象
+            writer.write(doc);
+            //3.关闭流
+            writer.close();
+        } catch (Exception ex) {
+            Logger.getLogger(XMLEngineBoot.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                out.close();
+            } catch (IOException ex) {
+                Logger.getLogger(XMLEngineBoot.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
     
     public static void bootEngine(String xmlpath){

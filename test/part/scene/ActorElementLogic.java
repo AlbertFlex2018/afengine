@@ -16,6 +16,7 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.dom4j.Document;
+import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.XMLWriter;
@@ -41,11 +42,14 @@ public class ActorElementLogic implements IAppLogic{
     public static void output(Actor actor,String xmlpath){
         try {
             //output actor
-            Document doc=XMLEngineBoot.getXMLFileRoot(xmlpath);
+            Document doc=XMLEngineBoot.getXMLFileRoot(null);
             Element root = doc.getRootElement();
             SceneFileHelp.outputActorToXML(actor,root);
             XMLWriter writer = null;
             File file = new File(xmlpath);
+//            if(!file.exists()){
+//                file.createNewFile();
+//            }
             OutputFormat format = OutputFormat.createPrettyPrint();
             format.setEncoding("utf-8");
             writer=new XMLWriter(new FileWriter(file),format);
@@ -70,13 +74,14 @@ public class ActorElementLogic implements IAppLogic{
         }
         else if(word.equals("exit"))
             AppState.setValue("run", "false");
-        else if(word.equals("output")){
+        else if(word.startsWith("output")){
             String[] cmd = word.split(" ");
             if(cmd.length==1){                
                 output(actor,actorxmlpath);
             }
             else{
                 String path = cmd[1];
+                Debug.log("output to - "+path);
                 output(actor,path);
             }            
         }
