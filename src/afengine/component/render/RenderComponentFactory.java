@@ -45,13 +45,13 @@ public class RenderComponentFactory implements IComponentFactory{
         return creator.create(element);
     }
     /**
-     * <RenderComponent type="Text">
+     * <Render type="Text">
      *      <text></text>
      *      <font path=""></font>
      *      <size></size>
      *      <color></color>
      *      //<backcolor></backcolor>
-     * </RenderComponent>
+     * </Render>
      */
     private RenderComponent createText(Element element){
         Text text;

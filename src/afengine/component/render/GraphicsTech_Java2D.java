@@ -13,7 +13,6 @@ import afengine.core.window.IFont.FontStyle;
 import afengine.core.window.IGraphicsTech;
 import afengine.core.window.ITexture;
 import afengine.core.window.IWindowAdjustHandler;
-import afengine.core.window.RenderStrategy;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Cursor;
@@ -39,8 +38,6 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferStrategy;
 import java.io.File;
 import java.io.IOException;
-import java.lang.System.Logger;
-import java.lang.System.Logger.Level;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -57,7 +54,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
- * @author Admin
+ * @author Albert Flex
  */
 public class GraphicsTech_Java2D implements IGraphicsTech{            
     
