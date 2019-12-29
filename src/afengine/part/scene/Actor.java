@@ -57,9 +57,10 @@ public class Actor implements IMessageHandler{
     
     private Transform transform;
     public final long id;
-    private boolean isStatic=false;
+    private boolean isStatic=false;    
     private boolean output=false;
     private String name;
+    private String modPath;
     public final Map<String,String> valueMap = new HashMap<>();
     private boolean deleted=false;//remove only!
 
@@ -150,6 +151,14 @@ public class Actor implements IMessageHandler{
             Actor child = childiter.next();
             child.awakeAllComponents();
         }        
+    }
+
+    public String getModPath() {
+        return modPath;
+    }
+
+    public void setModPath(String modPath) {
+        this.modPath = modPath;
     }
 
     public final String getName() {

@@ -33,11 +33,10 @@ public class ActorComponent implements IMessageHandler{
         return factoryMap.get(name);
     }
 
-    
+    public final Map<String,String> attributes=new HashMap<>();
     private Actor actor;
     private final String componentName;
     private boolean active;
-    public final Map<String,Object> valueMap=new HashMap<>();
     
     public ActorComponent(String compname) {
         this.componentName = compname;
@@ -49,6 +48,14 @@ public class ActorComponent implements IMessageHandler{
         return actor;
     }
     
+    public static final String getRealValue(String value,Map<String,String> actorvalues){
+        if(!value.startsWith("#"))
+            return value;
+        else{
+            return value.substring(1,value.length());
+        }
+    }
+    
     public final String getComponentName() {
         return componentName;
     }
@@ -56,7 +63,6 @@ public class ActorComponent implements IMessageHandler{
     public final boolean isActive() {
         return active;
     }
-
     public final void awake() {
         if (active) {
             return;

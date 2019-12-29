@@ -131,9 +131,4 @@ public class RenderComponentFactory implements IComponentFactory{
         }
         return new TextureRenderComponent(texture);
     }
-
-    @Override
-    public void outputComponent(ActorComponent component, Element componentsEle) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }    
 }

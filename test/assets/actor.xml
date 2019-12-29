@@ -6,8 +6,14 @@
     <key1 value="Value1"/>
     <key2 value="Value2"/>
     <key5 value="Value5"/>
+    <value2 value="Albert Flex"/>
     <key6 value="Value6"/>
+    <key3 value="Value3"/>
     <key4 value="Value4"/>
   </datas>  
-  <components/> 
+  <components> 
+    <Component1> 
+      <data value="#key3"/> 
+    </Component1> 
+  </components> 
 </actor1>

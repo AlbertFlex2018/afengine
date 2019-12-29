@@ -34,10 +34,11 @@ public class ActorElementLogic implements IAppLogic{
     private final String actorxmlpath="test/assets/actor.xml";
 
     @Override
-    public boolean init() {
+    public boolean init() {        
         return true;
     }
-    private void output(Actor actor,String xmlpath){
+    
+    public static void output(Actor actor,String xmlpath){
         try {
             //output actor
             Document doc=XMLEngineBoot.getXMLFileRoot(xmlpath);
@@ -55,7 +56,7 @@ public class ActorElementLogic implements IAppLogic{
         }
         
     }
-    private Actor load(String xmlpath){
+    public static Actor load(String xmlpath){
         //output actor
         Document doc=XMLEngineBoot.getXMLFileRoot(xmlpath);
         Element root = doc.getRootElement();
@@ -80,7 +81,7 @@ public class ActorElementLogic implements IAppLogic{
             }            
         }
         else if(word.equals("show")){
-            show();
+            show(actor);
         }
         else if(word.startsWith("add")){
             String[] cmd=word.split(" ");
@@ -93,7 +94,7 @@ public class ActorElementLogic implements IAppLogic{
         else;
         return true;
     }
-    private void show(){
+    public static void show(Actor actor){
         Debug.log("=========== log actor test ============");
         if(actor==null)
             Debug.log("actor NULL");
@@ -111,11 +112,11 @@ public class ActorElementLogic implements IAppLogic{
             while(compiter.hasNext()){
                 ActorComponent comp=compiter.next();
                 Debug.log("name\t"+comp.getComponentName());
+                Debug.log("value\t"+comp.attributes.get("data"));
             }
         }
         Debug.log("=========== log actor test ============");
     }
-
     @Override
     public boolean shutdown() {
         return true;
