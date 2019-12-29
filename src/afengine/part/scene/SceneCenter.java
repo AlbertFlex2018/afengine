@@ -159,7 +159,9 @@ public class SceneCenter {
     public Scene getRunningScene(){
         return runningScene;
     }
-    public void update(long time){
+    public void update(long time){   
+        Actor.updateStaticActor(time);
+        
         if(runningScene!=null){
             runningScene.updateScene(time);
         }
@@ -171,6 +173,7 @@ public class SceneCenter {
             }
         }
     }
+    
     
     public String prepareScene(Scene scene){
         //如果已经在运行的，就不需要准备了

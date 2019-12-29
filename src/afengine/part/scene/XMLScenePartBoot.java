@@ -30,6 +30,7 @@ public class XMLScenePartBoot implements IXMLPartBoot{
         *      <Scene id="" name="" class="" or path="" loader="" output="true"/>
         *      <Scene id="" name="" class="" or path="" loader=""/>
      *      </SceneList>
+     *      <StaticActors path=""/>
      * </ScenePart>
      * 
      * @param element
@@ -62,13 +63,13 @@ public class XMLScenePartBoot implements IXMLPartBoot{
         while(eleiter.hasNext()){
             Element ele = eleiter.next();
             Scene scene = loadScene(ele);
+            scene.awakeAllActors();
             if(scene!=null){
                 Debug.log("Prepare Scene :"+scene.getName());
                 SceneCenter.getInstance().prepareScene(scene);
             }
         }
-        
-        
+                        
         Scene mainscene = SceneCenter.getInstance().findPreparedScene(main);
         if(mainscene==null){
             Debug.log("MainSceneNotFound!");            
@@ -76,6 +77,13 @@ public class XMLScenePartBoot implements IXMLPartBoot{
         else{
             SceneCenter.getInstance().pushScene(mainscene);
             Debug.log("Push Main Scene Successfully");
+        }
+        
+        //load static actors
+        Element staticActorsE = element.element("StaticActors");
+        String path= staticActorsE.attributeValue("path");
+        if(path!=null){
+            SceneFileHelp.loadStaticActorFromXML(path);
         }
         
         return scenepart;
@@ -116,8 +124,9 @@ public class XMLScenePartBoot implements IXMLPartBoot{
         else{            
             //load scene from xml file 
             String path=sceneEle.attributeValue("path");
-            if(path!=null)
-                scene = SceneFileHelp.loadSceneFromXML(path);            
+            if(path!=null){                
+                scene=SceneFileHelp.loadSceneFromXML(path);
+            }
         }                
         
         

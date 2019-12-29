@@ -5,6 +5,7 @@
  */
 package afengine.part.scene;
 
+import afengine.core.util.Debug;
 import afengine.core.util.Transform;
 import afengine.part.message.IMessageHandler;
 import afengine.part.message.Message;
@@ -25,10 +26,40 @@ import java.util.Map;
  */
 public class Actor implements IMessageHandler{
     
+    public static Map<String,Actor> staticActorMap=new HashMap<>();    
+    public static Actor findStaticActor(String name){
+        return staticActorMap.get(name);
+    }
+    public static void addStaticActor(Actor actor){
+        if(!staticActorMap.containsKey(actor.name)){
+            staticActorMap.put(actor.name, actor);
+            actor.isStatic=true;
+        }
+        else{
+            Debug.log("already has actor for:"+actor.name);
+        }
+    }
+    public static void removeStaticActor(String name){
+        Actor actor = staticActorMap.get(name);
+        if(actor!=null)
+            actor.isStatic=false;
+        
+        staticActorMap.remove(name);
+    }
+    public static void updateStaticActor(long time){
+        Iterator<Actor> actoriter=staticActorMap.values().iterator();
+        while(actoriter.hasNext()){
+            Actor actor = actoriter.next();
+            actor.updateActor(time);
+        }
+    }        
+    
     private Transform transform;
     public final long id;
+    private boolean isStatic=false;
+    private boolean output=false;
     private String name;
-    public final Map<String, Object> valueMap = new HashMap<>();
+    public final Map<String,String> valueMap = new HashMap<>();
     private boolean deleted=false;//remove only!
 
     private Actor parent;
@@ -55,11 +86,25 @@ public class Actor implements IMessageHandler{
         return componentsMap;
     }
 
+    public boolean isIsStatic() {
+        return isStatic;
+    }
+
+    public boolean isOutput() {
+        return output;
+    }
+
+    public void setOutput(boolean output) {
+        this.output = output;
+    }
+
+    
+    
     public final boolean hasComponent(String compname) {        
         return componentsMap.containsKey(compname);
     }
     
-    public final void addComponent(ActorComponent comp){
+    public final void addComponent(ActorComponent comp,boolean awake){
         if(componentsMap.containsKey(comp.getComponentName()))return;        
         
         if(comp.getActor()!=null){
@@ -67,7 +112,9 @@ public class Actor implements IMessageHandler{
         }
         componentsMap.put(comp.getComponentName(), comp);
         comp.setActor(this);
-    }
+        if(awake)
+            comp.awake();
+    }    
     public final void removeComponent(String compname){
 
         if(!componentsMap.containsKey(compname))return;        
@@ -76,6 +123,32 @@ public class Actor implements IMessageHandler{
     }
     public final ActorComponent getComponent(String compname){
         return componentsMap.get(compname);
+    }
+    public final void awakeAllComponents(){                
+        Iterator<ActorComponent> compiter=componentsMap.values().iterator();
+        while(compiter.hasNext()){
+            ActorComponent comp=compiter.next();
+            comp.awake();
+        }
+        
+        Iterator<Actor> childiter=children.iterator();
+        while(childiter.hasNext()){
+            Actor child = childiter.next();
+            child.awakeAllComponents();
+        }
+    }
+    public final void sleepAllComponents(){
+        Iterator<ActorComponent> compiter=componentsMap.values().iterator();
+        while(compiter.hasNext()){
+            ActorComponent comp=compiter.next();
+            comp.awake();
+        }        
+
+        Iterator<Actor> childiter=children.iterator();
+        while(childiter.hasNext()){
+            Actor child = childiter.next();
+            child.awakeAllComponents();
+        }        
     }
 
     public final String getName() {

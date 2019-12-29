@@ -21,8 +21,7 @@ import java.util.Map;
  * @author Albert Flex
  */
 public class Scene{
-    public final static Map<String,Actor> staticActorNodeMap=new HashMap<>();
-    
+    //for simple use.
     private static class AdapterLoader extends AbSceneLoader{
         @Override
         public void load() {
@@ -58,34 +57,44 @@ public class Scene{
         this.loader.setThisScene(this);
         shouldoutput=false;
     }
-    public Scene(long id,String name){
+    public Scene(String name){
         this(name,new AdapterLoader());
     }
-    
-    public static Map<String, Actor> getStaticActorNodeMap() {
-        return staticActorNodeMap;
-    }
-    public static Actor getStaticActorNode(String nodeName){
-        return staticActorNodeMap.get(nodeName);
-    }
-    public static boolean hasStaticActorNode(String nodeName){
-        return staticActorNodeMap.containsKey(nodeName);
-    }
-    public static void removeStaticActorNode(String nodeName){
-        staticActorNodeMap.remove(nodeName);
-    }
+
     public AbSceneLoader getLoader() {
         return loader;
-    }
+    }    
     public void setLoader(AbSceneLoader loader){
         this.loader=loader;
     }
     public final Map<String, Actor> getNodeActorMap() {
         return nodeActorMap;
     }
+    
+    public final Actor findActorByName(String name){
+
+        Iterator<Actor> actoriter = Actor.staticActorMap.values().iterator();
+        while(actoriter.hasNext()){
+            Actor actor = actoriter.next();
+            Actor dest = actor.findChild(name);
+            if(dest!=null)
+                return dest;
+        }        
+        
+        actoriter = nodeActorMap.values().iterator();
+        while(actoriter.hasNext()){
+            Actor actor = actoriter.next();
+            Actor dest = actor.findChild(name);
+            if(dest!=null)
+                return dest;
+        }                
+        
+        return null;        
+    }
+    
     public final Actor findActorByID(long id){
         
-        Iterator<Actor> actoriter = Scene.staticActorNodeMap.values().iterator();
+        Iterator<Actor> actoriter = Actor.staticActorMap.values().iterator();
         while(actoriter.hasNext()){
             Actor actor = actoriter.next();
             Actor dest = findActor(id,actor);
@@ -135,6 +144,21 @@ public class Scene{
         return null;
     }
     
+    public final void awakeAllActors(){
+        Iterator<Actor> actoriter = Actor.staticActorMap.values().iterator();
+        while(actoriter.hasNext()){
+            Actor actor = actoriter.next();
+            actor.awakeAllComponents();
+        }        
+        
+        actoriter = nodeActorMap.values().iterator();
+        while(actoriter.hasNext()){
+            Actor actor = actoriter.next();
+            if(!actor.isIsStatic())
+                actor.awakeAllComponents();
+        }                        
+    }    
+    
     public final void addNodeActor(String nodeName,Actor actor){
         nodeActorMap.put(nodeName, actor);
     }
@@ -151,17 +175,12 @@ public class Scene{
         this.name = name;
     }       
     public void updateScene(long time){
-        Iterator<Actor> staticActoriter = Scene.staticActorNodeMap.values().iterator();
-        while(staticActoriter.hasNext()){
-            Actor actor = staticActoriter.next();
-            actor.updateActor(time);
-        }
         
         Iterator<Actor> actoriter = nodeActorMap.values().iterator();
         while(actoriter.hasNext()){
             Actor actor = actoriter.next();
             //如果静态实体中存在就不需要更新
-            if(!staticActorNodeMap.containsKey(actor.getName()))
+            if(!actor.isIsStatic())
                 actor.updateActor(time);
         }
     }
