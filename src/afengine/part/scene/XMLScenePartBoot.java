@@ -127,14 +127,6 @@ public class XMLScenePartBoot implements IXMLPartBoot{
             scene.setLoader(loader);
         }
         
-        if(scene!=null){
-            if(id!=null){
-                long idl = Long.parseLong(id);
-                IDCreator.validId(idl);
-                scene.id=idl;
-            }
-            else scene.id=IDCreator.createId();            
-        }
         
         String output=sceneEle.attributeValue("output");
         if(output!=null&&output.equals("true")&&scene!=null){

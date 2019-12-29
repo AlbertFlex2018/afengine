@@ -8,7 +8,6 @@ package afengine.part.scene;
 import afengine.core.util.Debug;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.ListIterator;
 import java.util.Map;
 import java.util.Stack;
 
@@ -47,7 +46,8 @@ public class SceneCenter {
 
     public void pushScene(Scene scene){           
         
-        if(runningScene==scene||sceneStack.contains(scene))
+        //如果场景栈中存在场景，就不需要切换
+        if(runningScene==scene||stackContainsScene(scene.getName()))
             return;
 
         if(rootScene==null){
@@ -119,7 +119,20 @@ public class SceneCenter {
             runningScene.getLoader().resume();
         }
     }
-    public void changeToScene(Scene scene){        
+    private boolean stackContainsScene(String name){
+        Iterator<Scene> sceneiter = sceneStack.iterator();
+        while(sceneiter.hasNext()){
+            Scene scene = sceneiter.next();
+            if(scene.getName().equals(name))
+                return true;
+        }
+        return false;
+    }
+    public void changeToScene(Scene scene){
+        //如果场景栈中存在场景，就不需要切换
+        if(stackContainsScene(scene.getName()))
+            return;
+
         if(rootScene!=null&&runningScene!=rootScene){
             runningScene.getLoader().shutdown();            
         }
@@ -159,15 +172,35 @@ public class SceneCenter {
         }
     }
     
-    public void prepareScene(Scene scene){
+    public String prepareScene(Scene scene){
+        //如果已经在运行的，就不需要准备了
+        if(stackContainsScene(scene.getName()))
+            return null;
+        
         if(!preparedSceneMap.containsKey(scene.getName())){
             preparedSceneMap.put(scene.getName(), scene);
             scene.getLoader().load();
             scene.getLoader().pause();
+            return scene.getName();
+        }
+        else{
+            Debug.log("prepared scene should not add again!");
+            return null;
+        }
+    }
+    
+    public void pushPreparedScene(String name){
+        Scene scene = preparedSceneMap.get(name);
+        if(scene!=null){
+            pushScene(scene);
+        }
+        else{
+            Debug.log("no prepared Scene Found:"+name);
         }
     }
     
     public Scene findPreparedScene(String name){
         return preparedSceneMap.get(name);
     }    
+    
 }

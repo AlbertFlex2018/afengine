@@ -43,25 +43,23 @@ public class Scene{
     };
     
     
-    public long id;
     private String name;
     public final Map<String,Actor> nodeActorMap=new HashMap<>();
     private AbSceneLoader loader;
     private boolean shouldoutput;
     
     public Scene(){
-        this(0,"",new AdapterLoader());
+        this("",new AdapterLoader());
     }
 
-    public Scene(long id,String name,AbSceneLoader loader){
-        this.id=id;
+    public Scene(String name,AbSceneLoader loader){
         this.name=name;
         this.loader=loader;
         this.loader.setThisScene(this);
         shouldoutput=false;
     }
     public Scene(long id,String name){
-        this(id,name,new AdapterLoader());
+        this(name,new AdapterLoader());
     }
     
     public static Map<String, Actor> getStaticActorNodeMap() {
