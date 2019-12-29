@@ -7,7 +7,8 @@ import afengine.core.window.IFont;
 import afengine.core.window.IGraphicsTech;
 
 /**
- *
+ * text render<br>
+ * @see RenderComponent
  * @author Albert Flex
  */
 public class TextRenderComponent extends RenderComponent{

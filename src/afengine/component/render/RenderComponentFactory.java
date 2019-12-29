@@ -13,6 +13,12 @@ import java.util.HashMap;
 import java.util.Map;
 import org.dom4j.Element;
 
+/**
+ * factory for rendercomp,default contains TextRender and TextureRender<br>
+ * @see TextRenderComponent
+ * @see TextureRenderComponent
+ * @author Albert Flex
+ */
 public class RenderComponentFactory implements IComponentFactory{
 
     public static interface IRenderCreator{
@@ -110,10 +116,10 @@ public class RenderComponentFactory implements IComponentFactory{
     }
     
     /**
-     * <RenderComponent type="Texture>
+     * <Render type="Texture>
      *      <texture>path</texture>
      *      //<cutsize x="" y="" width-"" height=""/>
-     * </RenderComponent>
+     * </Render>
      */
     private RenderComponent createTexture(Element element){
         String texturepath = element.elementText("texture");

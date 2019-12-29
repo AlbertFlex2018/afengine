@@ -4,6 +4,11 @@ import afengine.core.util.Vector;
 import afengine.core.window.IGraphicsTech;
 import afengine.core.window.ITexture;
 
+/**
+ * render for texture,commonly image.<br>
+ * @see RenderComponent
+ * @author Albert Flex
+ */
 public class TextureRenderComponent extends RenderComponent{
     
     private ITexture texture;
