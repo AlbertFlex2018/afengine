@@ -6,6 +6,8 @@ import afengine.core.util.Vector;
 import afengine.core.util.XMLEngineBoot;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import org.dom4j.Attribute;
 import org.dom4j.Element;
@@ -15,39 +17,238 @@ public class SceneFileHelp{
     /*
         <scene>
             <actordata>
+                <name1/>
+                ...
             </actordata>
             <actormap>
             </actormap>
         </scene>
     */
-    public static Scene loadSceneFromXML(String path) {
+    public static Scene loadSceneFromXML(Element sceneroot) {
+        if(!sceneroot.getName().equals("scene")){
+            Debug.log("file is not a scene file.");
+            return null;
+        }
+
+        Scene scene = new Scene("");
         //先导入全部实体
+        Map<String,Actor> actorMap=loadAllActors(sceneroot);
+
+        Element actormap = sceneroot.element("actormap");
+        
+        if(actormap==null){
+            Debug.log("has no actor map of scene.");
+        }else{
         //再创建实体父子映射
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            List<Actor> rootactorList = orderMap(actorMap,actormap);
+            rootactorList.forEach((actor) -> {
+                Debug.log("put "+actor.getName());
+                scene.nodeActorMap.put(actor.getName(), actor);
+            });
+        }
+        
+        return scene;
+    }
+    //导入实体
+    private static Map<String,Actor> loadAllActors(Element root){
+        Element actordata = root.element("actordata");        
+        Map<String,Actor> actorMap=new HashMap<>();
+        if(actordata==null){
+            Debug.log("has no actor data of scene.");            
+        }else{
+            Iterator<Element> actoriter = actordata.elementIterator();
+            while(actoriter.hasNext()){
+                Element actorelement = actoriter.next();
+                Actor actor = loadActorFromXML(actorelement);
+                if(actor!=null){
+                    actorMap.put(actor.getName(), actor);
+                }
+            }
+        }        
+        return actorMap;
+    }
+    /**
+            <actormap>
+     *          <name1/>
+     *          <name2>
+     *              <name3/>
+     *              <name4/>
+     *          </name2>
+            </actormap>
+     */
+    //对实体进行父子联系，并返回根的实体
+    private static List<Actor> orderMap(Map<String,Actor> actorMap,Element orderRoot){
+        List<Actor> rootlist = new LinkedList<>();
+        Iterator<Element> eleiter = orderRoot.elementIterator();
+        while(eleiter.hasNext()){
+            Element ele = eleiter.next();
+            String name =ele.getName();
+            Actor actor = actorMap.get(name);
+            if(actor==null){
+                Debug.log("actor for "+name+" is not defined.");
+                continue;
+            }else{
+                //将要添加到场景的根下
+                rootlist.add(actor);
+                mapActortoParent(actorMap,null,ele);
+            }            
+        }
+        return rootlist;
+    }
+    //迭代对父子进行联系
+    private static void mapActortoParent(Map<String,Actor> actorMap,Element parent,Element child){
+        if(child==null)return;
+
+        //先把父子贴起来
+        if(parent!=null){
+            String pname=parent.getName();
+            Actor pactor = actorMap.get(pname);
+            if(pactor==null){
+                Debug.log("parent actor - "+pname+" not found.");
+            }else{
+                Actor cactor=actorMap.get(child.getName());
+                if(cactor==null){
+                    Debug.log("child actor - "+child.getName()+" not found.");
+                }else{
+                    Debug.log("actor: "+parent.getName()+ " add node - "+child.getName());
+                    pactor.addChild(cactor);
+                }
+            }
+        }
+        
+        //在循环遍历子的子节点
+        Iterator<Element> childiter = child.elementIterator();
+        while(childiter.hasNext()){
+            Element childe = childiter.next();
+            mapActortoParent(actorMap,child,childe);
+        }
     }
     
-    public static void outputSceneToXML(Scene scene,String path){
+    /*
+        <scene>
+            <actordata>
+                <name1/>
+                ...
+            </actordata>
+            <actormap>
+            </actormap>
+        </scene>
+    */
+    public static void outputSceneToXML(Scene scene,Element sceneroot){
+        sceneroot.setName("scene");
         //清楚全部的内容
+        sceneroot.clearContent();
         //创建实体数据
+        Element actordata = sceneroot.addElement("actordata");
+        outputActors(scene.nodeActorMap,actordata);
         //创建实体父子映射
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.        
+        Element actormap=sceneroot.addElement("actormap");
+        makeParent(scene.nodeActorMap,actormap);
     }
+    private static void outputActors(Map<String,Actor> rootActors,Element actordata){
+        Iterator<Map.Entry<String,Actor>> entryiter = rootActors.entrySet().iterator();
+        while(entryiter.hasNext()){
+            Map.Entry<String,Actor> actorentry = entryiter.next();
+            String actorname=actorentry.getKey();
+            Actor actor = actorentry.getValue();
+
+            Element actore = actordata.addElement(actorname);
+            outputActorToXML(actor,actore);
+            List<Actor> child = actor.getChildren();
+            child.forEach((act)->{
+                outputAllActors(act,actordata);
+            });
+        }
+    }    
+    private static void outputAllActors(Actor actor,Element actordata){
+        if(actor==null)return;
+        
+        Element element = actordata.addElement(actor.getName());
+        outputActorToXML(actor,element);
+
+        List<Actor> children = actor.getChildren();
+        children.forEach((act)->{
+            outputAllActors(act,actordata);
+        });
+    }
+    private static void makeParent(Map<String,Actor> rootActors,Element actormap){
+        Iterator<Map.Entry<String,Actor>> entryiter = rootActors.entrySet().iterator();
+        Map<String,Element> elementMap=new HashMap<>();
+        while(entryiter.hasNext()){
+            Map.Entry<String,Actor> actorentry = entryiter.next();
+            String actorname=actorentry.getKey();
+            Element ele=actormap.addElement(actorname);
+            elementMap.put(actorname, ele);
+        }        
+        
+        Iterator<Map.Entry<String,Actor>> entryiter2 = rootActors.entrySet().iterator();
+        while(entryiter2.hasNext()){
+            Map.Entry<String,Actor> actorentry = entryiter2.next();
+            Actor actor = actorentry.getValue();
+            makeParentMatch(null,actor,elementMap);
+        }        
+        
+    }
+    private static void makeParentMatch(Actor parent,Actor child,Map<String,Element> elementMap){
+        if(child==null)return;
+        
+        if(parent!=null){
+            Element parente = elementMap.get(parent.getName());
+            if(parente==null){
+                Debug.log("not found for parent element for child.");
+            }else{
+                elementMap.put(child.getName(),parente.addElement(child.getName()));
+            }
+        }
+        
+        List<Actor> children = child.getChildren();
+        children.forEach((actor)->{
+            makeParentMatch(child,actor,elementMap);
+        });
+    }
+    
 
     /*
-        <staticactor> 只考虑没有树形结构的实体
+        <staticactor-list> 只考虑没有树形结构的实体
             <actor1/>
             <actor2/>
             ...
-        </staticactor>
+        </staticactor-list>
     */
-    public static void loadStaticActorFromXML(String path) {
+    public static void loadStaticActorFromXML(Element staticactorroot) {
         //按次序导入实体
-        //将实体附加再Actor上
+        //将实体附加再Actor上        
+        if(staticactorroot==null||!staticactorroot.getName().equals("staticactor-list")){
+            Debug.log("not a static actor list file.");
+            return;
+        }
+        
+        Iterator<Element> eleiter = staticactorroot.elementIterator();
+        while(eleiter.hasNext()){
+            Element ele = eleiter.next();
+            Actor actor = loadActorFromXML(ele);
+            if(actor!=null){
+                Actor.addStaticActor(actor);
+            }
+        }
     }
     
-    public static void outputStaticActorToXML(String path){
+    public static void outputStaticActorToXML(Element staticactorroot){
         //清楚全部的实体数据
         //按次序导出实体
+        if(staticactorroot==null){
+            Debug.log("static actor root is null,output static actor list failed");
+            return;
+        }
+        staticactorroot.setName("staticactor-list");
+        staticactorroot.clearContent();
+        Iterator<Map.Entry<String,Actor>> actorentry = Actor.staticActorMap.entrySet().iterator();
+        while(actorentry.hasNext()){
+            Map.Entry<String,Actor> entry = actorentry.next();
+            String name = entry.getKey();
+            Actor actor = entry.getValue();
+            outputActorToXML(actor,staticactorroot.addElement(name));
+        }
     }
     
     /*
@@ -144,8 +345,8 @@ public class SceneFileHelp{
         String[] cmds=modulepath.split("#");
         String filepath=cmds[0];
         String modname=cmds[1];
-        Element root = XMLEngineBoot.getXMLFileRoot(filepath).getRootElement();
-        if(!root.getName().equals("modlibs")){
+        Element root = XMLEngineBoot.readXMLFileDocument(filepath).getRootElement();
+        if(root!=null&&!root.getName().equals("modlibs")){
             Debug.log("modulepath:"+modulepath+" is not a mod lib. please check.");
             return null;
         }        

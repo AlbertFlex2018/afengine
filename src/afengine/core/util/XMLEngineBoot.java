@@ -165,8 +165,7 @@ public class XMLEngineBoot {
         Debug.log("boot app to logic..");
         app.run(logic);
     }    
-    
-    public static Document getXMLFileRoot(String xmlpath){
+    public static Document getXMLWritableDocument(String xmlpath){
         if(xmlpath==null){
             Document doc=DocumentHelper.createDocument();
             doc.addElement("root");
@@ -174,6 +173,33 @@ public class XMLEngineBoot {
         }
 
         File file = new File(xmlpath);
+        if(!file.exists()){
+            Document doc=DocumentHelper.createDocument();
+            doc.addElement("root");
+            return doc;            
+        }
+        SAXReader reader =new SAXReader();
+        Document doc;
+        try{
+            doc = reader.read(file);            
+            System.out.println("root : "+doc.getRootElement().getName());
+        }catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+        return doc;        
+    }
+    public static Document readXMLFileDocument(String xmlpath){
+        if(xmlpath==null){
+            Debug.log("read xml can not null!");
+            return null;
+        }
+
+        File file = new File(xmlpath);
+        if(!file.exists()){
+            Debug.log("the xml file - "+xmlpath+" is not exist.");
+            return null;
+        }
         SAXReader reader =new SAXReader();
         Document doc;
         try{
@@ -208,7 +234,7 @@ public class XMLEngineBoot {
     }
     
     public static void bootEngine(String xmlpath){
-        Element root=getXMLFileRoot(xmlpath).getRootElement();
+        Element root=readXMLFileDocument(xmlpath).getRootElement();
         if(root!=null){
             bootEngineFromXML(root);
         }

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<staticactor-list>
+        <actor1 mod="test/assets/modlib1.xml#mod3">
+            <transform pos="1.0,1.0,1.0,1.0" rotate="0.0,0.0,0.0,0.0" scale="1.0,1.0,1.0,0.0" anchor="0.0,0.0,0.0,0.0"/>
+            <datas>
+                <todo value="to ni ma"/>
+                <k23 value="salkshdlew"/>
+                <behavior2text value="behavior2"/>
+                <behavior1text value="behavior1"/>
+            </datas>
+        </actor1>
+        <actor2>
+            <transform pos="1.0,1.0,1.0,1.0" rotate="0.0,0.0,0.0,0.0" scale="1.0,1.0,1.0,0.0" anchor="0.0,0.0,0.0,0.0"/>            
+            <datas>
+                <v1 value="v1"/>
+                <v2 value="v2"/>
+                <v3 value="v3"/>
+            </datas>            
+        </actor2>
+        <actor3 mod="test/assets/modlib1.xml#mod4">
+            <transform pos="1.0,1.0,1.0,1.0" rotate="0.0,0.0,0.0,0.0" scale="1.0,1.0,1.0,0.0" anchor="0.0,0.0,0.0,0.0"/>            
+            <datas>
+                <v1 value="v1"/>
+                <v2 value="v2"/>
+                <v3 value="v3"/>
+                <texturepath value="test/assets/1.png"/>
+            </datas>                        
+        </actor3>
+</staticactor-list>

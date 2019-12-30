@@ -29,7 +29,6 @@ public class ServiceApp extends AbApp{
     int ttime=0;
     @Override
     public boolean update(long time) {
-        System.out.println("Update Service.."+this.getAppName());
         return true;
     }
 

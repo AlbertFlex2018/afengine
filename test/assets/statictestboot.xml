@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<app>
+   <afengine debug="true" logicpath="part.scene.StaticActorTestLogic" type="service"
+        typeboot="afengine.core.ServiceApp$ServiceAppBoot"/> 
+   <service name="app1"/>  
+</app>
+
+

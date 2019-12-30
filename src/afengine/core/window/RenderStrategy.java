@@ -23,7 +23,6 @@ public class RenderStrategy implements IDrawStrategy{
     public final Map<Long,IDrawStrategy> afterRootMaps=new HashMap<>();
     
     private static final IDrawStrategy defaultstrategy=(IGraphicsTech tech) -> {
-        Debug.log("draw renderstrategy");
         tech.drawText(100, 100,tech.getFont(),tech.getColor(), "default root draw");        
     };
 

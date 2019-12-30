@@ -42,7 +42,7 @@ public class ActorElementLogic implements IAppLogic{
     public static void output(Actor actor,String xmlpath){
         try {
             //output actor
-            Document doc=XMLEngineBoot.getXMLFileRoot(null);
+            Document doc=XMLEngineBoot.getXMLWritableDocument(null);
             Element root = doc.getRootElement();
             SceneFileHelp.outputActorToXML(actor,root);
             XMLWriter writer = null;
@@ -61,7 +61,7 @@ public class ActorElementLogic implements IAppLogic{
         
     }
     public static Actor load(String xmlpath){
-        Document doc=XMLEngineBoot.getXMLFileRoot(xmlpath);
+        Document doc=XMLEngineBoot.readXMLFileDocument(xmlpath);
         Element root = doc.getRootElement();
         return SceneFileHelp.loadActorFromXML(root);
     }

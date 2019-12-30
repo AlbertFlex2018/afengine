@@ -58,8 +58,7 @@ public class Actor implements IMessageHandler{
     
     private Transform transform;
     public final long id;
-    private boolean isStatic=false;    
-    private boolean output=false;
+    private boolean isStatic=false;  
     private String name;
     private String modPath;
     public final Map<String,String> valueMap = new HashMap<>();
@@ -95,16 +94,6 @@ public class Actor implements IMessageHandler{
     public boolean isIsStatic() {
         return isStatic;
     }
-
-    public boolean isOutput() {
-        return output;
-    }
-
-    public void setOutput(boolean output) {
-        this.output = output;
-    }
-
-    
     
     public final boolean hasComponent(String compname) {        
         return componentsMap.containsKey(compname);

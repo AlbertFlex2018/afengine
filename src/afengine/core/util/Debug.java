@@ -73,10 +73,13 @@ public class Debug {
         if(!on)return;
 
         logTexts.addLast(text);
-        if(logTexts.size()>30){
+        if(logTexts.size()>50){
             logTexts.pollFirst();
         }
     }    
+    public static void clear_panellog(){
+        logTexts.clear();
+    }
     
     public static class DebugDrawStrategy implements IDrawStrategy{
         IColor color;

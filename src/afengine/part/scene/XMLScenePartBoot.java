@@ -7,9 +7,10 @@ package afengine.part.scene;
 
 import afengine.core.AbPartSupport;
 import afengine.core.util.Debug;
-import afengine.core.util.IDCreator;
 import afengine.core.util.IXMLPartBoot;
+import afengine.core.util.XMLEngineBoot;
 import java.util.Iterator;
+import org.dom4j.Document;
 import org.dom4j.Element;
 
 /**
@@ -63,8 +64,8 @@ public class XMLScenePartBoot implements IXMLPartBoot{
         while(eleiter.hasNext()){
             Element ele = eleiter.next();
             Scene scene = loadScene(ele);
-            scene.awakeAllActors();
             if(scene!=null){
+                scene.awakeAllActors();
                 Debug.log("Prepare Scene :"+scene.getName());
                 SceneCenter.getInstance().prepareScene(scene);
             }
@@ -80,10 +81,15 @@ public class XMLScenePartBoot implements IXMLPartBoot{
         }
         
         //load static actors
-        Element staticActorsE = element.element("StaticActors");
+        Element staticActorsE = element.element("StaticActorList");
         String path= staticActorsE.attributeValue("path");
         if(path!=null){
-            SceneFileHelp.loadStaticActorFromXML(path);
+            Document doc = XMLEngineBoot.readXMLFileDocument(path);
+            if(doc!=null&&doc.getRootElement()!=null){
+                Element root = doc.getRootElement();
+                if(root.getName().equals("StaticActorList"))
+                SceneFileHelp.loadStaticActorFromXML(root);                
+            }
         }
         
         return scenepart;
@@ -115,7 +121,7 @@ public class XMLScenePartBoot implements IXMLPartBoot{
                 scene = (Scene)obj;
                 String name=sceneEle.attributeValue("name");
                 scene.setName(name);
-            }catch(Exception ex){
+            }catch(ClassNotFoundException | IllegalAccessException | InstantiationException ex){
                 ex.printStackTrace();
                 Debug.log("Scene Classpath error!");
                 scene=null;
@@ -125,7 +131,13 @@ public class XMLScenePartBoot implements IXMLPartBoot{
             //load scene from xml file 
             String path=sceneEle.attributeValue("path");
             if(path!=null){                
-                scene=SceneFileHelp.loadSceneFromXML(path);
+                Document scenedoc = XMLEngineBoot.readXMLFileDocument(path);
+                if(scenedoc!=null){
+                    Element root = scenedoc.getRootElement();
+                    if(root!=null&&root.getName().equals("scene")){
+                        scene=SceneFileHelp.loadSceneFromXML(root);                                            
+                    }
+                }
             }
         }                
         

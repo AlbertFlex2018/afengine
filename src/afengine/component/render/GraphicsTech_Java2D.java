@@ -1018,7 +1018,7 @@ public class GraphicsTech_Java2D implements IGraphicsTech{
                 try {
                     img = ImageIO.read(new File(this.texturepath));
                 } catch (IOException ex) {
-                    java.util.logging.Logger.getLogger(GraphicsTech_Java2D.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+                    Debug.log("image not found."+texturepath);
                 }
             }                
         }
