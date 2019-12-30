@@ -2,6 +2,7 @@ package afengine.component.render;
 
 import afengine.core.AppState;
 import afengine.core.WindowApp;
+import afengine.core.util.Debug;
 import afengine.core.util.TextCenter.Text;
 import afengine.core.window.IColor;
 import afengine.core.window.IFont;
@@ -23,7 +24,7 @@ public class RenderComponentFactory implements IComponentFactory{
 
     public static interface IRenderCreator{
         public String getType();
-        public RenderComponent create(Element element);
+        public RenderComponent create(Element element,Map<String,String> datas);
     }
 
     public final Map<String,IRenderCreator> extraCreatorMap=new HashMap<>();
@@ -32,15 +33,15 @@ public class RenderComponentFactory implements IComponentFactory{
     public ActorComponent createComponent(Element element,Map<String,String> datas) {
         switch(element.attributeValue("type")){
             case "Text":
-                return createText(element);
+                return createText(element,datas);
             case "Texture":
-                return createTexture(element);
+                return createTexture(element,datas);
             default:
-                return createExtra(element);
+                return createExtra(element,datas);
         }
     }   
     
-    private RenderComponent createExtra(Element element){
+    private RenderComponent createExtra(Element element,Map<String,String> datas){
         IRenderCreator creator = extraCreatorMap.get(element.attributeValue("type"));
         if(creator==null)
         {
@@ -48,7 +49,7 @@ public class RenderComponentFactory implements IComponentFactory{
             return null;
         }
         
-        return creator.create(element);
+        return creator.create(element,datas);
     }
     /**
      * <Render type="Text">
@@ -59,14 +60,14 @@ public class RenderComponentFactory implements IComponentFactory{
      *      //<backcolor></backcolor>
      * </Render>
      */
-    private RenderComponent createText(Element element){
+    private RenderComponent createText(Element element,Map<String,String> datas){
         Text text;
         IFont font;
         IColor color=null;
         IColor backcolor=null;
         Element texte = element.element("text");
         if(texte!=null){
-            text=new Text(texte.getText());
+            text=new Text(ActorComponent.getRealValue(texte.getText(),datas));
         }
         else{
             text=new Text("DefaultText");
@@ -80,9 +81,9 @@ public class RenderComponentFactory implements IComponentFactory{
                             IFont.FontStyle.PLAIN, 30);
         }
         else if(fonte.attribute("path")!=null){
-            path=fonte.attributeValue("path");            
+            path=ActorComponent.getRealValue(fonte.attributeValue("path"),datas);            
                 font = ((IGraphicsTech)((WindowApp)AppState.getRunningApp()).
-                    getGraphicsTech()).createFont(fonte.getText(), true, IFont.FontStyle.PLAIN, Integer.parseInt(sizes));                        
+                    getGraphicsTech()).createFont(ActorComponent.getRealValue(fonte.getText(),datas), true, IFont.FontStyle.PLAIN, Integer.parseInt(sizes));                        
         }
         else{
             font= ((IGraphicsTech)((WindowApp)AppState.getRunningApp())
@@ -95,7 +96,7 @@ public class RenderComponentFactory implements IComponentFactory{
         if(colore==null){
            colors=IColor.GeneraColor.ORANGE.toString();
         }
-        else colors = element.elementText("color");
+        else colors = ActorComponent.getRealValue(element.elementText("color"),datas);
         
         color=((IGraphicsTech)((WindowApp)AppState.getRunningApp()).
                 getGraphicsTech()).createColor(IColor.GeneraColor.valueOf(colors));
@@ -103,7 +104,7 @@ public class RenderComponentFactory implements IComponentFactory{
 
         if(backcolore!=null){
             backcolor=((IGraphicsTech)((WindowApp)AppState.getRunningApp()).
-                getGraphicsTech()).createColor(IColor.GeneraColor.valueOf(backcolore.getText()));
+                getGraphicsTech()).createColor(IColor.GeneraColor.valueOf(ActorComponent.getRealValue(backcolore.getText(),datas)));
         }
         
         TextRenderComponent textcomp;
@@ -121,8 +122,9 @@ public class RenderComponentFactory implements IComponentFactory{
      *      //<cutsize x="" y="" width="" height=""/>
      * </Render>
      */
-    private RenderComponent createTexture(Element element){
-        String texturepath = element.elementText("texture");
+    private RenderComponent createTexture(Element element,Map<String,String> datas){
+        String texturepath = ActorComponent.getRealValue(element.elementText("texture"),datas);
+        Debug.log("texturepath:"+texturepath);
         ITexture texture = ((IGraphicsTech)((WindowApp)AppState.getRunningApp()).
                 getGraphicsTech()).createTexture(texturepath);
         Element cut = element.element("cutsize");
@@ -132,7 +134,10 @@ public class RenderComponentFactory implements IComponentFactory{
             String width = cut.attributeValue("width");
             String height = cut.attributeValue("height");
             if(x!=null&&y!=null&&width!=null&&height!=null){
-                texture=texture.getCutInstance(Integer.parseInt(x),Integer.parseInt(y),Integer.parseInt(width),Integer.parseInt(height));
+                texture=texture.getCutInstance(Integer.parseInt(ActorComponent.getRealValue(x,datas)),
+                        Integer.parseInt(ActorComponent.getRealValue(height,datas)),
+                        Integer.parseInt(ActorComponent.getRealValue(width,datas)),
+                        Integer.parseInt(ActorComponent.getRealValue(height,datas)));
             }
         }
         return new TextureRenderComponent(texture);

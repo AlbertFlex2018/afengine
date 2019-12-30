@@ -6,12 +6,16 @@
 package afengine.core.util;
 
 import afengine.core.util.TextCenter.Text;
+import afengine.core.window.IColor;
+import afengine.core.window.IDrawStrategy;
+import afengine.core.window.IGraphicsTech;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -68,6 +72,27 @@ public class Debug {
     public static void log_panel(Text text) {
         if(!on)return;
 
-        logTexts.addFirst(text);
+        logTexts.addLast(text);
+        if(logTexts.size()>30){
+            logTexts.pollFirst();
+        }
+    }    
+    
+    public static class DebugDrawStrategy implements IDrawStrategy{
+        IColor color;
+        @Override
+        public void draw(IGraphicsTech tech) {
+            if(color==null){
+                color=tech.createColor(IColor.GeneraColor.RED);
+            }
+
+            Iterator<Text> logiter = logTexts.iterator();
+            int height = tech.getFont().getFontHeight();
+            while(logiter.hasNext()){
+                Text tex = logiter.next();
+                tech.drawText(0, height,tech.getFont(),color,tex.value);
+                height+=tech.getFont().getFontHeight();
+            }
+        }        
     }
 }

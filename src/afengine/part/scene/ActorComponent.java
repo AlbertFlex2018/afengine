@@ -5,6 +5,7 @@
  */
 package afengine.part.scene;
 
+import afengine.core.util.Debug;
 import afengine.part.message.IMessageHandler;
 import afengine.part.message.Message;
 import java.util.HashMap;
@@ -22,6 +23,7 @@ public class ActorComponent implements IMessageHandler{
         if(factoryMap.containsKey(compname))return;
         
         factoryMap.put(compname, factory);
+        Debug.log("add factory successfully - "+compname);
     }
     public static boolean hasFactory(String compname){
         return factoryMap.containsKey(compname);
@@ -52,7 +54,9 @@ public class ActorComponent implements IMessageHandler{
         if(!value.startsWith("#"))
             return value;
         else{
-            return actorvalues.get(value.substring(1,value.length()));
+            String result=actorvalues.get(value.substring(1,value.length()));
+            Debug.log(value+" - to - "+result);
+            return result;
         }
     }
     

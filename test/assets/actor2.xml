@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<actor1 mod="test/assets/modlib1.xml#mod4">
+  <transform pos="1.0,1.0,1.0,1.0" rotate="0.0,0.0,0.0,0.0" scale="1.0,1.0,1.0,0.0" anchor="0.0,0.0,0.0,0.0"/>
+  <datas>
+    <todo value="to ni ma"/>
+    <behaviortext2 value="Behavior1212e12232e"/>
+    <k1 value="k2"/>
+    <k2 value="k2"/>
+    <k3 value="k3"/>
+    <behavior2text value="snklasndklasldkns"/>
+    <k5 value="k5"/>
+    <behavior1text value="Behavior2Text Text Text"/>
+    <k23 value="salkshdlew"/>
+    <texturepath value="test/assets/1.png"/>
+    <x value="0"/>
+    <y value="0"/>
+    <width value="20"/>
+    <height value="20"/>
+  </datas>
+</actor1>

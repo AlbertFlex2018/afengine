@@ -36,7 +36,7 @@ public class ActorTest2 implements IAppLogic{
     public static Actor actor=null;
     private static    String actorxmlpath="test/assets/actor.xml";
     @Override
-    public boolean init() {
+    public boolean init(){
         ActorComponent.addFactory("Component1",new ComponentFactory1());
         ActorComponent.addFactory(BehaviorBeanComponent.COMPONENT_NAME,new BehaviorBeanComponentFactory());
         return true;

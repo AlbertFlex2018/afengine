@@ -186,7 +186,8 @@ public class WindowApp extends AbApp{
                         if(strategy==null){
                             System.out.println("strategy class not found,will skeep for.");
                             continue;
-                        }                                    
+                        }            
+                        Debug.log("add before draw..");
                         RenderStrategy.getInstance().beforeRootMaps.put(pril,strategy);
                     }
                 }
@@ -198,7 +199,7 @@ public class WindowApp extends AbApp{
                      }                                                    
                     else RenderStrategy.getInstance().rootStrategy=rootstrategy;
                 }
-                Element af = element.element("before");
+                Element af = element.element("after");
                 if(af!=null){
                     Iterator<Element> afiter=af.elementIterator();
                     long pril2=1;
@@ -213,6 +214,7 @@ public class WindowApp extends AbApp{
                             System.out.println("strategy class not found,will skeep for."+after.attributeValue("class"));
                             continue;
                         }                                    
+                        Debug.log("add before draw..");
                         RenderStrategy.getInstance().afterRootMaps.put(pril2,strategy);
                     }
                 }

@@ -61,7 +61,6 @@ public class ActorElementLogic implements IAppLogic{
         
     }
     public static Actor load(String xmlpath){
-        //output actor
         Document doc=XMLEngineBoot.getXMLFileRoot(xmlpath);
         Element root = doc.getRootElement();
         return SceneFileHelp.loadActorFromXML(root);
