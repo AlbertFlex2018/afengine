@@ -116,9 +116,9 @@ public class RenderComponentFactory implements IComponentFactory{
     }
     
     /**
-     * <Render type="Texture>
+     * <Render type="Texture">
      *      <texture>path</texture>
-     *      //<cutsize x="" y="" width-"" height=""/>
+     *      //<cutsize x="" y="" width="" height=""/>
      * </Render>
      */
     private RenderComponent createTexture(Element element){
