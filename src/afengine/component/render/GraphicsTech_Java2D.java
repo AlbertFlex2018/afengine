@@ -813,7 +813,7 @@ public class GraphicsTech_Java2D implements IGraphicsTech{
         buffer = window.getBufferStrategy();   
     }    
     
-    public static class Java2DColor implements IColor{
+    private class Java2DColor implements IColor{
 
         public Java2DColor(int r,int g,int b,int a)
         {
@@ -885,7 +885,7 @@ public class GraphicsTech_Java2D implements IGraphicsTech{
         }    
     }
     
-    public static class Java2DFont implements IFont{
+    private  class Java2DFont implements IFont{
         private Font font;
         private String fontpath;
         private String fontName;
@@ -978,7 +978,7 @@ public class GraphicsTech_Java2D implements IGraphicsTech{
         }    
     }
 
-    public class Java2DTexture implements ITexture{
+    private class Java2DTexture implements ITexture{
         private BufferedImage img;
         private final String texturepath;
         private final boolean isURL;
