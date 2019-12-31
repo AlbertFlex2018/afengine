@@ -5,10 +5,11 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import org.dom4j.Document;
 import org.dom4j.Element;
 
 
-public class Assets {
+public class AssetCenter {
     private final static List<String> liblist=new LinkedList<>();
     private final static Map<String,String> assetsPathMap=new HashMap<>();
 
@@ -18,12 +19,19 @@ public class Assets {
     }
 
     public static void setRootPath(String rootPath) {
-        Assets.rootPath = rootPath;
+        AssetCenter.rootPath = rootPath;
     }
 
     public static String getRootPath() {
         return rootPath;
     }
+    public static String getAssetRealPath(String assetname,String assetpath){
+        String path = assetsPathMap.get(assetname);
+        if(path!=null){
+            return path+"/"+assetpath;
+        }
+        return null;
+    }    
 
     public static void addAssetPath(String assetname,String path){        
         assetsPathMap.put(assetname, path);
@@ -34,33 +42,45 @@ public class Assets {
 
     public static List<String> getLiblist() {
         return liblist;
-    }    
+    }
 
     public static void loadLib(String libpath){
         
     }
     /*
             <Assets root="">
-                <AssetName lib="true" path=""/>
-                <AssetName path""/>
-                <AssetName path=""/>
-                ..
+                <AssetPaths>
+                    <AssetName path=""/>
+                    <AssetName path""/>
+                    <AssetName path=""/>   
+                    ..
+                </AssetPaths>
+                <AssetLibs>
+                    <lib path=""/>
+                    ...
+                </AssetLibs>
             </Assets>
     */
-    public static void outputAssetsConfig(){
+    public static void outputAssetsConfig(Document doc){
         
     }
     
     public static class AssetsPartBoot implements IXMLPartBoot{
 
-        /*
+    /*
             <Assets root="">
-                <AssetName lib="true" path=""/>
-                <AssetName path""/>
-                <AssetName path=""/>
-                ..
+                <AssetPaths>
+                    <AssetName path=""/>
+                    <AssetName path""/>
+                    <AssetName path=""/>   
+                    ..
+                </AssetPaths>
+                <AssetLibs>
+                    <lib path=""/>
+                    ...
+                </AssetLibs>
             </Assets>
-        */
+    */
         @Override
         public AbPartSupport bootPart(Element element) {
             
