@@ -81,6 +81,9 @@ public class Debug {
         logTexts.clear();
     }
     
+    /*
+        if you want look Debug.log_panel ,please add a instance of DebugDrawStrategy to RenderStrategy.after
+    */
     public static class DebugDrawStrategy implements IDrawStrategy{
         IColor color;
         @Override
