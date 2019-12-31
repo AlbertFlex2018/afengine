@@ -5,6 +5,7 @@
  */
 package afengine.part.scene;
 
+import afengine.component.render.TextureRenderComponent;
 import afengine.core.util.Debug;
 import afengine.core.util.IDCreator;
 import afengine.core.util.Transform;
@@ -321,4 +322,8 @@ public class Actor implements IMessageHandler{
         }        
         deletedchildlist.clear();
     }    
+
+    public void addComponent(TextureRenderComponent render) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

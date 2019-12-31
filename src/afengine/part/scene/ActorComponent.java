@@ -63,7 +63,7 @@ public class ActorComponent implements IMessageHandler{
     public final String getComponentName() {
         return componentName;
     }
-
+    
     public final boolean isActive() {
         return active;
     }
