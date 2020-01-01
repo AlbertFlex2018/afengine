@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sprite-action>
+    <frame texture="#texture1" delt="100"/>
+    <frame texture="#texture2" delt="150"/>
+    <frame texture="#texture3" delt="200"/>
+    <frame texture="#texture2" delt="100"/>
+    <frame texture="#texture3" delt="100"/>
+</sprite-action>

@@ -4,6 +4,7 @@ import afengine.core.AppState;
 import afengine.core.WindowApp;
 import afengine.core.util.Debug;
 import afengine.core.util.TextCenter.Text;
+import afengine.core.util.XMLEngineBoot;
 import afengine.core.window.IColor;
 import afengine.core.window.IFont;
 import afengine.core.window.IGraphicsTech;
@@ -27,8 +28,12 @@ public class RenderComponentFactory implements IComponentFactory{
         public RenderComponent create(Element element,Map<String,String> datas);
     }
 
-    public final Map<String,IRenderCreator> extraCreatorMap=new HashMap<>();
+    public static final Map<String,IRenderCreator> extraCreatorMap=new HashMap<>();
         
+    /*
+        <Render type="" render-creator=""/>
+        </Render>
+    */
     @Override
     public ActorComponent createComponent(Element element,Map<String,String> datas) {
         switch(element.attributeValue("type")){
@@ -41,15 +46,25 @@ public class RenderComponentFactory implements IComponentFactory{
         }
     }   
     
+    /*
+        <Render type="" render-creator=""/>
+        </Render>
+    */    
     private RenderComponent createExtra(Element element,Map<String,String> datas){
-        IRenderCreator creator = extraCreatorMap.get(element.attributeValue("type"));
-        if(creator==null)
-        {
-            System.out.println("Creator Rendr Error,no creator for rendercomponent type"+element.attributeValue("type"));
-            return null;
+        String type=element.attributeValue("type");
+        IRenderCreator rc = extraCreatorMap.get(type);
+        if(rc==null){
+            String renderclass=element.attributeValue("render-creator");        
+            if(renderclass!=null){
+                rc = (IRenderCreator)XMLEngineBoot.instanceObj(renderclass);
+                extraCreatorMap.put(type, rc);
+            }            
+            else{
+                Debug.log("have no render-creator for this type");
+                return null;
+            }            
         }
-        
-        return creator.create(element,datas);
+        return rc.create(element, datas);
     }
     /**
      * <Render type="Text">

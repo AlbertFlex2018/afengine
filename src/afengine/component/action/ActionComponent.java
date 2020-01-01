@@ -2,6 +2,7 @@ package afengine.component.action;
 
 import afengine.core.util.Debug;
 import afengine.core.util.IDCreator;
+import afengine.core.util.TextCenter.Text;
 import afengine.part.scene.ActorComponent;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -15,7 +16,7 @@ import java.util.Map;
  */
 public class ActionComponent extends ActorComponent{
     
-    public static final String COMPONENT_NAME="ActionComponent";
+    public static final String COMPONENT_NAME="Action";
     //the action will send message when action is start,or end.
     public static final long MESSAGE_TYPE_ACTION=IDCreator.createId();
 
@@ -44,9 +45,14 @@ public class ActionComponent extends ActorComponent{
         public abstract void update(long time);
         public void setNextAction(ActAction action){
             nextAction=action;
+            action.actionComp=this.actionComp;
         }
         public ActAction getNextAction(){
             return nextAction;
+        }
+
+        public void setActionName(String actionName) {
+            this.actionName = actionName;
         }
 
         public ActionComponent getActionComp() {
@@ -60,8 +66,15 @@ public class ActionComponent extends ActorComponent{
         if(action.actionComp!=null){
             action.actionComp.removeAction(action.actionName);
         }
+        Debug.log_panel(new Text("->"+action.actionName));
         action.actionComp=this;
+        ActAction ac = action.nextAction;
         action.start();
+        while(ac!=null){
+            ac.actionComp=this;
+            Debug.log_panel(new Text("->"+ac.actionName));
+            ac=ac.nextAction;
+        }
     }
     public void removeAction(String name){
         ActAction action=this.actionMap.remove(name);
@@ -105,6 +118,7 @@ public class ActionComponent extends ActorComponent{
                 ActAction act = action.nextAction;
                 act.start();
                 actionMap.put(act.actionName,act);
+                Debug.log("to - "+act.actionName);
             }
         }
         

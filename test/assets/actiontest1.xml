@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<app>
+   <afengine debug="true" type="window" logicpath="component.action.ActionTestLogic1" 
+             typeboot="afengine.core.WindowApp$WindowAppBoot"/>    
+   <window size="800,700" title="SceneTest2" icon="test/assets/1.png"
+           tech="afengine.component.render.GraphicsTech_Java2D">
+       <root class="component.action.ActionTestLogic1$ActionTestDraw1"/>
+       <after>
+           <draw pri="1" class="afengine.core.util.Debug$DebugDrawStrategy"/>
+       </after>
+   </window>
+</app>
+
+

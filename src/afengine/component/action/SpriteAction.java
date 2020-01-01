@@ -3,23 +3,33 @@ package afengine.component.action;
 import afengine.component.action.ActionComponent.ActAction;
 import afengine.component.render.RenderComponent;
 import afengine.component.render.TextureRenderComponent;
+import afengine.core.AppState;
+import afengine.core.WindowApp;
+import afengine.core.util.Debug;
+import afengine.core.util.XMLEngineBoot;
+import afengine.core.window.IGraphicsTech;
 import afengine.core.window.ITexture;
 import afengine.part.scene.Actor;
+import afengine.part.scene.ActorComponent;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import org.dom4j.Document;
+import org.dom4j.Element;
 
 public class SpriteAction extends ActAction{
-    public SpriteAction(String name,int looptype) {
+    public SpriteAction(String name,boolean repeat) {
         super(name);
         shapeList=new ArrayList<>();
-        this.loopType=looptype;
+        this.repeat=repeat;
     }
 
-    private boolean realEnd;
     
     @Override
     public boolean isEnd() {
-        return realEnd;
+        return isEnd;
     }
 
     @Override
@@ -36,18 +46,14 @@ public class SpriteAction extends ActAction{
         else{
             render.setTexture(nowTexture);
         }        
-    }
+    }    
     
-    public static final int LOOP_ONCE_RETURN=0;
-    public static final int LOOP_ONCE_STOP=1;
-    public static final int LOOP_FOREVER=2;
-    public static final int LOOP_PASS=3;
+    private boolean repeat=false;
     
     private final List<AnimateShape> shapeList;
     private int index;   
     private  int size;
-    private int loopType;
-            
+
     private long totaltime;
     private long updatetime;
     private boolean isEnd;
@@ -55,14 +61,6 @@ public class SpriteAction extends ActAction{
     public int getSize()
     {
         return size;
-    }
-    public int getLoopType()
-    {
-        return loopType;
-    }    
-    public void setLoopType(int loop)
-    {
-        loopType=loop;
     }
     public ITexture getTexture()
     {
@@ -85,6 +83,15 @@ public class SpriteAction extends ActAction{
             endtime=time;
         }
     }    
+
+    public boolean isRepeat() {
+        return repeat;
+    }
+
+    public void setRepeat(boolean repeat) {
+        this.repeat = repeat;
+    }
+
     @Override
     public void start()
     {
@@ -105,10 +112,10 @@ public class SpriteAction extends ActAction{
             {
                 updatetime = updatetime % totaltime;
                 index = 0;
-                if(loopType==SpriteAction.LOOP_FOREVER){
+                if(repeat){
                     isEnd=false;                    
                 }
-                else if(loopType==SpriteAction.LOOP_PASS){
+                else{
                     isEnd=true;
                 }
             }
@@ -118,4 +125,108 @@ public class SpriteAction extends ActAction{
             }
         }
     }    
+    
+    public static class SpriteActionFactory implements IActActionFactory{
+        
+        /*
+            <act type="SpriteAction" name="" path="*.xml" /> 
+        */
+        @Override
+        public ActAction createAction(Element element,Map<String,String> actordatas) {
+            String path = element.attributeValue("path");            
+            if(path!=null){
+                path=ActorComponent.getRealValue(path, actordatas);
+                Document doc = XMLEngineBoot.readXMLFileDocument(path);
+                Element root = doc.getRootElement();
+                if(root!=null&&root.getName().equals("sprite-action")){
+                        String name=element.attributeValue("name");
+                        name=ActorComponent.getRealValue(name, actordatas);
+                        String repeat=element.attributeValue("repeat");
+                        boolean re=false;
+                        if(repeat!=null&&repeat.equals("true")){
+                            re=true;
+                        }
+                        SpriteAction sprite = createSprite(root,name,re,actordatas);
+                        return sprite;
+                }
+                Debug.log("sprite action create failed.");
+            }else{
+                    Debug.log("xml error or root is not sprite-action");
+                    return null;
+            }
+            
+            Debug.log("path is not found.");
+            return null;
+        }   
+        
+        /*
+            <sprite-action>                
+                <frame texture="" cord="x,y,w,h" deltetime=""/>
+                <frame texture="" cord="" deltetime=""/>
+                <frame texture="" cord="" deltetime=""/>
+                <frame texture="" cord="" deltetime=""/>                
+            </sprite-action>
+        */
+        public static SpriteAction createSprite(Element actRoot,String name,boolean repeat,Map<String,String> actordatas){
+            
+            SpriteAction sprite=new SpriteAction(name,repeat);
+            Iterator<Element> frameiter = actRoot.elementIterator();
+            while(frameiter.hasNext()){
+                Element frame = frameiter.next();
+                addFrame(sprite,frame,actordatas);
+            }
+            return sprite;
+        }
+        /*
+            you can not use #value,must use value.
+            <frame texture"" cord="x,y,w,h" delttime=""/>
+        */
+        private static final Map<String,ITexture> textureMap=new HashMap<>();
+        private static void addFrame(SpriteAction sprite,Element frame,Map<String,String> actordatas){
+            String texture=frame.attributeValue("texture");
+            if(texture!=null){
+                texture=ActorComponent.getRealValue(texture, actordatas);
+                WindowApp wapp = (WindowApp)(AppState.getRunningApp());
+                if(wapp==null){
+                    Debug.log("it's not a windowapp, you can not create sprite action.");
+                }else{                    
+                    IGraphicsTech tech = wapp.getGraphicsTech();
+                    ITexture text=null;
+                    text=textureMap.get(texture);
+                    String delttime = frame.attributeValue("delttme");
+                    long delt=100;
+                    if(delttime!=null){
+                        delt = Long.parseLong(delttime);
+                    }
+                    if(text!=null){
+                        sprite.addAnimate(text, delt);                                                                        
+                    }
+                    if(text==null){
+                        String cord = frame.attributeValue("cord");
+                        if(cord==null)
+                            text = tech.createTexture(texture);
+                        else{
+                            String[] cords = cord.split(",");                        
+                            if(cords.length==4){
+                                text=tech.createTexture(texture,
+                                        Integer.parseInt(cords[0]),
+                                        Integer.parseInt(cords[1]),
+                                        Integer.parseInt(cords[2]),
+                                        Integer.parseInt(cords[3]));
+                            }else{
+                                text=tech.createTexture(texture);
+                            }
+                        }
+                    if(text!=null){
+                        textureMap.put(texture, text);
+                        sprite.addAnimate(text, delt);                                                
+                    }
+                }
+               if(text==null){
+                        Debug.log("texture create failed.");
+               }   
+                }
+            }
+        }
+    }
 }
