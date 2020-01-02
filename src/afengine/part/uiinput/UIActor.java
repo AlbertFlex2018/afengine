@@ -1,0 +1,118 @@
+package afengine.part.uiinput;
+
+import afengine.core.util.Debug;
+import afengine.core.util.Vector;
+import afengine.core.window.IDrawStrategy;
+import afengine.core.window.IGraphicsTech;
+import afengine.part.message.IMessageHandler;
+import afengine.part.message.Message;
+import java.util.LinkedList;
+import java.util.List;
+
+
+public class UIActor implements IMessageHandler,IDrawStrategy{
+    private String uiName;
+    private String faceName;
+    
+    //理论上来说，只有容器的界面才能有子节点，容器的消息处理和绘制处理交由容器自己管理
+    protected final List<UIActor> children=new LinkedList<>();
+    protected UIActor parent=null;
+    
+    protected Vector pos;
+    protected int width,height;    
+    
+    public UIActor(String name,Vector pos){
+        this.uiName=name;
+        this.pos=pos;
+        width=0;
+        height=0;
+    }
+
+    public String getUiName() {
+        return uiName;
+    }
+    
+    public void addChild(UIActor child){
+        if(children.contains(child)){
+            Debug.log("already add child for "+child.uiName);
+            return;
+        }        
+        children.add(child);
+    }
+        
+    public void setUiName(String uiName) {
+        this.uiName = uiName;
+    }
+    
+    public String getFaceName() {
+        return faceName;
+    }
+    public void setFaceName(String faceName){
+        setFName(faceName);
+    }
+    private void setFName(String faceName){        
+        this.faceName = faceName;
+        
+        children.forEach((ui) -> {
+            ui.setFName(faceName);
+        });
+    }
+
+    public UIActor getParent() {
+        return parent;
+    }
+    public List<UIActor> getUiChildren(){
+        return children;
+    }
+
+    public void setParent(UIActor parent) {
+        this.parent = parent;
+    }
+
+    public Vector getPos() {
+        return pos;
+    }
+
+    public void setPos(Vector pos) {
+        this.pos = pos;
+    }
+        
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }    
+
+    public int getUiX(){
+        double x=this.pos.getX();
+        UIActor uiparent=this.parent;
+        while(uiparent!=null){
+            x+=uiparent.getPos().getX();
+            uiparent=uiparent.parent;
+        }
+        
+        return (int) x;
+    }
+    public int getUiY(){
+        double y=this.pos.getY();
+        UIActor uiparent=this.parent;
+        while(uiparent!=null){
+            y+=uiparent.getPos().getY();
+            uiparent=uiparent.parent;
+        }
+        
+        return (int)y;
+    }
+    
+    //need override
+    @Override
+    public void draw(IGraphicsTech tech){}
+    
+    //need override
+    @Override
+    public boolean handle(Message msg){
+        return false;
+    }
+}
