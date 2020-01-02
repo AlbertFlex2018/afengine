@@ -8,11 +8,13 @@ import afengine.component.render.RenderComponentFactory;
 import afengine.core.AppState;
 import afengine.core.util.Debug;
 import afengine.core.util.TextCenter.Text;
+import afengine.core.util.Vector;
 import afengine.core.util.XMLEngineBoot;
 import afengine.core.window.IDrawStrategy;
 import afengine.core.window.IGraphicsTech;
 import afengine.part.scene.Actor;
 import afengine.part.scene.ActorComponent;
+import afengine.part.scene.SceneCamera;
 import part.scene.ActorElementLogic;
 import part.scene.ActorTest2;
 import static part.scene.ActorTest2.actor;
@@ -26,6 +28,7 @@ public class ActionTestLogic1 extends AppLogicBase{
     }
     
     public static class ActionTestDraw1 implements IDrawStrategy{
+        public static final SceneCamera camera=new SceneCamera(new Vector(),new Vector(),0,0);
         @Override
         public void draw(IGraphicsTech tech) {
             Actor actor = ActorTest2.actor;
@@ -36,7 +39,7 @@ public class ActionTestLogic1 extends AppLogicBase{
                 if(render==null){
                     Debug.log_panel(new Text("actor render is null"));
                 }else{
-                    render.renderComponent(tech);
+                    render.renderComponent(camera,tech);
                 }
             }
         }        
@@ -49,10 +52,18 @@ public class ActionTestLogic1 extends AppLogicBase{
     }
     public static class Action2 implements ITimeAction{
         @Override
-        public void action() {
+        public void action(){
             AppState.setValue("run","false");
             Debug.log_panel(new Text("action2"));
         }
+    }
+    public static class Action3 implements ITimeAction{
+        @Override
+        public void action() {
+            SceneCamera camera=ActionTestDraw1.camera;
+            Vector p=camera.getPos();
+            p.setX(p.getX()-10);
+        }        
     }
 
     @Override

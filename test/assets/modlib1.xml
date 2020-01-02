@@ -28,8 +28,9 @@
         </Render>
         <Action>
             <act type="Time" name="#act1name" gap="#gap"  action="#action1" next="#spritename"/>
-            <act type="Sprite" name="#spritename" path="#sprite-path" next="#act2name"/>
+            <act type="Sprite" name="#spritename" path="#sprite-path"/>
             <act type="Time" name="#act2name" repeat="true" gap="#gap2" action="#action2"/>
+            <act type="Time" name="#act3name" repeat="true" gap="#gap3" action="#action3"/>
         </Action>
     </mod4>
 </modlibs>

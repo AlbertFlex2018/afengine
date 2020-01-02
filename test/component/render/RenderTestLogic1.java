@@ -6,10 +6,12 @@ import afengine.core.AppState;
 import afengine.core.IAppLogic;
 import afengine.core.util.Debug;
 import afengine.core.util.TextCenter.Text;
+import afengine.core.util.Vector;
 import afengine.core.util.XMLEngineBoot;
 import afengine.core.window.IDrawStrategy;
 import afengine.core.window.IGraphicsTech;
 import afengine.part.scene.ActorComponent;
+import afengine.part.scene.SceneCamera;
 import java.util.Iterator;
 import java.util.Map;
 import part.scene.ActorElementLogic;
@@ -19,6 +21,7 @@ import part.scene.ActorTest2;
 public class RenderTestLogic1 implements IAppLogic{
     
     public static class DrawTest1 implements IDrawStrategy{
+        private final SceneCamera camera=new SceneCamera(new Vector(),new Vector(),0,0);        
         @Override
         public void draw(IGraphicsTech tech) {
             if(ActorTest2.actor==null){
@@ -28,7 +31,7 @@ public class RenderTestLogic1 implements IAppLogic{
                 if(ActorTest2.actor.hasComponent(RenderComponent.COMPONENT_NAME)){
                     ActorComponent rendercomp = ActorTest2.actor.getComponent(RenderComponent.COMPONENT_NAME);
                     RenderComponent render = (RenderComponent)rendercomp;
-                    render.renderComponent(tech);
+                    render.renderComponent(camera,tech);
                 }
                 else tech.drawText(0, tech.getFont().getFontHeight(),tech.getFont(),tech.getColor(),"Actor has no RenderComponent!");
                 

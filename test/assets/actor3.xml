@@ -8,12 +8,15 @@
       <texture3 value="test/assets/duke2.gif"/>   
       <action1 value="component.action.ActionTestLogic1$Action1"/>   
       <action2 value="component.action.ActionTestLogic1$Action2"/>
+      <action3 value="component.action.ActionTestLogic1$Action3"/>
       <texturepath value="test/assets/duke0.gif"/>
       <act1name value="action1"/>
       <act2name value="action2"/>      
+      <act3name value="action3"/>      
       <spritename value="sprite1"/>
       <sprite-path value="test/assets/sprite1.xml"/>
-      <gap value="10000"/>
-      <gap2 value="5000"/>
+      <gap value="5000"/>
+      <gap2 value="10000"/>
+      <gap3 value="300"/>
   </datas>
 </actor1>
