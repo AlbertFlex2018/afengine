@@ -157,4 +157,5 @@ public class RenderComponentFactory implements IComponentFactory{
         }
         return new TextureRenderComponent(texture);
     }
+    
 }

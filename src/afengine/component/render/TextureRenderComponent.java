@@ -3,6 +3,7 @@ package afengine.component.render;
 import afengine.core.util.Vector;
 import afengine.core.window.IGraphicsTech;
 import afengine.core.window.ITexture;
+import afengine.part.scene.SceneCamera;
 
 /**
  * render for texture,commonly image.<br>
@@ -15,7 +16,11 @@ public class TextureRenderComponent extends RenderComponent{
 
     public TextureRenderComponent(ITexture texture){
         super();
-        this.texture=texture;
+        this.texture=texture; 
+        if(texture!=null){
+            super.renderWidth=texture.getWidth();
+            super.renderHeight=texture.getHeight();
+        }
     }        
 
     public ITexture getTexture() {
@@ -27,11 +32,13 @@ public class TextureRenderComponent extends RenderComponent{
     }
     
     @Override
-    public void render(IGraphicsTech tech){
+    public void render(SceneCamera camera,IGraphicsTech tech){
         if(texture==null)return;
         
-        double ax = this.getActor().getAbsoluteX();
-        double ay = this.getActor().getAbsoluteY();
+        super.renderWidth=texture.getWidth();
+        super.renderHeight=texture.getHeight();
+        double ax = super.getRenderX(camera);
+        double ay = super.getRenderY(camera);
         Vector r = this.getActor().getTransform().rotation;
         Vector a = this.getActor().getTransform().anchor;
         Vector s = this.getActor().getTransform().scalation;

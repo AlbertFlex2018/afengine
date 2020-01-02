@@ -5,6 +5,7 @@ import afengine.core.util.Vector;
 import afengine.core.window.IColor;
 import afengine.core.window.IFont;
 import afengine.core.window.IGraphicsTech;
+import afengine.part.scene.SceneCamera;
 
 /**
  * text render<br>
@@ -22,6 +23,8 @@ public class TextRenderComponent extends RenderComponent{
     public TextRenderComponent(IFont font,IColor color,Text text) {
         super();
         this.font=font;
+        super.renderWidth=font.getFontWidth(text.value);
+        super.renderHeight=font.getFontHeight();
         this.color=color;
         this.text=text;
         hasBack=false;
@@ -57,9 +60,9 @@ public class TextRenderComponent extends RenderComponent{
 
     
     @Override
-    public void render(IGraphicsTech tech){
-        double ax=this.getActor().getAbsoluteX();
-        double ay=this.getActor().getAbsoluteY();
+    public void render(SceneCamera camera,IGraphicsTech tech){
+        double ax=super.getRenderX(camera);
+        double ay=super.getRenderY(camera);
         Vector a=this.getActor().getTransform().anchor;
         float width = font.getFontWidth(text.value);
         float height=(float) (font.getFontHeight());
@@ -79,21 +82,7 @@ public class TextRenderComponent extends RenderComponent{
            tech.setColor(oldc);
         }
        tech.drawText(dx, (float) (dy+height*0.9),font,color,text.value);
-    }
-    
-    @Override
-    public boolean isPointIn(Vector point){
-        double ax=this.getActor().getAbsoluteX();
-        double ay=this.getActor().getAbsoluteY();
-        Vector a = this.getActor().getTransform().anchor;
-        float width = font.getFontWidth(text.value);
-        float height=(float) (font.getFontHeight());
-        float dx = (float) (ax-width*a.getX());
-        float dy = (float) (ay-height*a.getY());
-        float px = (float) ax;
-        float py = (float) ay;
-        if(px<dx||px>(dx+width))return false;
-        
-        return !(py<dy||py>(dy+height));
+        super.renderWidth=font.getFontWidth(text.value);
+        super.renderHeight=font.getFontHeight();       
     }
 }
