@@ -5,6 +5,7 @@
  */
 package afengine.part.scene;
 
+import afengine.core.util.Vector;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.HashMap;
@@ -45,6 +46,7 @@ public class Scene{
     private String name;
     public final Map<String,Actor> nodeActorMap=new HashMap<>();
     private AbSceneLoader loader;
+    private final SceneCamera camera;
     private boolean shouldoutput;
     
     public Scene(){
@@ -56,6 +58,7 @@ public class Scene{
         this.loader=loader;
         this.loader.setThisScene(this);
         shouldoutput=false;
+        camera=new SceneCamera(new Vector(0,0,0,0),new Vector(0,0,0,0),0.5,0.5);
     }
     public Scene(String name){
         this(name,new AdapterLoader());
@@ -64,6 +67,11 @@ public class Scene{
     public AbSceneLoader getLoader() {
         return loader;
     }    
+
+    public SceneCamera getCamera() {
+        return camera;
+    }
+    
     public void setLoader(AbSceneLoader loader){
         this.loader=loader;
     }
