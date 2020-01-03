@@ -87,6 +87,8 @@ public class UIToggle extends UIActor{
     //INPUT_MOUSE_CLICK
     @Override
     public boolean handle(Message msg){
+        if(msg.msgType!=InputServlet.INPUT_MOUSE_CLICK)return false;
+        
         MouseEvent event=(MouseEvent) msg.extraObjs[0];
         if(event!=null){
             int mx=event.getX();
@@ -102,7 +104,7 @@ public class UIToggle extends UIActor{
         return false;
     }
     public void toggle(){
-        index=(index+1)%(addindex+1);
+        index=(index+1)%addindex;
     }
 
     @Override
