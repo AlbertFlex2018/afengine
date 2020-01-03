@@ -115,6 +115,9 @@ public class WindowApp extends AbApp{
                 <after>
                     <draw pri="" class=""/>
                 </after>
+                <configs>
+                    <config key="" value=""/>
+                </configs>
             </window>
         */
         @Override
@@ -214,11 +217,47 @@ public class WindowApp extends AbApp{
                             System.out.println("strategy class not found,will skeep for."+after.attributeValue("class"));
                             continue;
                         }                                    
-                        Debug.log("add before draw..");
+                        Debug.log("add after draw..");
                         RenderStrategy.getInstance().afterRootMaps.put(pril2,strategy);
                     }
                 }
             }
+            Element config = element.element("configs");
+            if (config != null) {
+                Iterator<Element> configiter = config.elementIterator();
+                while (configiter.hasNext()) {
+                    Element confige = configiter.next();
+                    String key = confige.attributeValue("key");
+                    String value = confige.attributeValue("value");
+                    if (key == null || value == null) {
+                        continue;
+                    }
+
+                    Object[] objs = new Object[1];
+                    if (value.startsWith("class:")) {
+                        String[] cmd = value.split(":");
+                        String classpath = cmd[1];
+                        Object obj = XMLEngineBoot.instanceObj(classpath);
+                        if (obj == null) {
+                            Debug.log("load object on windowapp created failed, obj not found by configs");
+                        } else {
+                            objs[0] = obj;
+                        }
+                    } else {
+                        objs[0] = value;
+                    }
+                    if (key.contains(",")) {
+                        String[] cmds = key.split(",");
+                        for (String c : cmds) {
+                            Debug.log("set value for tech:" + c);
+                            tech.setValue(c, objs);
+                        }
+                    } else {
+                        tech.setValue(key, objs);
+                    }
+                }
+            }
+            
             
             return wapp;
         }        

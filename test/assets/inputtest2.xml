@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<app>
+   <afengine debug="true" type="window" 
+             logicpath="part.uiinput.TextButtonTest" 
+             typeboot="afengine.core.WindowApp$WindowAppBoot"/>    
+   <window size="800,700" title="ExternDrawTest" icon="test/assets/1.png"
+           tech="afengine.component.render.GraphicsTech_Java2D">
+       <root class="part.uiinput.TextButtonTest$Draw1"/>
+       <after>
+           <draw pri="1" class="afengine.core.util.Debug$DebugDrawStrategy"/>
+       </after>
+       <configs>
+           <config key="mouselistener,mousemovelistener"  
+                   value="class:part.uiinput.TextButtonTest$Listener"/>
+       </configs>
+   </window>   
+</app>
+
+

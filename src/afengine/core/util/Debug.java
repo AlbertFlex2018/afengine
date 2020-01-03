@@ -96,8 +96,10 @@ public class Debug {
             int height = tech.getFont().getFontHeight();
             while(logiter.hasNext()){
                 Text tex = logiter.next();
-                tech.drawText(0, height,tech.getFont(),color,tex.value);
-                height+=tech.getFont().getFontHeight();
+                if(tex!=null){
+                    tech.drawText(0, height,tech.getFont(),color,tex.value);
+                    height+=tech.getFont().getFontHeight();                    
+                }
             }
         }        
     }

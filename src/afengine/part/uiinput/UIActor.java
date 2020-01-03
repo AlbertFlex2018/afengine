@@ -12,7 +12,7 @@ import java.util.List;
 
 public class UIActor implements IMessageHandler,IDrawStrategy{
     private String uiName;
-    private String faceName;
+    private UIFace face;
     
     //理论上来说，只有容器的界面才能有子节点，容器的消息处理和绘制处理交由容器自己管理
     protected final List<UIActor> children=new LinkedList<>();
@@ -43,21 +43,27 @@ public class UIActor implements IMessageHandler,IDrawStrategy{
     public void setUiName(String uiName) {
         this.uiName = uiName;
     }
-    
-    public String getFaceName() {
-        return faceName;
+    public UIFace getFace(){
+        return face;
     }
-    public void setFaceName(String faceName){
-        setFName(faceName);
+    public void setFace(UIFace face){
+        setFFace(face);
     }
-    private void setFName(String faceName){        
-        this.faceName = faceName;
+    private void setFFace(UIFace face){        
+        this.face=face;
+        loadInToFace(face);
         
         children.forEach((ui) -> {
-            ui.setFName(faceName);
+            ui.loadOutFromFace(ui.face);
+            ui.setFFace(face);
         });
     }
-
+    
+    //need override,use setface to call them
+    protected void loadInToFace(UIFace face){}
+    protected void loadOutFromFace(UIFace face){}
+    
+    
     public UIActor getParent() {
         return parent;
     }
@@ -106,6 +112,15 @@ public class UIActor implements IMessageHandler,IDrawStrategy{
         return (int)y;
     }
     
+    protected boolean isPointInUi(int x,int y){
+        int minx=getUiX();
+        int maxx=getUiX()+this.width;
+        int minh=getUiY();
+        int maxh=getUiY()+this.height;
+
+        return (x>=minx&&x<=maxx&&y>=minh&&y<=maxh);
+    }
+    
     //need override
     @Override
     public void draw(IGraphicsTech tech){}
@@ -115,4 +130,7 @@ public class UIActor implements IMessageHandler,IDrawStrategy{
     public boolean handle(Message msg){
         return false;
     }
+    
+    //need override
+    public void update(long time){}
 }

@@ -30,7 +30,7 @@ public class UIFace implements IMessageHandler{
     public void setFaceName(String faceName){        
         this.faceName = faceName;
         actorList.forEach((ui) -> {
-            ui.setFaceName(faceName);
+            ui.setFace(this);
         });
     }
     
@@ -67,16 +67,13 @@ public class UIFace implements IMessageHandler{
         return ui!=null;
     }
     public boolean containsUiInReserved(String uiname){
-        if (reservedActorList.stream().anyMatch((ui) -> (ui.getUiName().equals(uiname)))) {
-            return true;
-        }        
-        return false;
+        return reservedActorList.stream().anyMatch((ui) -> (ui.getUiName().equals(uiname)));
     }
     
     public boolean addUiInAll(UIActor actor){
         if(!containsUiInAll(actor.getUiName())){
             actorList.add(actor);
-            actor.setFaceName(faceName);
+            actor.setFace(this);
             return true;
         }
         else{
@@ -127,8 +124,50 @@ public class UIFace implements IMessageHandler{
     public List<UIActor> getReservedActorList() {
         return reservedActorList;
     }
-    public Map<Long, List<UIActor>> getMsgUIMap() {
+    public Map<Long, List<UIActor>> getMsgUiMap() {
         return msgTypeUIMap;
+    }
+    
+    public void addMsgUiMap(Long type,UIActor ui){
+        List<UIActor> uilist=msgTypeUIMap.get(type);
+        if(uilist==null){
+            uilist=new LinkedList<>();
+            msgTypeUIMap.put(type, uilist);
+            uilist.add(ui);
+        }
+        else{
+            if(uilist.contains(ui)){
+                Debug.log("already has type map for "+ui.getUiName());
+            }
+            else{
+                uilist.add(ui);
+            }
+        }
+    }
+    public void removeMsgUiMap(Long type,UIActor ui){
+        List<UIActor> uilist=msgTypeUIMap.get(type);
+        if(uilist==null){
+            Debug.log("no type of msg ui found,type:"+type);
+            return;
+        }
+        if(uilist.contains(ui)){
+            uilist.remove(ui);
+            Debug.log("remove ui map successfully");
+        }else{
+            Debug.log("no ui msp");
+        }
+    }
+    public UIActor findUiFromMsgUiMap(long type,String uiname){
+        List<UIActor> uilist=msgTypeUIMap.get(type);
+        if(uilist==null){
+            Debug.log("no type of msg ui found,type:"+type);
+            return null;
+        }
+        for(UIActor ui:uilist){
+            if(ui.getUiName().equals(uiname))
+                return ui;
+        }
+        return null;
     }
     
     //交由msgUIMap处理
