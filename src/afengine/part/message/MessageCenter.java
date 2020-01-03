@@ -179,7 +179,9 @@ public class MessageCenter
         {
             Message msg=msgShouldSend.pollLast();
             IMessageRoute route = routeMap.get(msg.routeType);
-            route.routeMessage(msg);            
+            if(route!=null){
+                route.routeMessage(msg);                            
+            }
         }
         msgShouldSend.clear();
     }
