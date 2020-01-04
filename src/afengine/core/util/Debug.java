@@ -73,7 +73,7 @@ public class Debug {
         if(!on)return;
 
         logTexts.addLast(text);
-        if(logTexts.size()>50){
+        if(logTexts.size()>30){
             logTexts.pollFirst();
         }
     }    
@@ -94,12 +94,16 @@ public class Debug {
 
             Iterator<Text> logiter = logTexts.iterator();
             int height = tech.getFont().getFontHeight();
-            while(logiter.hasNext()){
+            try{
+              while(logiter.hasNext()){
                 Text tex = logiter.next();
                 if(tex!=null){
                     tech.drawText(0, height,tech.getFont(),color,tex.value);
                     height+=tech.getFont().getFontHeight();                    
                 }
+              }
+            }catch(Exception ex){
+                Debug.log("debug log draw failed once.");
             }
         }        
     }

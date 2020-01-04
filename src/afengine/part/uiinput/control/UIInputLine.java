@@ -1,6 +1,7 @@
 package afengine.part.uiinput.control;
 
 import afengine.core.util.Debug;
+import afengine.core.util.TextCenter.Text;
 import afengine.core.util.Vector;
 import afengine.core.window.IColor;
 import afengine.core.window.IFont;
@@ -10,6 +11,8 @@ import afengine.part.message.Message;
 import afengine.part.uiinput.InputServlet;
 import afengine.part.uiinput.UIActor;
 import afengine.part.uiinput.UIFace;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 
 /**
  *
@@ -53,10 +56,10 @@ public class UIInputLine extends UIActor{
         
         --curpos;
         dirty=true;        
-        return texts[curpos+1];
+        return texts[curpos];
     }    
     public String getText(){
-        return String.copyValueOf(texts);
+        return String.copyValueOf(texts,0,curpos);
     }
     public void setText(String text){        
         for(int i=0;i!=length&&i!=text.length();++i){
@@ -94,6 +97,7 @@ public class UIInputLine extends UIActor{
     }
 
     private boolean showsplit=false;
+    private boolean isOn=true;
     private long t;
     @Override
     public void update(long time) {
@@ -107,6 +111,7 @@ public class UIInputLine extends UIActor{
             super.height=font.getFontHeight();
             dirty=false;
         }
+        if(!isOn)return;
         
         t+=time;
         if(t>1000)
@@ -138,7 +143,7 @@ public class UIInputLine extends UIActor{
             String text=getText();
             tech.drawText(dx, dy, font, color, text);
             int dxx=dx+font.getFontWidth(text);
-            if(showsplit)
+            if(isOn&&showsplit)
                 tech.drawText(dxx, dy, font, color,"|");
         }        
     }
@@ -162,7 +167,52 @@ public class UIInputLine extends UIActor{
     //key type,key up
     //mouse click
     @Override
-    public boolean handle(Message msg) {
+    public boolean handle(Message msg){        
+        long type=msg.msgType;
+        if(type==InputServlet.INPUT_KEY_TYPE){
+            if(isOn){
+                KeyEvent keyevent=(KeyEvent) msg.extraObjs[0];
+                char word=keyevent.getKeyChar();
+                int code=(word);
+                Debug.log_panel(new Text("type - code:"+code));
+                if(code!=KeyEvent.VK_BACK_SPACE)
+                    append(word);
+                return true;
+            }
+        }else if(type==InputServlet.INPUT_KEY_UP){
+            if(isOn){
+                KeyEvent keyevent=(KeyEvent) msg.extraObjs[0];
+                int code=keyevent.getKeyCode();
+                Debug.log_panel(new Text("up - code:"+code));
+                if(code==KeyEvent.VK_BACK_SPACE){
+                    back();
+                    return true;
+                }
+            }
+        }else if(type==InputServlet.INPUT_MOUSE_CLICK){
+            MouseEvent event=(MouseEvent)msg.extraObjs[0];
+            int mx=event.getX();
+            int my=event.getY();
+            boolean isIn=isPointInUi(mx,my);
+            if(isOn&&!isIn){
+                isOn=false;
+                return true;
+            }else if(!isOn&&isIn){
+                isOn=true;
+                return true;
+            }
+            return false;
+        }
         return false;
-    }        
+    }           
+
+    @Override
+    protected boolean isPointInUi(int x, int y) {
+        int minx=getUiX();
+        int maxx=getUiX()+this.width;
+        int minh=getUiY()-this.height;
+        int maxh=getUiY();
+
+        return (x>=minx&&x<=maxx&&y>=minh&&y<=maxh);
+    }    
 }

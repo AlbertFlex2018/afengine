@@ -29,7 +29,7 @@ public class BigMessageHandlerTest{
         bighandler.handle(msg4);        
     }
     
-    public static Message createMessage(long route,long type,long content){
+    public static Message createMessage(long route,long type,int content){
         Message msg = new Message(route,type,content,
                         "msg",null,System.currentTimeMillis(),
                         0,0,null,

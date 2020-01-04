@@ -19,7 +19,7 @@ public class Message {
     public final long routeType;//路由类型
     
     public final long msgType;//消息类型
-    public final long msgContent;//消息内容
+    public final int msgContent;//消息内容
     public final String msgInfo;//消息提示
     public final Object[] extraObjs;//消息附加内容
     
@@ -32,7 +32,7 @@ public class Message {
     public final long senderId;//发送方Id
     public final long receiveId;//接收方Id
 
-    public Message(long routeType, long msgType, long msgContent, 
+    public Message(long routeType, long msgType, int msgContent, 
             String msgInfo, Object[] extraObjs, long timetamp, 
             long delaytime, long senderType, Object senderObj, 
             long receiveType, long senderId, long receiveId) {
