@@ -34,6 +34,7 @@ public class TextButtonTest extends AppLogicBase{
         @Override
         public void mousePressed(MouseEvent e) {
             Message msg=createMsg(InputServlet.INPUT_MOUSE_DOWN,e);
+            Debug.log("mouse pressed");
             sendMsg(msg);
         }
         /*
@@ -51,6 +52,7 @@ public class TextButtonTest extends AppLogicBase{
         @Override
         public void mouseReleased(MouseEvent e) {     
             Message msg=createMsg(InputServlet.INPUT_MOUSE_UP,e);
+            Debug.log("mouse up");
             sendMsg(msg);
         }
         @Override
@@ -65,6 +67,7 @@ public class TextButtonTest extends AppLogicBase{
         @Override
         public void mouseMoved(MouseEvent e) {
             Message msg=createMsg(InputServlet.INPUT_MOUSE_MOVE,e);
+            Debug.log("mouse move");
             sendMsg(msg);
         }        
         private void sendMsg(Message msg){

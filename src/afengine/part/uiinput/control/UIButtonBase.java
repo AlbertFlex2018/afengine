@@ -112,7 +112,8 @@ public class UIButtonBase extends UIActor{
         
         int mx=event.getX();
         int my=event.getY();
-        boolean in=this.isPointInUi(mx, my);        
+        boolean in=this.isPointInUi(mx, my); 
+        Debug.log("in:"+in);
         long type=msg.msgType;        
         if(type==InputServlet.INPUT_MOUSE_DOWN){
             return handleDown(in);

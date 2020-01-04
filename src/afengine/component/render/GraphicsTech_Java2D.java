@@ -414,7 +414,7 @@ public class GraphicsTech_Java2D implements IGraphicsTech{
         Color oldc = graphics.getColor();
         graphics.setColor(((Java2DColor)color).getColor());
         graphics.setFont(((Java2DFont)font).getFont());
-        graphics.drawString(text, x, y);
+        graphics.drawString(text, x, y-font.getFontHeight());
         
         graphics.setFont(oldf);
         graphics.setColor(oldc);
@@ -428,7 +428,7 @@ public class GraphicsTech_Java2D implements IGraphicsTech{
         {
             graphics.setFont(((Java2DFont)font[i]).getFont());
             graphics.setColor(((Java2DColor)color[i]).getColor());
-            graphics.drawString(text[i], x[i], y[i]);            
+            graphics.drawString(text[i], x[i], y[i]-font[i].getFontHeight());            
         }
         graphics.setFont(oldf);
         graphics.setColor(oldc);

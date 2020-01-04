@@ -95,7 +95,7 @@ public class UITextButton extends UIButtonBase{
             tx+=w/2;            
             ty+=h/2;
             tx-=f.getFontWidth(text.value)/2;
-            ty+=f.getFontHeight()/2;
+            ty-=f.getFontHeight()/2;
         }                
 
         if(text!=null){

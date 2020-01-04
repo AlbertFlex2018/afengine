@@ -205,14 +205,4 @@ public class UIInputLine extends UIActor{
         }
         return false;
     }           
-
-    @Override
-    protected boolean isPointInUi(int x, int y) {
-        int minx=getUiX();
-        int maxx=getUiX()+this.width;
-        int minh=getUiY()-this.height;
-        int maxh=getUiY();
-
-        return (x>=minx&&x<=maxx&&y>=minh&&y<=maxh);
-    }    
 }
