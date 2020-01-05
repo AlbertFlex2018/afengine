@@ -93,7 +93,7 @@ public class Debug {
             }
 
             Iterator<Text> logiter = logTexts.iterator();
-            int height = tech.getFont().getFontHeight();
+            int height = 0;
             try{
               while(logiter.hasNext()){
                 Text tex = logiter.next();

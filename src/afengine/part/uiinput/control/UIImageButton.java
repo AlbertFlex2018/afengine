@@ -15,6 +15,8 @@ public class UIImageButton extends UIButtonBase{
         this.downTexture=down;
         this.coverTexture=cover;
         this.now=normalTexture;
+        super.width=this.now.getWidth();
+        super.height=this.now.getHeight();
     }
 
     public ITexture getNormalTexture() {

@@ -78,8 +78,8 @@ public class UIButtonBase extends UIActor{
             buttonState=COVER;
             if(toCoverAction!=null){
                 toCoverAction.action(this);
-                doCover();
             }
+            doCover();            
         }
     }
     public void down(){
@@ -87,8 +87,8 @@ public class UIButtonBase extends UIActor{
             buttonState=DOWN;
             if(toDownAction!=null){
                 toDownAction.action(this);
-                doDown();
             }
+            doDown();
         }
     }
     public void normal(){
@@ -96,8 +96,8 @@ public class UIButtonBase extends UIActor{
             buttonState=NORMAL;
             if(toNormalAction!=null){
                 toNormalAction.action(this);
-                doNormal();                
             }            
+            doNormal();                
         }
     }    
     //msg.extraobj[0]=mouseevent
