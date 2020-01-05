@@ -8,7 +8,8 @@ import afengine.part.uiinput.UIActor;
 
 public class UIPane extends UIActor{
     private ITexture back;    
-    public UIPane(String name, Vector pos) {
+    
+    public UIPane(String name, Vector pos,int margin) {
         super(name, pos);
     }
 
@@ -36,5 +37,13 @@ public class UIPane extends UIActor{
         super.children.forEach((ui) -> {
             ui.draw(tech);
         });
+    }    
+
+    public ITexture getBack() {
+        return back;
+    }
+
+    public void setBack(ITexture back) {
+        this.back = back;
     }    
 }
