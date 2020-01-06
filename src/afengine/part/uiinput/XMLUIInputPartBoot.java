@@ -15,8 +15,8 @@ public class XMLUIInputPartBoot implements IXMLPartBoot{
         <UIInputPart>
             <InputServlets>
                 <before>
-                    <name class="" handle=""/>
-                    <name class="" />
+                    <name handler="" types=""/>
+                    <name handler="" types=""/>
                     ...
                 </before>
                 <after>
@@ -62,18 +62,19 @@ public class XMLUIInputPartBoot implements IXMLPartBoot{
             Iterator<Element> faceiter=faces.elementIterator();
             while(faceiter.hasNext()){
                 Element ele=faceiter.next();
-                UIFace face=createFace(ele);
-                if(face!=null){
-                    UIInputCenter.getInstance().addFaceInAll(face);
-                }
+                createFace(ele,UIInputCenter.getInstance());
             }
         }
         return part;
     }    
+    /*
+         <name handler="" types=""/>    
+    */
     public static InputServlet createServlet(Element element){
         return null;
     }
-    public static UIFace createFace(Element element){
+    
+    public static UIFace createFace(Element element,UIInputCenter center){
         return null;
     }
 }
