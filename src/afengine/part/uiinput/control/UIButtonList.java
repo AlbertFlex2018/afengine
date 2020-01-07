@@ -42,13 +42,13 @@ public class UIButtonList extends UIPane{
         }
     }
     public void upActive(){
-        int nindex=(nowindex+1)%length;
-        activeUiButton(nindex);
-    }
-    public void downActive(){
         int nindex=nowindex-1;
         if(nindex<0)
             nindex+=length;        
         activeUiButton(nindex);        
+    }
+    public void downActive(){
+        int nindex=(nowindex+1)%length;
+        activeUiButton(nindex);
     }
 }

@@ -73,7 +73,9 @@ public class XMLUIInputPartBoot implements IXMLPartBoot{
     public static InputServlet createServlet(Element element){
         return null;
     }
-    
+    /*
+         <name path="" />    
+    */    
     public static UIFace createFace(Element element,UIInputCenter center){
         return null;
     }

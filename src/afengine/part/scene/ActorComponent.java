@@ -6,6 +6,8 @@
 package afengine.part.scene;
 
 import afengine.core.util.Debug;
+import afengine.core.util.TextCenter;
+import afengine.core.util.TextCenter.Text;
 import afengine.part.message.IMessageHandler;
 import afengine.part.message.Message;
 import java.util.HashMap;
@@ -45,19 +47,26 @@ public class ActorComponent implements IMessageHandler{
         actor=null;
         active=false;
     }
-
+    
     public final Actor getActor() {
         return actor;
     }
     
     public static final String getRealValue(String value,Map<String,String> actorvalues){
-        if(!value.startsWith("#"))
-            return value;
-        else{
+        if(value.startsWith("#")){
             String result=actorvalues.get(value.substring(1,value.length()));
-            Debug.log(value+" - to - "+result);
+            if(result==null)
+                result="NullText";
+            Debug.log("[#]"+value+" - to - "+result);
             return result;
-        }
+        }else if(value.startsWith("@")){
+            Text result=TextCenter.getText(value.substring(1,value.length()));
+            if(result==null){
+                result=new Text("NullText");
+            }
+            Debug.log("[@]"+value+" - to - "+result.value);
+            return result.value;            
+        }else return value;
     }
     
     public final String getComponentName() {

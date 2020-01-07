@@ -8,9 +8,14 @@ import afengine.part.message.IMessageHandler;
 import afengine.part.message.Message;
 import java.util.LinkedList;
 import java.util.List;
+import org.dom4j.Element;
 
 
 public class UIActor implements IMessageHandler,IDrawStrategy{
+    public static interface IUIActorCreator{
+        public UIActor createUi(Element element);
+    }
+    
     private String uiName;
     private UIFace face;
     
@@ -32,12 +37,16 @@ public class UIActor implements IMessageHandler,IDrawStrategy{
         return uiName;
     }
     
-    public void addChild(UIActor child){
+    protected void addChild(UIActor child){
         if(children.contains(child)){
             Debug.log("already add child for "+child.uiName);
             return;
         }        
         children.add(child);
+        if(child.parent!=null){
+            child.parent.children.remove(child);
+        }
+        child.parent=this;
     }
         
     public void setUiName(String uiName) {
