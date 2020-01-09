@@ -5,6 +5,8 @@ import afengine.core.util.Vector;
 import afengine.core.window.IColor;
 import afengine.core.window.IFont;
 import afengine.core.window.IGraphicsTech;
+import afengine.part.uiinput.UIActor;
+import org.dom4j.Element;
 
 
 public class UITextButton extends UIButtonBase{        
@@ -67,4 +69,33 @@ public class UITextButton extends UIButtonBase{
             tech.drawText(dx, dy, f, c, text.value);
         }
     }   
+    public static class UITextButtonCreator implements IUICreator{
+        
+        /*
+            <UITextButton name="" pos="">
+                <text value=""/>
+                <color value=""/>
+                <font path=""/>
+                <size value=""/>
+            </UITextButton>
+        */
+        @Override
+        public UIActor createUi(Element element){
+            
+            return null;
+        }                
+        /*
+            <text  value=""/>
+        */
+        private Text createText(Element element){
+            String value=element.attributeValue("value");
+            return null;
+        }
+        private IColor createColor(Element element){
+            return null;
+        }
+        private IFont createFont(Element element){
+            return null;
+        }
+    }
 }
