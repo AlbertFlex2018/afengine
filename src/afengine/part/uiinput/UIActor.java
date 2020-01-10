@@ -1,6 +1,8 @@
 package afengine.part.uiinput;
 
 import afengine.core.util.Debug;
+import afengine.core.util.TextCenter;
+import afengine.core.util.TextCenter.Text;
 import afengine.core.util.Vector;
 import afengine.core.window.IDrawStrategy;
 import afengine.core.window.IGraphicsTech;
@@ -44,7 +46,15 @@ public class UIActor implements IMessageHandler,IDrawStrategy{
         }
         child.parent=this;
     }
-        
+    
+    public static Text getRealText(String text){
+        if(!text.startsWith("@")){
+            return new Text(text);
+        }else{
+            String reg=text.substring(1,text.length());
+            return TextCenter.getText(reg);
+        }
+    }
     public void setUiName(String uiName) {
         this.uiName = uiName;
     }

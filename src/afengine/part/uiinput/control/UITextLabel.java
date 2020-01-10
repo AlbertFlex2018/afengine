@@ -1,11 +1,14 @@
 package afengine.part.uiinput.control;
 
+import afengine.core.AppState;
+import afengine.core.WindowApp;
 import afengine.core.util.TextCenter.Text;
 import afengine.core.util.Vector;
 import afengine.core.window.IColor;
 import afengine.core.window.IFont;
 import afengine.core.window.IGraphicsTech;
 import afengine.part.uiinput.UIActor;
+import org.dom4j.Element;
 
 /**
  *
@@ -20,7 +23,7 @@ public class UITextLabel extends UIActor{
     public UITextLabel(String name,Vector pos,Text text){
         this(name,pos,text,null,null);        
     }
-    public UITextLabel(String name, Vector pos,Text text,IColor color,IFont font) {
+    public UITextLabel(String name, Vector pos,Text text,IFont font,IColor color) {
         super(name, pos);
         this.text=text;
         this.color=color;
@@ -79,4 +82,75 @@ public class UITextLabel extends UIActor{
             tech.drawText(dx, dy, font, color, text.value);
         }        
     }    
+    
+    
+    public static class UITextLabelCreator implements IUICreator{
+        /*
+            <UITextLabel name pos>
+        *      <text></text>
+        *      <font path=""></font>
+        *      <size></size>
+        *      <color></color>                
+            </UITextLabel>
+        */
+        @Override
+        public UIActor createUi(Element element){
+            String name=element.attributeValue("name");
+            Vector pos =createPos(element);
+            if(pos==null)
+                pos=new Vector(10,10,0,0);
+            if(name==null)
+                name="DefaultUiName";
+            
+            Text text;
+            IFont font;
+            IColor color=null;
+            IColor backcolor=null;
+            Element texte = element.element("text");
+            if(texte!=null){
+                text=UIActor.getRealText(texte.getText());
+            }
+            else{
+                text=new Text("DefaultText");
+            }
+            Element fonte = element.element("font");
+            String sizes = element.elementText("size");
+            String path=null;
+            if(fonte==null){
+                font= ((IGraphicsTech)((WindowApp)AppState.getRunningApp())
+                        .getGraphicsTech()).createFont("Dialog", false,
+                                IFont.FontStyle.PLAIN, 30);
+            }
+            else if(fonte.attribute("path")!=null){
+                path=fonte.attributeValue("path");
+                    font = ((IGraphicsTech)((WindowApp)AppState.getRunningApp()).
+                        getGraphicsTech()).createFont(fonte.getText(), true, IFont.FontStyle.PLAIN, Integer.parseInt(sizes));                        
+            }
+            else{
+                font= ((IGraphicsTech)((WindowApp)AppState.getRunningApp())
+                        .getGraphicsTech()).createFont("Dialog", false,
+                                IFont.FontStyle.PLAIN, 30);            
+            }
+            Element colore = element.element("color");
+            String colors;
+
+            if(colore==null){
+               colors=IColor.GeneraColor.ORANGE.toString();
+            }
+            else colors = element.elementText("color");
+
+            color=((IGraphicsTech)((WindowApp)AppState.getRunningApp()).
+                    getGraphicsTech()).createColor(IColor.GeneraColor.valueOf(colors));
+                       
+            UITextLabel label=new UITextLabel(name,pos,text,font,color);
+            return label;            
+        }                
+         private Vector createPos(Element element){
+            String poss=element.attributeValue("pos");
+            String[] posl=poss.split(",");
+            double x = Double.parseDouble(posl[0]);
+            double y = Double.parseDouble(posl[1]);
+            return new Vector(x,y,0,0);
+        }
+    }
 }

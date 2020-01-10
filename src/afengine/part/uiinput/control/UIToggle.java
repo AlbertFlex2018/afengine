@@ -1,7 +1,10 @@
 package afengine.part.uiinput.control;
 
+import afengine.core.AppState;
+import afengine.core.WindowApp;
 import afengine.core.util.Debug;
 import afengine.core.util.Vector;
+import afengine.core.util.XMLEngineBoot;
 import afengine.core.window.IGraphicsTech;
 import afengine.core.window.ITexture;
 import afengine.part.message.Message;
@@ -9,6 +12,8 @@ import afengine.part.uiinput.InputServlet;
 import afengine.part.uiinput.UIActor;
 import afengine.part.uiinput.UIFace;
 import java.awt.event.MouseEvent;
+import java.util.Iterator;
+import org.dom4j.Element;
 
 /**
  *
@@ -126,4 +131,74 @@ public class UIToggle extends UIActor{
     protected void loadInToFace(UIFace face) {
         face.addMsgUiMap(InputServlet.INPUT_MOUSE_CLICK,this);
     }    
+    
+    public static class UIToggleCreator implements IUICreator{
+        private final IGraphicsTech tech=((WindowApp)AppState.getRunningApp()).getGraphicsTech();        
+
+        /*
+            <UIToggle name="" pos="" length="">
+                <toggle texture="" action=""/>
+                <toggle texture="" action=""/>
+                <toggle texture="" action=""/>
+                <toggle texture="" action=""/>
+            </UIToggle>
+        */
+        @Override
+        public UIActor createUi(Element element) {
+            String name=element.attributeValue("name");
+            Vector pos =createPos(element);
+            if(pos==null)
+                pos=new Vector(10,10,0,0);
+            if(name==null)
+                name="DefaultUiName";
+            int length=1;
+            String slength=element.attributeValue("length");
+            if(slength!=null){
+                length=Integer.parseInt(slength);
+            }
+            UIToggle toggle=new UIToggle(name,pos,length);
+            Iterator<Element> toggleiter=element.elementIterator();
+            if(toggleiter!=null){
+                while(toggleiter.hasNext()){
+                    Element t=toggleiter.next();
+                    addToggle(toggle,t);
+                }
+            }
+            return toggle;
+        }       
+         private Vector createPos(Element element){
+            String poss=element.attributeValue("pos");
+            String[] posl=poss.split(",");
+            double x = Double.parseDouble(posl[0]);
+            double y = Double.parseDouble(posl[1]);
+            return new Vector(x,y,0,0);
+        }
+         /*
+            <toggle texture="" action=""/>
+         */
+        public void addToggle(UIToggle toggle,Element element){            
+             ITexture texture=createTexture(element);
+             IUIAction action=createAction(element);
+             if(texture!=null&&action!=null){
+                 toggle.pushToggle(texture, action);
+             }
+        }
+        private ITexture createTexture(Element element){
+            String path=element.attributeValue("texture");
+            if(path==null){
+                Debug.log("path for texture is not defined.return null texture");
+                return null;
+            }
+            else return tech.createTexture(path);
+        } 
+        private IUIAction createAction(Element element){
+            String action=element.attributeValue("action");
+            if(action==null){
+                Debug.log("action for button not defined");
+                return null;
+            }
+            IUIAction act=(IUIAction)XMLEngineBoot.instanceObj(action);
+            return act;
+        }                        
+    }
 }

@@ -167,7 +167,7 @@ public class UIImageButton extends UIButtonBase{
             return button;
         }        
         /*
-            <name path="" url=""/>
+            <name path=""/>
         */
         private final IGraphicsTech tech=((WindowApp)AppState.getRunningApp()).getGraphicsTech();
         private Vector createPos(Element element){
@@ -179,12 +179,11 @@ public class UIImageButton extends UIButtonBase{
         }
         private ITexture createTexture(Element element){
             String path=element.attributeValue("path");
-            ITexture texture=null;
             if(path==null){
                 Debug.log("path for texture is not defined.return null texture");
                 return null;
             }
-            return tech.createTexture(path);
+            else return tech.createTexture(path);
         }
         /*
             <name action=""/>

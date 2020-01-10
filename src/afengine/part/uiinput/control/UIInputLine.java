@@ -1,5 +1,7 @@
 package afengine.part.uiinput.control;
 
+import afengine.core.AppState;
+import afengine.core.WindowApp;
 import afengine.core.util.Debug;
 import afengine.core.util.TextCenter.Text;
 import afengine.core.util.Vector;
@@ -13,6 +15,7 @@ import afengine.part.uiinput.UIActor;
 import afengine.part.uiinput.UIFace;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import org.dom4j.Element;
 
 /**
  *
@@ -26,7 +29,8 @@ public class UIInputLine extends UIActor{
     private IFont font;
     private int curpos;
     private boolean dirty=false;
-
+    private char secretput;
+    private boolean secret=false;
     private ITexture back;
 
     public UIInputLine(String name, Vector pos,int length,IColor color,IFont font) {
@@ -69,6 +73,18 @@ public class UIInputLine extends UIActor{
         }
         dirty=true;        
     }
+    public void enableSecretMode(boolean enable){
+        secret=enable;
+    }
+
+    public char getSecretput() {
+        return secretput;
+    }
+
+    public void setSecretput(char secretput) {
+        this.secretput = secretput;
+    }
+    
     public void clear(){
         curpos=0;
         dirty=true;        
@@ -140,11 +156,19 @@ public class UIInputLine extends UIActor{
             dx+=3;
         }
         if(curpos!=0){
-            String text=getText();
+            String text=null;
+             if(secret){
+                    int size=getText().length();
+                    char[] chars=new char[size];
+                    for(int i=0;i!=size;++i)
+                        chars[i]=secretput;                    
+                    text=String.copyValueOf(chars);
+             }else text=getText();
             tech.drawText(dx, dy, font, color, text);
             int dxx=dx+font.getFontWidth(text);
-            if(isOn&&showsplit)
+            if(isOn&&showsplit){
                 tech.drawText(dxx, dy, font, color,"|");
+            }
         }        
     }
     
@@ -155,7 +179,7 @@ public class UIInputLine extends UIActor{
         face.removeMsgUiMap(InputServlet.INPUT_KEY_TYPE,this);
         face.removeMsgUiMap(InputServlet.INPUT_KEY_UP,this);
         face.removeMsgUiMap(InputServlet.INPUT_MOUSE_CLICK,this);
-    }
+    }    
 
     @Override
     protected void loadInToFace(UIFace face){
@@ -205,4 +229,100 @@ public class UIInputLine extends UIActor{
         }
         return false;
     }           
+    public static class UIInputLineCreator implements IUICreator{
+        /*
+            <UIInputLine name pos secret="">
+                <back path=""></back>
+                <color></color>
+                <font></font>
+                <size></size>
+                <length></length>
+                <holder></holder>
+            </UIInputLine>
+        */
+        @Override
+        public UIActor createUi(Element element){
+            String name=element.attributeValue("name");
+            Vector pos =createPos(element);
+            if(pos==null)
+                pos=new Vector(10,10,0,0);
+            if(name==null)
+                name="DefaultUiName";
+        
+            boolean bsecret=false;
+            ITexture back=null;
+            int length=0;
+            String holder="";
+            String esecret=element.attributeValue("secret");
+            if(esecret!=null&&esecret.equals("true")){
+                bsecret=true;
+            }
+            Element eback=element.element("back");
+            if(eback!=null){
+                ITexture backt=createTexture(eback);
+                if(backt!=null)
+                    back=backt;
+            }
+            Element elength=element.element("length");
+            if(elength!=null){
+                int ilength=Integer.parseInt(elength.getText());
+                length=ilength;
+            }
+            Element eholder=element.element("holder");
+            if(eholder!=null){
+                holder=eholder.getText();
+            }
+
+            IFont font;
+            IColor color=null;
+            Element fonte = element.element("font");
+            String sizes = element.elementText("size");
+            String path=null;
+            if(fonte==null){
+                font= tech.createFont("Dialog", false,
+                                IFont.FontStyle.PLAIN, 30);
+            }
+            else if(fonte.attribute("path")!=null){
+                path=fonte.attributeValue("path");
+                    font = tech.createFont(fonte.getText(), true, IFont.FontStyle.PLAIN, Integer.parseInt(sizes));                        
+            }
+            else{
+                font= tech.createFont("Dialog", false,
+                                IFont.FontStyle.PLAIN, 30);            
+            }
+            Element colore = element.element("color");
+            String colors;
+
+            if(colore==null){
+               colors=IColor.GeneraColor.ORANGE.toString();
+            }
+            else colors = element.elementText("color");
+
+            color=tech.createColor(IColor.GeneraColor.valueOf(colors));
+            
+            UIInputLine line=new UIInputLine(name,pos,length,color,font);
+            line.setText(holder);
+            line.back=back;
+            line.enableSecretMode(bsecret);
+
+            return line;
+        }        
+        
+        private final IGraphicsTech tech=((WindowApp)AppState.getRunningApp()).getGraphicsTech();
+        private Vector createPos(Element element){
+            String poss=element.attributeValue("pos");
+            String[] posl=poss.split(",");
+            double x = Double.parseDouble(posl[0]);
+            double y = Double.parseDouble(posl[1]);
+            return new Vector(x,y,0,0);
+        }
+        private ITexture createTexture(Element element){
+            String path=element.attributeValue("path");
+            if(path==null){
+                Debug.log("path for texture is not defined.return null texture");
+                return null;
+            }
+            else return tech.createTexture(path);
+        }        
+    }
 }
