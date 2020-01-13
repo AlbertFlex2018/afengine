@@ -3,6 +3,7 @@ package afengine.part.uiinput.control;
 import afengine.core.AppState;
 import afengine.core.WindowApp;
 import afengine.core.util.Debug;
+import afengine.core.util.IDCreator;
 import afengine.core.util.Vector;
 import afengine.core.window.IGraphicsTech;
 import afengine.core.window.ITexture;
@@ -59,7 +60,7 @@ public class UIImageLabel extends UIActor{
             if(pos==null)
                 pos=new Vector(10,10,0,0);
             if(name==null)
-                name="DefaultUiName";
+                name="DefaultUiName"+IDCreator.createId();
             Element texture=element.element("texture");            
             ITexture normalimage=null;
             if(texture==null){

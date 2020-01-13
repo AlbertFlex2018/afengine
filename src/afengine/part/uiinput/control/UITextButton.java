@@ -3,6 +3,7 @@ package afengine.part.uiinput.control;
 import afengine.core.AppState;
 import afengine.core.WindowApp;
 import afengine.core.util.Debug;
+import afengine.core.util.IDCreator;
 import afengine.core.util.TextCenter.Text;
 import afengine.core.util.Vector;
 import afengine.core.util.XMLEngineBoot;
@@ -95,7 +96,7 @@ public class UITextButton extends UIButtonBase{
             if(pos==null)
                 pos=new Vector(10,10,0,0);
             if(name==null)
-                name="DefaultUiName";
+                name="DefaultUiName"+IDCreator.createId();
             
             Text text;
             IFont font;

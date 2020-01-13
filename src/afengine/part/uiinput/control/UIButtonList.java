@@ -1,7 +1,12 @@
 package afengine.part.uiinput.control;
 
+import afengine.core.AppState;
+import afengine.core.WindowApp;
 import afengine.core.util.Debug;
+import afengine.core.util.IDCreator;
 import afengine.core.util.Vector;
+import afengine.core.window.IGraphicsTech;
+import afengine.core.window.ITexture;
 import afengine.part.uiinput.UIActor;
 import java.util.Iterator;
 import org.dom4j.Element;
@@ -62,7 +67,7 @@ public class UIButtonList extends UIPane{
     public static class UIButtonListCreator implements IUICreator{
         
         /* 
-            <UIButtonList name pos >
+            <UIButtonList name pos back="">
                 <UIButton />
                 <UIButton />
                 <UIButton />
@@ -70,12 +75,12 @@ public class UIButtonList extends UIPane{
         */
         @Override
         public UIActor createUi(Element element) {
-            String name=element.attributeValue("name");
+            String name=element.attributeValue("name");            
             Vector pos =createPos(element);
             if(pos==null)
                 pos=new Vector(10,10,0,0);
             if(name==null)
-                name="DefaultUiName";
+                name="DefaultUiName"+IDCreator.createId();
             UIButtonList list=new UIButtonList(name,pos);
             Iterator<Element> eleiter=element.elementIterator();
             if(eleiter!=null){
@@ -87,6 +92,10 @@ public class UIButtonList extends UIPane{
                     }
                 }
             }           
+            ITexture back=createTexture(element);
+            if(back!=null){
+                list.setBack(back);
+            }
             return list;
         }        
         private UIButtonBase createButton(Element element){
@@ -109,6 +118,16 @@ public class UIButtonList extends UIPane{
             double x = Double.parseDouble(posl[0]);
             double y = Double.parseDouble(posl[1]);
             return new Vector(x,y,0,0);
+        }      
+        private final IGraphicsTech tech=((WindowApp)AppState.getRunningApp()).getGraphicsTech();        
+        private ITexture createTexture(Element element){
+            String path=element.attributeValue("back");
+            if(path==null){
+                Debug.log("path for texture is not defined.return null texture");
+                return null;
+            }
+            else return tech.createTexture(path);
         }        
+        
     }
 }

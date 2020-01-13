@@ -6,9 +6,6 @@ import afengine.part.message.Message;
 import afengine.part.uiinput.InputServlet;
 import afengine.part.uiinput.UIActor;
 import afengine.part.uiinput.UIFace;
-import static afengine.part.uiinput.control.UITextButton.COVER;
-import static afengine.part.uiinput.control.UITextButton.DOWN;
-import static afengine.part.uiinput.control.UITextButton.NORMAL;
 import java.awt.event.MouseEvent;
 
 public class UIButtonBase extends UIActor{
@@ -54,6 +51,7 @@ public class UIButtonBase extends UIActor{
 
     @Override
     protected void loadInToFace(UIFace face) {
+        Debug.log("loadin to face");
         face.addMsgUiMap(InputServlet.INPUT_MOUSE_DOWN,this);
         face.addMsgUiMap(InputServlet.INPUT_MOUSE_UP,this);
         face.addMsgUiMap(InputServlet.INPUT_MOUSE_MOVE,this);                                
@@ -61,6 +59,7 @@ public class UIButtonBase extends UIActor{
 
     @Override
     protected void loadOutFromFace(UIFace face) {
+        Debug.log("loadout from face");
         face.removeMsgUiMap(InputServlet.INPUT_MOUSE_DOWN,this);
         face.removeMsgUiMap(InputServlet.INPUT_MOUSE_UP,this);
         face.removeMsgUiMap(InputServlet.INPUT_MOUSE_MOVE,this);                        

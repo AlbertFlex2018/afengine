@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<app>
+   <afengine debug="true" type="window" 
+             logicpath="part.uiinput.UIControlFileTest" 
+             typeboot="afengine.core.WindowApp$WindowAppBoot"/>    
+   <window size="800,700" title="ButtonListTest" icon="test/assets/1.png"
+           tech="afengine.component.render.GraphicsTech_Java2D">
+       <root class="part.uiinput.UIControlFileTest$Draw1"/>
+       <after>
+           <draw pri="1" class="afengine.core.util.Debug$DebugDrawStrategy"/>
+       </after>
+       <configs>
+           <config key="mouselistener,mousemovelistener,keylistener"  
+                   value="class:part.uiinput.UIControlFileTest$Listener"/>
+       </configs>
+   </window>   
+</app>

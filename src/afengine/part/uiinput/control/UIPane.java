@@ -3,13 +3,12 @@ package afengine.part.uiinput.control;
 import afengine.core.AppState;
 import afengine.core.WindowApp;
 import afengine.core.util.Debug;
+import afengine.core.util.IDCreator;
 import afengine.core.util.Vector;
 import afengine.core.window.IGraphicsTech;
 import afengine.core.window.ITexture;
 import afengine.part.message.Message;
 import afengine.part.uiinput.UIActor;
-import afengine.part.uiinput.UIFace;
-import afengine.part.uiinput.UIFileHelp;
 import org.dom4j.Element;
 
 public class UIPane extends UIActor{
@@ -53,6 +52,11 @@ public class UIPane extends UIActor{
         this.back = back;
     }    
     
+    @Override
+    public void addChild(UIActor ui){
+        super.addChild(ui);
+    }
+    
     public static class UIPaneCreator implements IUICreator{
 
         /*
@@ -73,7 +77,7 @@ public class UIPane extends UIActor{
             if(pos==null)
                 pos=new Vector(10,10,0,0);
             if(name==null)
-                name="DefaultUiName";
+                name="DefaultUiName"+IDCreator.createId();
             String sback=element.attributeValue("back");
             ITexture back=null;
             if(sback!=null)

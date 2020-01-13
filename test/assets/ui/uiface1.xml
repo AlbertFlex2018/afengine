@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<face>
+    <UIPane pos="100,100" back="test/assets/1.png">
+        <UITextLabel pos="0,10">
+            <text>Albert Flex</text>
+            <size>30</size>            
+        </UITextLabel>        
+        <UIInputLine pos="0,40" secret="true">
+            <length>20</length>
+            <size>20</size>
+            <holder>Holder....</holder>
+        </UIInputLine>
+        <UIImageButton pos="0,60">
+             <textures>
+               <normal path="test/assets/duke0.gif"/>
+               <cover path="test/assets/duke1.gif"/>
+               <down path="test/assets/duke2.gif"/>        
+             </textures>
+             <actions>
+               <donormal action="part.uiinput.UIControlFileTest$Action1"/>
+               <docover action="part.uiinput.UIControlFileTest$Action2"/>
+               <dodown action="part.uiinput.UIControlFileTest$Action3"/>
+             </actions>            
+        </UIImageButton>
+    </UIPane>
+</face>

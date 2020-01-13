@@ -2,7 +2,13 @@ package afengine.part.uiinput;
 
 import afengine.core.AbPartSupport;
 import afengine.core.util.IXMLPartBoot;
+import afengine.core.util.XMLEngineBoot;
+import afengine.part.message.IMessageHandler;
+import afengine.part.uiinput.control.UIControlHelp;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import org.dom4j.Document;
 import org.dom4j.Element;
 
 /**
@@ -24,7 +30,7 @@ public class XMLUIInputPartBoot implements IXMLPartBoot{
                 </after>
             </InputServlets>
             <UIFaces>
-                <name path="" />
+                <name path="" active=""/>
                  ...
             </UIFaces>
         </UIInputPart>
@@ -39,9 +45,11 @@ public class XMLUIInputPartBoot implements IXMLPartBoot{
                 Iterator<Element> biter=bef.elementIterator();
                 while(biter.hasNext()){
                     Element ele=biter.next();
-                    InputServlet ser=createServlet(ele);
+                    List<InputServlet> ser=createServlet(ele);
                     if(ser!=null){
-                        UIInputCenter.getInstance().addPreServlet(ser.getHandleType(),ser);
+                        ser.forEach((servlet)->{
+                            UIInputCenter.getInstance().addPreServlet(servlet.getHandleType(),servlet);                        
+                        });
                     }
                 }
             }
@@ -50,9 +58,11 @@ public class XMLUIInputPartBoot implements IXMLPartBoot{
                 Iterator<Element> biter=aft.elementIterator();
                 while(biter.hasNext()){
                     Element ele=biter.next();
-                    InputServlet ser=createServlet(ele);
+                    List<InputServlet> ser=createServlet(ele);
                     if(ser!=null){
-                        UIInputCenter.getInstance().addAfterServlet(ser.getHandleType(),ser);
+                        ser.forEach((servlet)->{
+                            UIInputCenter.getInstance().addAfterServlet(servlet.getHandleType(),servlet);                        
+                        });
                     }
                 }                
             }
@@ -70,13 +80,41 @@ public class XMLUIInputPartBoot implements IXMLPartBoot{
     /*
          <name handler="" types=""/>    
     */
-    public static InputServlet createServlet(Element element){
-        return null;
+    public static List<InputServlet> createServlet(Element element){
+        List<InputServlet> servletList=new LinkedList<>();
+        IMessageHandler handler=(IMessageHandler)(XMLEngineBoot.instanceObj(element.attributeValue("handler")));
+        String name=element.getName();
+        if(handler!=null){
+            String typess=element.attributeValue("types");
+            if(typess==null)return null;
+            String[] types=typess.split(",");
+            for(String type: types){
+                Long ty=Long.parseLong(type);
+                InputServlet servlet=new InputServlet(ty,name,handler);
+                servletList.add(servlet);
+            }
+        }
+        return servletList;
     }
     /*
-         <name path="" />    
+         <name path="" active="true"/>    
     */    
     public static UIFace createFace(Element element,UIInputCenter center){
+        String facename=element.getName();
+        String path=element.attributeValue("path");
+        Document doc=XMLEngineBoot.readXMLFileDocument(path);
+        if(doc!=null){
+            Element root=doc.getRootElement();
+            UIFace face=new UIFace(facename);
+            face=UIControlHelp.loadFace(face, root);
+            String active=element.attributeValue("active");
+            if(center!=null)
+                center.addFaceInAll(face);
+            if(active!=null&&active.equals("true")&&center!=null){
+                center.addFaceInActived(face);
+            }
+            return face;
+        }
         return null;
     }
 }

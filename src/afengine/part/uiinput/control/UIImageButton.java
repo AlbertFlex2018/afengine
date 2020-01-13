@@ -3,15 +3,12 @@ package afengine.part.uiinput.control;
 import afengine.core.AppState;
 import afengine.core.WindowApp;
 import afengine.core.util.Debug;
+import afengine.core.util.IDCreator;
 import afengine.core.util.Vector;
 import afengine.core.util.XMLEngineBoot;
 import afengine.core.window.IGraphicsTech;
 import afengine.core.window.ITexture;
 import afengine.part.uiinput.UIActor;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.dom4j.Element;
 
 public class UIImageButton extends UIButtonBase{
@@ -25,8 +22,10 @@ public class UIImageButton extends UIButtonBase{
         this.downTexture=down;
         this.coverTexture=cover;
         this.now=normalTexture;
-        super.width=this.now.getWidth();
-        super.height=this.now.getHeight();
+        if(this.now!=null){
+            super.width=this.now.getWidth();
+            super.height=this.now.getHeight();
+        }
     }
 
     public ITexture getNormalTexture() {
@@ -112,7 +111,7 @@ public class UIImageButton extends UIButtonBase{
             if(pos==null)
                 pos=new Vector(10,10,0,0);
             if(name==null)
-                name="DefaultUiName";
+                name="DefaultUiName"+IDCreator.createId();
             Element textures=element.element("textures");            
             ITexture normalimage=null,downimage=null,coverimage=null;
             if(textures==null){
@@ -142,7 +141,7 @@ public class UIImageButton extends UIButtonBase{
             UIImageButton button=new UIImageButton(name,pos,normalimage,downimage,coverimage);
             Element actions=element.element("actions");
             if(actions!=null){
-                Element docover=actions.element("dcover");
+                Element docover=actions.element("docover");
                 Element dodown=actions.element("dodown");
                 Element donormal=actions.element("donormal");
                 if(docover!=null){
@@ -160,7 +159,7 @@ public class UIImageButton extends UIButtonBase{
                 if(donormal!=null){
                     IUIAction action=createAction(donormal);
                     if(action!=null){
-                        button.setToCoverAction(action);
+                        button.setToNormalAction(action);
                     }
                 }
             }

@@ -3,6 +3,7 @@ package afengine.part.uiinput.control;
 import afengine.core.AppState;
 import afengine.core.WindowApp;
 import afengine.core.util.Debug;
+import afengine.core.util.IDCreator;
 import afengine.core.util.Vector;
 import afengine.core.util.XMLEngineBoot;
 import afengine.core.window.IGraphicsTech;
@@ -150,7 +151,7 @@ public class UIToggle extends UIActor{
             if(pos==null)
                 pos=new Vector(10,10,0,0);
             if(name==null)
-                name="DefaultUiName";
+                name="DefaultUiName"+IDCreator.createId();
             int length=1;
             String slength=element.attributeValue("length");
             if(slength!=null){

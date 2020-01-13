@@ -3,6 +3,7 @@ package afengine.part.uiinput.control;
 import afengine.core.AppState;
 import afengine.core.WindowApp;
 import afengine.core.util.Debug;
+import afengine.core.util.IDCreator;
 import afengine.core.util.TextCenter.Text;
 import afengine.core.util.Vector;
 import afengine.core.window.IColor;
@@ -165,7 +166,7 @@ public class UIInputLine extends UIActor{
                     text=String.copyValueOf(chars);
              }else text=getText();
             tech.drawText(dx, dy, font, color, text);
-            int dxx=dx+font.getFontWidth(text);
+            int dxx=dx+font.getFontWidth(text)+2;
             if(isOn&&showsplit){
                 tech.drawText(dxx, dy, font, color,"|");
             }
@@ -247,7 +248,7 @@ public class UIInputLine extends UIActor{
             if(pos==null)
                 pos=new Vector(10,10,0,0);
             if(name==null)
-                name="DefaultUiName";
+                name="DefaultUiName"+IDCreator.createId();
         
             boolean bsecret=false;
             ITexture back=null;

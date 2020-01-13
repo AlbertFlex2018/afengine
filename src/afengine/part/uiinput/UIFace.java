@@ -10,8 +10,8 @@ import java.util.Map;
 
 public class UIFace implements IMessageHandler{    
     
-    private String faceName;
-    
+    private String faceName;    
+        
     private final List<UIActor> actorList;//用以更新和绘制的界面列表,均只考虑一个界面没有子界面面的情况
     private final List<UIActor> reservedActorList;//保存可以访问的更新列表
     private final Map<Long,List<UIActor>> msgTypeUIMap;//已经将消息和界面绑定的界面列表
@@ -77,7 +77,7 @@ public class UIFace implements IMessageHandler{
             return true;
         }
         else{
-            Debug.log("already has ui for"+actor.getUiName());
+            Debug.log("already has ui for "+actor.getUiName());
             return false;
         }
     }    
