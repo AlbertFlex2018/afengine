@@ -33,6 +33,9 @@ import org.dom4j.io.XMLWriter;
  * @author Albert Flex
  */
 public class XMLEngineBoot {
+    public static void main(String[] args) {
+        bootEngine("afengine.xml");
+    }
    /**
     * <app>
     *     <afengine debug="" logicpath="" typeboot="" type=""/>
