@@ -127,7 +127,7 @@ public class UIActor implements IMessageHandler,IDrawStrategy{
         return (int)y;
     }
     
-    protected boolean isPointInUi(int x,int y){
+    public boolean isPointInUi(int x,int y){
         int minx=getUiX();
         int maxx=getUiX()+this.width;
         int minh=getUiY();
