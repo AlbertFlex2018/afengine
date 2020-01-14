@@ -15,7 +15,7 @@ import javax.sound.midi.Sequence;
  */
 public class SoundCenter 
 {	
-	private final MidiPlayer midiPlayer;
+	private final MidiPlayer midiManager;
 	private final SoundPlayer soundManager;
 	private final Map<Long,Sound> soundMap;
 	private final Map<Long,Sequence> midiMap;
@@ -31,7 +31,7 @@ public class SoundCenter
 	
 	private SoundCenter()
 	{
-		midiPlayer = new MidiPlayer();
+		midiManager = new MidiPlayer();
         soundManager = new SoundPlayer();
         soundMap = new TreeMap<>();
         midiMap =new TreeMap<>();
@@ -45,7 +45,7 @@ public class SoundCenter
 	}
 	public long addMidi(String filepath)
 	{
-		Sequence sequence = midiPlayer.getSequence(filepath);
+		Sequence sequence = midiManager.getSequence(filepath);
 		long id=sid++;
 		midiMap.put(id,sequence);
 		return id;
@@ -54,7 +54,7 @@ public class SoundCenter
 	public void playMidi(long midiId,boolean loop)
 	{
 		Sequence sequence = midiMap.get(midiId);
-		midiPlayer.play(sequence, loop);
+		midiManager.play(sequence, loop);
 	}
 	public void playSound(long soundId,int count)
 	{
@@ -63,7 +63,7 @@ public class SoundCenter
 	}
         public void stopMidi()
         {
-            midiPlayer.stop();
+            midiManager.stop();
         }
 	public void playSoundWithEffect(long soundId,SoundFilter filer,boolean loop)
 	{
@@ -78,7 +78,7 @@ public class SoundCenter
 	}
 	public boolean isPauseMidi()
 	{
-		return midiPlayer.isPaused();
+		return midiManager.isPaused();
 	}
 	public boolean isPauseSound()
 	{
@@ -86,7 +86,7 @@ public class SoundCenter
 	}
 	public void setPauseMidi(boolean pause)
 	{
-		midiPlayer.setPaused(pause);
+		midiManager.setPaused(pause);
 	}
 	public void setPauseSound(boolean pause)
 	{
