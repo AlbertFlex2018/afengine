@@ -23,7 +23,7 @@ public class UIActor implements IMessageHandler,IDrawStrategy{
     
     protected Vector pos;
     protected int width,height;    
-    
+
     public UIActor(String name,Vector pos){
         this.uiName=name;
         this.pos=pos;
