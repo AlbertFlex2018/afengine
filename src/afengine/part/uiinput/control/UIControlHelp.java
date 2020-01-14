@@ -13,7 +13,7 @@ import org.dom4j.Element;
  */
 public class UIControlHelp {
     
-    public static Map<String,IUICreator> creatorMap;
+    public static final Map<String,IUICreator> creatorMap;
     static{
         creatorMap=new HashMap<>();
         creatorMap.put("UITextButton",new UITextButton.UITextButtonCreator());
