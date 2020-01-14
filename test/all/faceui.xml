@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<face>
+    <UIPane pos="200,300">
+        <UITextLabel pos="0,0">
+            <text>Welcome Demo afengine</text>
+            <size>30</size>
+        </UITextLabel>
+        <UIButtonList pos="20,30">
+            <UITextButton pos="0,0">
+                <text>start</text>
+                <size>25</size>
+                <actions>
+                    <dodown action="all.Actions$ButtonDown1"/>
+                </actions>
+            </UITextButton>
+            <UITextButton pos="0,30">
+                <text>continue</text>
+                <size>25</size>
+                <actions>
+                    <dodown action="all.Actions$ButtonDown2"/>
+                </actions>
+            </UITextButton>
+            <UITextButton pos="0,60">
+                <text>exit</text>
+                <size>25</size>
+                <actions>
+                    <dodown action="all.Actions$ButtonDown3"/>
+                </actions>
+            </UITextButton>
+        </UIButtonList>
+        <UIInputLine pos="20,200">
+            <size>30</size>
+            <length>20</length>
+            <holder>Input...</holder>
+        </UIInputLine>
+    </UIPane>
+</face>

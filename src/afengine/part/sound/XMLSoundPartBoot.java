@@ -5,7 +5,7 @@ import afengine.core.util.IXMLPartBoot;
 import org.dom4j.Element;
 
 /** 
- * <part name="ScenePart" path="afengine.part.sound.SoundPartBoot" />
+ * <part name="SoundPart" path="afengine.part.sound.SoundPartBoot" />
  *
  * <SoundPart />
  * @author Albert Flex

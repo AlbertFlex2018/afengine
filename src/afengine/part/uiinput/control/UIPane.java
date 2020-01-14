@@ -29,7 +29,10 @@ public class UIPane extends UIActor{
     
     @Override
     public boolean handle(Message msg){
-        return super.children.stream().anyMatch((ui) -> (ui.handle(msg)));
+        for(UIActor ui:super.children){
+            if(ui.handle(msg))return true;
+        }
+        return false;
     }
 
     @Override

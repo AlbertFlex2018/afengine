@@ -7,10 +7,10 @@ package afengine.core.util;
 
 import afengine.core.AbApp;
 import afengine.core.AbPartSupport;
+import afengine.core.AppState;
 import afengine.core.IAppLogic;
 import afengine.core.ServiceApp;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
@@ -101,8 +101,9 @@ public class XMLEngineBoot {
         }
                 
         Debug.log("boot app type:"+app.getAppType());
-        Debug.log("set app name:"+app.getAppName());        
+        Debug.log("set app name:"+app.getAppName()); 
         
+        AppState.createState(app);
         //put part boot
         Debug.log("-put part boot-");
         Element partlist = element.element("partsboot");

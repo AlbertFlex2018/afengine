@@ -27,8 +27,20 @@ public class UITextButton extends UIButtonBase{
         this.text=text;
         this.font=font;
         this.fontColor=color;
-        buttonState=NORMAL;        
+        buttonState=NORMAL;            
+        super.width=font.getFontWidth(text.value);
+        super.height=font.getFontHeight();
     }
+
+    @Override
+    public void update(long time) {
+        if(font!=null){
+            super.width=font.getFontWidth(text.value);
+            super.height=font.getFontHeight();            
+        }
+    }
+    
+    
     public Text getText() {
         return text;
     }
@@ -41,8 +53,6 @@ public class UITextButton extends UIButtonBase{
     }
     public void setFont(IFont font) {
         this.font = font;
-        super.height=font.getFontHeight();
-        super.width=font.getFontWidth(text.value);
     }
 
     public IColor getFontColor() {

@@ -78,7 +78,7 @@ public class InputAdapter implements KeyListener,MouseListener,
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        Debug.log("mouse moved to ["+e.getX()+","+e.getY()+"]") ;
+//        Debug.log("mouse moved to ["+e.getX()+","+e.getY()+"]") ;
         sendMsg(InputServlet.INPUT_MOUSE_MOVE,e);
     }
 

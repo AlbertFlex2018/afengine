@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<staticactor-list>
+     <actor1 mod="test/all/modlib.xml#mod3">
+        <transform pos="100.0,1.0,1.0,1.0" rotate="0.0,0.0,0.0,0.0" scale="1.0,1.0,1.0,0.0" anchor="0.0,0.0,0.0,0.0"/>
+        <datas>
+            <behaviorclass value="all.Behavior2"/>
+        </datas>
+     </actor1>
+</staticactor-list>

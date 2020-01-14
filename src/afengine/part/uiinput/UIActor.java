@@ -69,7 +69,8 @@ public class UIActor implements IMessageHandler,IDrawStrategy{
         loadInToFace(face);
         
         children.forEach((ui) -> {
-            ui.loadOutFromFace(ui.face);
+            if(ui.face!=null)
+                ui.loadOutFromFace(ui.face);
             ui.setFFace(face);
         });
     }

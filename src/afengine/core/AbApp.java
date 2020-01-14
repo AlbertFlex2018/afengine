@@ -49,12 +49,7 @@ public abstract class AbApp implements IAppLogic{
         
     public void run(IAppLogic logic){
 
-        if(AppState.createState(this)==false){
-            System.out.println("Create for  App :name["+this.appName+"],type["+this.appType+"] is Failed.");
-            System.out.println("There is already a app running!.");
-            System.out.println("Done to return");            
-            return;
-        }
+        AppState.createState(this);
         this.logic=logic;
 
         if(init()==false){

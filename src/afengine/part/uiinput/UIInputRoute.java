@@ -23,7 +23,6 @@ public class UIInputRoute implements IMessageRoute{
     //最后通过后界面过滤列表
     @Override
     public void routeMessage(Message msg){
-                
         Map<Long,List<InputServlet>> preServlets=center.getPreServlets();
         List<InputServlet> slist=preServlets.get(msg.msgType);
         if(slist!=null){

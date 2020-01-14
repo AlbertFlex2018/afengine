@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<modlibs>
+    <mod3>
+        <BehaviorBean>
+            <Behavior class="#behaviorclass"/>
+        </BehaviorBean>
+    </mod3>
+    <mod4>
+        <Render type="Texture">
+            <texture>#texturepath</texture>
+        </Render>
+    </mod4>
+    <mod5>
+        <Render type="Text">
+            <text>#text</text>
+            <size>30</size>
+        </Render>
+    </mod5>
+</modlibs>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<app>
+   <afengine debug="true" logicpath="all.AllInOneTestLogic" type="window"
+        typeboot="afengine.core.WindowApp$WindowAppBoot"/> 
+   <window size="800,700" title="AllInOneTest" icon="test/assets/1.png"
+           tech="afengine.component.render.GraphicsTech_Java2D">
+       <root class="afengine.component.render.SceneRenderComponentDraw"/>
+       <after>
+           <draw pri="0" class="afengine.part.uiinput.UIDrawStrategy"/>
+           <draw pri="1" class="afengine.core.util.Debug$DebugDrawStrategy"/>
+       </after>
+       <configs>
+           <config key="mouselistener,mousemovelistener,keylistener,mousewheellistener,windowlistener"  
+                   value="class:afengine.part.uiinput.InputAdapter"/>
+       </configs>
+   </window>   
+   <partsboot>
+       <part name="ScenePart" path="afengine.part.scene.XMLScenePartBoot"/>
+       <part name="UIInputPart" path="afengine.part.uiinput.XMLUIInputPartBoot"/>
+       <part name="MessagePart" path="afengine.part.message.XMLMessagePartBoot"/>
+       <part name="SoundPart" path="afengine.part.sound.XMLSoundPartBoot"/>
+   </partsboot>
+   <partsconfig>
+       <MessagePart>
+           <Route path="afengine.part.message.MessageHandlerRoute"/>
+           <Route path="afengine.part.uiinput.UIInputRoute"/>
+       </MessagePart>
+       <ScenePart main="mainScene">
+           <ComponentFactoryList>
+               <Component name="Render" class="afengine.component.render.RenderComponentFactory"/>
+               <Component name="BehaviorBean" class="afengine.component.behavior.BehaviorBeanComponentFactory"/>
+               <Component name="Action" class="afengine.component.action.ActionComponentFactory"/>
+           </ComponentFactoryList>
+           <SceneList>
+               <Scene name="mainScene" path="test/all/scene.xml"/>
+           </SceneList>           
+           <StaticActorList path="test/all/staticactors.xml"/>
+       </ScenePart>
+       <UIInputPart>
+           <InputServlets>
+               <before>
+                   <esc-servlet handler="all.Actions$ExitServlet" types="1"/>
+               </before>
+           </InputServlets>
+           <UIFaces>
+               <face1 path="test/all/faceui.xml" active="true"/>
+           </UIFaces>
+       </UIInputPart>
+   </partsconfig>
+</app>

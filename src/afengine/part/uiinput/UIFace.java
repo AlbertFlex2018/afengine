@@ -134,12 +134,14 @@ public class UIFace implements IMessageHandler{
             uilist=new LinkedList<>();
             msgTypeUIMap.put(type, uilist);
             uilist.add(ui);
+            Debug.log("add msg ui map:"+ui.getUiName()+" - "+type);
         }
         else{
             if(uilist.contains(ui)){
                 Debug.log("already has type map for "+ui.getUiName());
             }
             else{
+                Debug.log("add msg ui map:"+ui.getUiName()+" - "+type);
                 uilist.add(ui);
             }
         }
@@ -178,6 +180,9 @@ public class UIFace implements IMessageHandler{
             Debug.log("not hand for msg type:"+msg.msgType);
             return false;
         }
-        return handList.stream().anyMatch((ui) -> (ui.handle(msg)));
+        for(UIActor ui:handList){
+            if(ui.handle(msg))return true;
+        }
+        return false;
     }    
 }

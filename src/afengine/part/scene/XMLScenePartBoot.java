@@ -19,11 +19,13 @@ import org.dom4j.Element;
  * @author Albert Flex
  */
 public class XMLScenePartBoot implements IXMLPartBoot{
-
+    public static interface IComponentFactoryLoader{
+        public IComponentFactory loadFactory(Element element);
+    }
     /**
      * <ScenePart main="">
      *      <ComponentFactoryList>
-     *          <Component name="" class=""/>
+     *          <Component name="" class="" loader=""/>
      *          <Component name="" class=""/>
      *          <Component name="" class=""/>
      *      </ComponentFactoryList>
@@ -48,13 +50,18 @@ public class XMLScenePartBoot implements IXMLPartBoot{
         while(eleiter.hasNext()){
             Element ele = eleiter.next();
             String name=ele.attributeValue("name");
-            String classname=ele.attributeValue("class");
+            String classname=ele.attributeValue("class");            
             try{    
                 Class<?> cls = Class.forName(classname);
                 Object obj=cls.newInstance();
                 IComponentFactory fac = (IComponentFactory)obj;
                 ActorComponent.addFactory(name, fac);
                 Debug.log("Add ComponentFactory :"+name);
+                String loader=ele.attributeValue("loader");
+                if(loader!=null){
+                    IComponentFactoryLoader floader=loadfactory(loader);
+                    floader.loadFactory(ele);
+                }
             }catch(Exception ex){
                 Debug.log("ComponentFactory add error!");
             }                                                
@@ -63,8 +70,10 @@ public class XMLScenePartBoot implements IXMLPartBoot{
         eleiter = element.element("SceneList").elementIterator();
         while(eleiter.hasNext()){
             Element ele = eleiter.next();
+            String scenename=ele.attributeValue("name");
             Scene scene = loadScene(ele);
             if(scene!=null){
+                scene.setName(scenename);
                 scene.awakeAllActors();
                 Debug.log("Prepare Scene :"+scene.getName());
                 SceneCenter.getInstance().prepareScene(scene);
@@ -94,8 +103,11 @@ public class XMLScenePartBoot implements IXMLPartBoot{
         
         return scenepart;
     }   
-    
-    
+    private IComponentFactoryLoader loadfactory(String factoryclass){
+        IComponentFactoryLoader loader=(IComponentFactoryLoader)XMLEngineBoot.instanceObj(factoryclass);
+        return loader;
+    }
+        
     private Scene loadScene(Element sceneEle){
 
         Scene scene=null;

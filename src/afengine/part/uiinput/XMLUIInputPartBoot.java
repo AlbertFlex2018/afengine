@@ -1,6 +1,7 @@
 package afengine.part.uiinput;
 
 import afengine.core.AbPartSupport;
+import afengine.core.util.Debug;
 import afengine.core.util.IXMLPartBoot;
 import afengine.core.util.XMLEngineBoot;
 import afengine.part.message.IMessageHandler;
@@ -92,6 +93,7 @@ public class XMLUIInputPartBoot implements IXMLPartBoot{
                 Long ty=Long.parseLong(type);
                 InputServlet servlet=new InputServlet(ty,name,handler);
                 servletList.add(servlet);
+                Debug.log("create servlet:"+servlet.servletName+"-"+servlet.getHandleType());
             }
         }
         return servletList;
@@ -113,6 +115,7 @@ public class XMLUIInputPartBoot implements IXMLPartBoot{
             if(active!=null&&active.equals("true")&&center!=null){
                 center.addFaceInActived(face);
             }
+            Debug.log("create face:"+face.getFaceName());            
             return face;
         }
         return null;
