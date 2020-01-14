@@ -31,7 +31,7 @@ public class SceneRenderComponentDraw implements IDrawStrategy{
         RenderComponent render=(RenderComponent) actor.getComponent(RenderComponent.COMPONENT_NAME);
         if(render!=null){
             render.renderComponent(camera, tech);
-        }        
+        }                
         List<Actor> children=actor.getChildren();        
         children.forEach((ac) -> {
             renderActor(ac,tech,camera);

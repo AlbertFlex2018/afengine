@@ -24,13 +24,11 @@ public class RenderComponent extends ActorComponent{
     
     protected int renderWidth,renderHeight;
     
-    public void beforeRender(SceneCamera camera,IGraphicsTech tech){
-        
-    }
+    protected void beforeRender(SceneCamera camera,IGraphicsTech tech){}
     /*
         need override.
     */
-    public void render(SceneCamera camera,IGraphicsTech tech){}
+    protected void render(SceneCamera camera,IGraphicsTech tech){}
 
     public final void renderComponent(SceneCamera camera,IGraphicsTech tech){
         beforeRender(camera,tech);
@@ -38,9 +36,8 @@ public class RenderComponent extends ActorComponent{
         afterRender(camera,tech);
     }
 
-    public void afterRender(SceneCamera camera,IGraphicsTech tech){
-        
-    }
+    protected void afterRender(SceneCamera camera,IGraphicsTech tech){}
+    
     public boolean isPointIn(SceneCamera camera,Vector point){
         double ax=getRenderX(camera);
         double ay=getRenderY(camera);
@@ -54,9 +51,8 @@ public class RenderComponent extends ActorComponent{
         if(px<dx||px>(dx+width))return false;
         
         return !(py<dy||py>(dy+height));
-
     }
-    protected int getRenderX(SceneCamera camera){
+    public int getRenderX(SceneCamera camera){
         double dx = super.getActor().getAbsoluteX();
         double cx = camera.getPos().getX();
         double ox = camera.getWidthOffSize();
@@ -70,7 +66,7 @@ public class RenderComponent extends ActorComponent{
         double offx=dx-cx;
         return (int)(offx+winwidth*ox);
     }
-    protected int getRenderY(SceneCamera camera){
+    public int getRenderY(SceneCamera camera){
         double dy = super.getActor().getAbsoluteY();
         double cy = camera.getPos().getY();
         double oy = camera.getHeightOffSize();
@@ -91,6 +87,5 @@ public class RenderComponent extends ActorComponent{
 
     public int getRenderHeight() {
         return renderHeight;
-    }
-    
+    }    
 }
