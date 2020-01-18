@@ -46,7 +46,7 @@ exitGame();
 # 目前最新的标准定义如下：
 std-core-1			- 定义了游戏引擎和游戏逻辑  
 std-core.util-1		- 定义了游戏引擎通用库  
-std-core.window-1	- 定义了游戏引擎的渲染创库管理  
+std-core.window-1	- 定义了游戏引擎的渲染窗口管理  
 std-part.message-1	- 定义了游戏引擎通用的消息处理应用模块  
 std-part.scene-1	- 定义了游戏引擎通用的场景处理应用模块  
 std-part.sound-1	- 定义了游戏引擎通用的声音处理应用模块  
