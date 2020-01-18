@@ -3,7 +3,7 @@
 
 ======================
 ### 相关类
-app,appstate,applogic,partsupport,applogic
+app,appstate,applogic,partsupport,partmanager,applogic
 
 =======================
 # app标准相关抽象类的使用方法和需要接口的标准
@@ -38,14 +38,35 @@ createState(app),getRunningApp()
 普通接口:
 name-get，obj-get
 特殊接口：
-initPart() - 只调用一次的方法，调用init方法初始化这个part
-init() - 初始化partsupport，需要重写
-update() - 更新这个support，需要重写
-shutdown() - 关闭这个support，需要重写
+initPart() - 只调用一次的方法，调用init方法初始化这个part  
+init() - 初始化partsupport，需要重写  
+update() - 更新这个support，需要重写  
+shutdown() - 关闭这个support，需要重写  
 
 ##AppPartsManager - 应用分部支持管理器
 ###用来管理partsupport
 使用方法：
-实例化一个管理器，以优先序列插入partsupport的实例，并在必要的时候调用管理器的update方法和shutdown方法
+实例化一个管理器，以优先序列插入partsupport的实例，并在必要的时候调用管理器的update方法和shutdown方法，优先级数越大的，越先进行处理
 ###接口标准:
-特殊接口:
+特殊接口:管理partsupport  
+hasPartSupport(name) - 是否存在指定名称的partsupport  
+getPartSupport(name) - 返回指定名称的partsupport，如果没有，则返回Null    
+getPartPriority(name) - 返回指定名称的partsupport的优先级数，若没有这个partsupport，则返回 -1  
+addPartPriority(priority,support) - 添加partsupport，并且以指定优先级存入管理器
+removePartSupport(name) - 移除指定名称的partsupport,如果没有，则什么也不做  
+initParts() - 初始化全部的存入的partsupport，按优先吮吸  
+updateParts(time) -更新全部的存入的partsupport，按优先顺序  
+shutdownParts() -关闭全部的存入的partsupport，按优先倒序  
+
+##AppLogic - 应用逻辑
+###用以插入式的形式来提供外部的逻辑
+使用方法：
+配合app，调用app的run方法，传入applogic的实例，用app管理applogic的生命周期
+###接口标准:
+特殊接口：用以生命周期回调
+init() - 初始化逻辑，需重写  
+update(time) - 更新逻辑，需重写  
+shutdown() - 关闭逻辑，需重写  
+
+==============================
+## 额外部分，app的内部实现有serviceapp和windowapp，windowapp的有关接口涉及std-core.window-1标准
