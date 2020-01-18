@@ -49,7 +49,6 @@ std-core.util-1		- 定义了游戏引擎通用库
 std-core.window-1	- 定义了游戏引擎的渲染窗口管理  
 std-part.message-1	- 定义了游戏引擎通用的消息处理应用模块  
 std-part.scene-1	- 定义了游戏引擎通用的场景处理应用模块  
-std-part.sound-1	- 定义了游戏引擎通用的声音处理应用模块  
 std-part.uiinput-1	- 定义了游戏引擎通用界面交互输入处理应用模块  
 std-comp.action-1	- 定义了用于场景实体的通用动作组件实现  
 std-comp.behavior-1 - 定义了用于场景实体的通用行为容器组件实现  

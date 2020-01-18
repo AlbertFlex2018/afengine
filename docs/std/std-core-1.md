@@ -6,7 +6,7 @@
 app,appstate,applogic,partsupport,partmanager,applogic
 
 =======================
-# app标准相关抽象类的使用方法和需要接口的标准
+# core标准相关抽象类的使用方法和需要接口的标准
 ##App - 应用抽象类  
 ###App抽象类是游戏应用的本体  
 使用方法如下：
