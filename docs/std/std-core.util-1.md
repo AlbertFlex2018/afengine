@@ -120,6 +120,7 @@ bootPart(xmlelement) - 从xml文件元素中读取数据，创建并返回一个
 
 ###相关的XML文件规范
 引擎的配置xml文件
+```
 <app>
 	<afengine debug="" logicpath="" typeboot="" type="apptype">		
 	</afengine>
@@ -133,7 +134,7 @@ bootPart(xmlelement) - 从xml文件元素中读取数据，创建并返回一个
 		...
 	</partsconfig>
 </app>
-
+```
 ### 文档规范[其中些许需要用到基于java或许其他面向对象语言不存在的的反射方法，待升级]
 1.afengine标签节点必须存在，其中的debug属性若存在且值为true则打开Debug模式，
 logicpath若存在，则指向自定义的AppLogic的classpath，typeboot必须存在且属性的值ixmlapptypeboot的classpath,type属性必须存在且属性值为需要配置的特定app的标签名
