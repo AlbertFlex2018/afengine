@@ -1,17 +1,17 @@
 ## std-core.util-1
 游戏引擎通用库 有关的标准  
 
-========================
+========================  
 ###相关类
-process,processstate,processmanager
-idcreator,debug,textcenter,threadpool,
-vector,transform,
-xmlengineboot,ixmlapptypeboot,ixmlpartboot,
+process,processstate,processmanager  
+idcreator,debug,textcenter,threadpool,  
+vector,transform,  
+xmlengineboot,ixmlapptypeboot,ixmlpartboot,  
 
-========================
-# core.util 标准相关抽象类的使用方法和需要接口的标准
-##Process - 应用进程抽象类
-###Process是代表一个可以运行的进程，
+========================  
+# core.util 标准相关抽象类的使用方法和需要接口的标准  
+##Process - 应用进程抽象类  
+###Process是代表一个可以运行的进程，  
 使用方法，实现process并创建process的实例，随后调用init方法初始化process,并在生命周期中不断调用update,用以更新进程内部的状态，在生命周期之中，可以调用sucess,failed,abort,exception,方法结束进程的运行，届时将会根据结束的状态调用抽象并自定义的结束方法，用processstate状态表示自身的运行状态，
 ###接口标准:
 普通接口:
@@ -19,13 +19,13 @@ getProcessId,getProcessName,getState,
 success() - 成为结束进程  
 failed() - 错误结束进程  
 abort() - 中断结束进程  
-特殊接口:
+特殊接口:  
 init，- 初始化进程抽象，需重写实现  
 update, - 更新进程抽象，需要重写实现  
-successEnd, - 成为结束回调，需要重写实现
-failedEnd, - 失败结束回调，需要重写实现
-abortEnd, - 中断结束回调，需要重写实现
-killed, - 进程被杀掉(只有当进程放入进程管理器，并调用管理器的kill方法)，需要重写实现
+successEnd, - 成为结束回调，需要重写实现  
+failedEnd, - 失败结束回调，需要重写实现  
+abortEnd, - 中断结束回调，需要重写实现  
+killed, - 进程被杀掉(只有当进程放入进程管理器，并调用管理器的kill方法)，需要重写实现  
 
 ##ProcessManager - 进程管理器
 ###ProcessManager是存放并且管理一堆进程的管理类
