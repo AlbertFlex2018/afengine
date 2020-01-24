@@ -322,8 +322,4 @@ public class Actor implements IMessageHandler{
         }        
         deletedchildlist.clear();
     }    
-
-    public void addComponent(TextureRenderComponent render) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }
