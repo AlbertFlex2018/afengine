@@ -29,5 +29,5 @@ afengine是Albert Flex在albert factory(af) 的 af artstudio 进行开发的属�
 
 ## 联系方式:
 夏文纯一(Albert Flex):
-tencent/qq - 2662842460
-email	   - 2662842460@qq.com
+tencent/qq - 2662842460  
+email	   - 2662842460@qq.com  
