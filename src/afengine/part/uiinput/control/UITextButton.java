@@ -27,9 +27,11 @@ public class UITextButton extends UIButtonBase{
         this.text=text;
         this.font=font;
         this.fontColor=color;
-        buttonState=NORMAL;            
-        super.width=font.getFontWidth(text.value);
-        super.height=font.getFontHeight();
+        buttonState=NORMAL;
+        if(font!=null){
+            super.width=font.getFontWidth(text.value);
+            super.height=font.getFontHeight();
+        }
     }
 
     @Override

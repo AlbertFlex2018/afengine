@@ -7,9 +7,7 @@ import afengine.core.util.IDCreator;
 import afengine.core.util.Vector;
 import afengine.core.window.IGraphicsTech;
 import afengine.core.window.ITexture;
-import afengine.part.uiinput.InputServlet;
 import afengine.part.uiinput.UIActor;
-import afengine.part.uiinput.UIFace;
 import java.util.Iterator;
 import org.dom4j.Element;
 

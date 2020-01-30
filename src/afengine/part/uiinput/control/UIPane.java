@@ -24,6 +24,9 @@ public class UIPane extends UIActor{
             super.width=back.getWidth();
             super.height=back.getHeight();
         }        
+        for(UIActor ui:super.children){
+            ui.update(time);
+        }
     }
         
     
