@@ -30,7 +30,7 @@ public class UIInputLine extends UIActor{
     private IFont font;
     private int curpos;
     private boolean dirty=false;
-    private char secretput;
+    private char secretput='*';
     private boolean secret=false;
     private ITexture back;
 
