@@ -91,14 +91,16 @@ public class XMLScenePartBoot implements IXMLPartBoot{
         
         //load static actors
         Element staticActorsE = element.element("StaticActorList");
-        String path= staticActorsE.attributeValue("path");
-        if(path!=null){
-            Document doc = XMLEngineBoot.readXMLFileDocument(path);
-            if(doc!=null&&doc.getRootElement()!=null){
-                Element root = doc.getRootElement();
-                if(root.getName().equals("StaticActorList"))
-                SceneFileHelp.loadStaticActorFromXML(root);                
-            }
+        if(staticActorsE!=null){
+            String path= staticActorsE.attributeValue("path");
+            if(path!=null){
+                Document doc = XMLEngineBoot.readXMLFileDocument(path);
+                if(doc!=null&&doc.getRootElement()!=null){
+                    Element root = doc.getRootElement();
+                    if(root.getName().equals("StaticActorList"))
+                    SceneFileHelp.loadStaticActorFromXML(root);                
+                }
+            }            
         }
         
         return scenepart;
