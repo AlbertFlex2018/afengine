@@ -5,7 +5,6 @@
  */
 package afengine.part.scene;
 
-import afengine.component.render.TextureRenderComponent;
 import afengine.core.util.Debug;
 import afengine.core.util.IDCreator;
 import afengine.core.util.Transform;
@@ -210,7 +209,7 @@ public class Actor implements IMessageHandler{
         Iterator<Actor> childiter = children.iterator();
         while(childiter.hasNext()){
             Actor child = childiter.next();            
-            if(child.getChild(name)!=null){
+            if(child.findChild(name)!=null){
                 return child;
             }
         }                

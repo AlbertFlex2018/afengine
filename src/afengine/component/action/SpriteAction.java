@@ -40,7 +40,7 @@ public class SpriteAction extends ActAction{
         TextureRenderComponent render = (TextureRenderComponent) actor.getComponent(RenderComponent.COMPONENT_NAME);
         if(render==null){
             render = new TextureRenderComponent(nowTexture);
-            actor.addComponent(render);
+            actor.addComponent(render,false);
             render.awake();
         }        
         else{
