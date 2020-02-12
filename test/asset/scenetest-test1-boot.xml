@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<app>
+    <afengine  debug="true" logicpath="scenetest.Test1BootLogic" type="window"
+    typeboot="afengine.core.WindowApp$WindowAppBoot"/>
+    <window size="800,600" title="SceneTest-Test1" 
+            tech="afengine.component.render.GraphicsTech_Java2D"
+            icon="test/asset/1.png">
+        <root class="afengine.component.render.SceneRenderComponentDraw"/>
+        <after>
+            <draw pri="1" class="afengine.core.util.Debug$DebugDrawStrategy"/>
+            <draw pri="2" class="afengine.part.uiinput.UIDrawStrategy"/>
+        </after>
+        <configs>
+            <config key="keylistener,mouselistener,mousemovelistener,mousewheellistener,windowlistener"
+              value="class:afengine.part.uiinput.InputAdapter"/>
+        </configs>
+    </window>
+    <partsboot>
+        <part name="MessagePart" path="afengine.part.message.XMLMessagePartBoot"/>
+        <part name="ScenePart" path="afengine.part.scene.XMLScenePartBoot"/>
+        <part name="SoundPart" path="afengine.part.sound.XMLSoundPartBoot"/>
+        <part name="UIInputPart" path="afengine.part.uiinput.XMLUIInputPartBoot"/>
+    </partsboot>
+    <partsconfig>
+        <MessagePart>
+            <Route path="afengine.part.message.MessageHandlerRoute"/>            
+            <Route path="afengine.part.scene.ActorMessageRoute"/>
+            <Route path="afengine.part.uiinput.UIInputRoute"/>
+        </MessagePart>
+        <ScenePart main="Main">
+            <ComponentFactoryList>
+                <Component name="Action" class="afengine.component.action.ActionComponentFactory"/>
+                <Component name="BehaviorBean" class="afengine.component.behavior.BehaviorBeanComponentFactory"/>
+                <Component name="Render" class="afengine.component.render.RenderComponentFactory"/>                
+            </ComponentFactoryList>
+            <SceneList>
+                <Scene name="Main" path="test/asset/scenetest-test1-scene.xml"/>
+            </SceneList>
+        </ScenePart>
+        <UIInputPart>
+            <InputServlets>
+                <before>
+                    <menu-servlet handler="scenetest.Test1BootLogic$MenuServlet" types="1"/>
+                </before>
+            </InputServlets>
+        </UIInputPart>        
+        <SoundPart/>
+    </partsconfig>
+</app>

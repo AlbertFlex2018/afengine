@@ -58,7 +58,7 @@ public class Scene{
         this.loader=loader;
         this.loader.setThisScene(this);
         shouldoutput=false;
-        camera=new SceneCamera(new Vector(0,0,0,0),new Vector(0,0,0,0),0.5,0.5);
+        camera=new SceneCamera(new Vector(0,0,0,0),new Vector(0,0,0,0),0,0);
     }
     public Scene(String name){
         this(name,new AdapterLoader());

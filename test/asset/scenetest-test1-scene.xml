@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scene>
+    <actordata>
+        <back mod="test/asset/scenetest-test1-modlibs.xml#imagemod">
+            <transform pos="0,0,0,0" rotate="0,0,0,0" scale="1,1,1,1" anchor="0,0,0,0"/>
+            <datas>
+                <imagepath value="test/asset/back.jpg"/>
+            </datas>
+        </back>
+        <avg mod="test/asset/scenetest-test1-modlibs.xml#imagemod">
+            <transform pos="150,0,0,0" rotate="0,0,0,0" scale="1,1,1,1" anchor="0,0,0,0"/>
+            <datas>
+                <imagepath value="test/asset/avg.jpg"/>
+            </datas>            
+        </avg>
+        <start-circle mod="test/asset/scenetest-test1-modlibs.xml#imagemod">
+            <transform pos="250,300,0,0" rotate="0,0,0,0" scale="1,1,1,1" anchor="0,0,0,0"/>
+            <datas>
+                <imagepath value="test/asset/start-c.jpg"/>
+            </datas>            
+        </start-circle>
+        <start-button mod="test/asset/scenetest-test1-modlibs.xml#imagemod">
+            <transform pos="350,300,0,0" rotate="0,0,0,0" scale="1,1,1,1" anchor="0,0,0,0"/>
+            <datas>
+                <imagepath value="test/asset/start-b.jpg"/>
+            </datas>            
+        </start-button>
+        <continue-circle mod="test/asset/scenetest-test1-modlibs.xml#imagemod">
+            <transform pos="250,400,0,0" rotate="0,0,0,0" scale="1,1,1,1" anchor="0,0,0,0"/>
+            <datas>
+                <imagepath value="test/asset/start-c.jpg"/>
+            </datas>            
+        </continue-circle>
+        <continue-button mod="test/asset/scenetest-test1-modlibs.xml#imagemod">
+            <transform pos="350,400,0,0" rotate="0,0,0,0" scale="1,1,1,1" anchor="0,0,0,0"/>
+            <datas>
+                <imagepath value="test/asset/start-b.jpg"/>
+            </datas>            
+        </continue-button>
+        <quit-circle mod="test/asset/scenetest-test1-modlibs.xml#imagemod">
+            <transform pos="250,500,0,0" rotate="0,0,0,0" scale="1,1,1,1" anchor="0,0,0,0"/>
+            <datas>
+                <imagepath value="test/asset/start-c.jpg"/>
+            </datas>            
+        </quit-circle>
+        <quit-button mod="test/asset/scenetest-test1-modlibs.xml#imagemod">
+            <transform pos="350,500,0,0" rotate="0,0,0,0" scale="1,1,1,1" anchor="0,0,0,0"/>
+            <datas>
+                <imagepath value="test/asset/start-b.jpg"/>
+            </datas>            
+        </quit-button>
+    </actordata>
+    <actormap>
+        <back>
+            <avg/>
+            <start-circle/>
+            <start-button/>
+            <continue-circle/>
+            <continue-button/>
+            <quit-circle/>
+            <quit-button/>
+        </back>
+    </actormap>
+</scene>

@@ -34,6 +34,7 @@ public class RenderComponent extends ActorComponent{
         beforeRender(camera,tech);
         render(camera,tech);
         afterRender(camera,tech);
+        Debug.log("render component - "+super.getActor().getName()+" - pos:"+this.getRenderX(camera)+","+this.getRenderY(camera));        
     }
 
     protected void afterRender(SceneCamera camera,IGraphicsTech tech){}
